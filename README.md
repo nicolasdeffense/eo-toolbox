@@ -1,5 +1,10 @@
-# eo-toolbox
-Toolbox to develop a satellite image processing chain using Python
+# EO-Toolbox
+EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
+
+1. Pre-processing Sentinel-2 images
+3. Deriving biophysical Indicators (e.g. NDVI, NDWI,...)
+4. Designing srategies to split in-situ data into a calibration and a validation datasets
+5. Creating classification with Random Forest
 
 ## Packages needed
 
