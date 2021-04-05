@@ -20,6 +20,7 @@
 
 name: EO Toolbox
 markdown: kramdown
+pygments: true
 highlighter: rouge
 baseurl: /eo-toolbox
 
