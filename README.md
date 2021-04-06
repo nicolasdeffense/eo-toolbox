@@ -1,4 +1,5 @@
 # EO-Toolbox
+
 EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
 1. Pre-processing Sentinel-2 images
@@ -17,4 +18,17 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 - Scipy
 - Scikit-Learn
 
+## Jupyter Notebooks
+
+[GeoPandas basics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/geopandas_basics.html)
+
+[Loops on multiple images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/loops_multiple_images.html)
+
+[In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
+
+[Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/random_forest_classification.html)
+
+
+
 This repository was created in the framework of the course *LBRAT2104 - Land Monitoring by Advanced Earth Observation* by Nicolas Deffense. 
+
