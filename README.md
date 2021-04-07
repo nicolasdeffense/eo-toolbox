@@ -7,16 +7,7 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 4. Designing srategies to split in-situ data into a calibration and a validation datasets
 5. Creating classification with Random Forest
 
-## Packages needed
 
-- NumPy
-- Pandas
-- GeoPandas
-- Matplotlib
-- Rasterio
-- Rasterstats
-- Scipy
-- Scikit-Learn
 
 ## Jupyter Notebooks
 
@@ -32,3 +23,27 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 This repository was created in the framework of the course *LBRAT2104 - Land Monitoring by Advanced Earth Observation* by Nicolas Deffense. 
 
+
+## Installation notes
+
+- Python 3.6
+- numpy
+- pandas
+- geopandas
+- ratplotlib
+- rasterio
+- rasterstats
+- scipy
+- scikit-learn
+- [Jupyter Notebook](http://jupyter.org)
+
+If you do not yet have these packages installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
+
+
+### Test the environment
+
+To make sure everything was installed correctly, open a terminal, and change its directory (cd) so that your working directory is repository you dowloaded. Then enter the following:
+
+```sh
+python3 check_environment.py
+```
