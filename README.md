@@ -13,7 +13,11 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 [GeoPandas basics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/geopandas_basics.html)
 
+[Sentinel-2 Preprocessing](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
+
 [Loops on multiple images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/loops_multiple_images.html)
+
+[Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
 
