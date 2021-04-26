@@ -14337,37 +14337,39 @@ Matplotlib : 3.3.4
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_letter</span>   <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="n">student_name</span> <span class="o">=</span> <span class="s1">&#39;ndeffense&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Directory for all work files</span>
 
-<span class="c1"># When you are connected to the computer room</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">raster_path = &#39;X:/data/RASTER/&#39;</span>
-<span class="sd">vector_path = &#39;X:/data/VECTOR/&#39;</span>
-<span class="sd">output_path = f&#39;X:/GROUP_{grp_letter}/TP/{student_name}/DATA/&#39;</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="c1"># When you are connected to your personnal computer</span>
-<span class="n">raster_path</span> <span class="o">=</span> <span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/data/RASTER/&#39;</span>
-<span class="n">vector_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/&#39;</span>
-<span class="n">output_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/&#39;</span>
+<span class="c1">#grp_letter = &#39;X&#39;</span>
+<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/WORK/&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/Documents/LBRAT2104/WORK/&#39;</span>
 
 
-<span class="n">L2A_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">S2B_MSIL2A_20200731T103629_N0214_R008_T31UFS_20200731T140558.SAFE/GRANULE/L2A_T31UFS_A017766_20200731T104607/IMG_DATA/&#39;</span>
+<span class="c1"># ----- #</span>
+<span class="c1"># INPUT #</span>
+<span class="c1"># ----- #</span>
+ 
+<span class="n">ROI_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">ROI/extent_roi_32631.shp&#39;</span>
+<span class="n">L2A_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">L2A/&#39;</span>
 
+<span class="c1"># ------ #</span>
+<span class="c1"># OUTPUT #</span>
+<span class="c1"># ------ #</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vector input path is set to : </span><span class="si">{</span><span class="n">vector_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster input path is set to : </span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output path is set to       : </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># For each step of the preprocessing,</span>
+<span class="c1"># a folder will be created to store </span>
+<span class="c1"># the intermediary files.</span>
 
-<span class="c1"># Directory to store resampled images</span>
-<span class="n">resampled_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">RESAMPLED/&#39;</span>
-
-<span class="c1"># Directory to store clipped images</span>
-<span class="n">clipped_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">CLIPPED/&#39;</span>
+<span class="n">resampled_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">1_L2A_RESAMPLED/&#39;</span>
+<span class="n">clipped_path</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">2_L2A_CLIPPED/&#39;</span>
+<span class="n">masked_path</span>    <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span>
 
 <span class="n">Path</span><span class="p">(</span><span class="n">resampled_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">Path</span><span class="p">(</span><span class="n">clipped_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Path</span><span class="p">(</span><span class="n">masked_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;General work path is set to     : </span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;L2A SAFE folders path is set to : </span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14387,9 +14389,128 @@ Matplotlib : 3.3.4
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Vector input path is set to : /Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/
-Raster input path is set to : /Volumes/nbdid-sst-lbrat2104/data/RASTER/
-Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
+<pre>General work path is set to     : /Users/Nicolas/Documents/LBRAT2104/WORK/
+L2A SAFE folders path is set to : /Users/Nicolas/Documents/LBRAT2104/WORK/L2A/
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Select-reflectance-bands-you-want-to-work-with">Select reflectance bands you want to work with<a class="anchor-link" href="#Select-reflectance-bands-you-want-to-work-with">&#182;</a></h2><h3 id="10-metre-spatial-resolution">10 metre spatial resolution<a class="anchor-link" href="#10-metre-spatial-resolution">&#182;</a></h3><ul>
+<li>B2 - Blue</li>
+<li>B3 - Green</li>
+<li>B4 - Red</li>
+<li>B8 - Near Infra-Red (NIR)</li>
+</ul>
+<h3 id="20-metre-spatial-resolution">20 metre spatial resolution<a class="anchor-link" href="#20-metre-spatial-resolution">&#182;</a></h3><ul>
+<li>B5 - Red-Edge</li>
+<li>B6 - Red-Edge</li>
+<li>B7 - Red-Edge</li>
+<li>B8a - Near Infra-Red (NIR)</li>
+<li>B11 - Short Wave Infra-Red (SWIR)</li>
+<li>B12 - Short Wave Infra-Red (SWIR)</li>
+</ul>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">band_10m_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+
+<span class="n">band_20m_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-resampling-and-masking-parameters">Set resampling and masking parameters<a class="anchor-link" href="#Set-resampling-and-masking-parameters">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ---------- #</span>
+<span class="c1"># RESAMPLING #</span>
+<span class="c1"># ---------- #</span>
+
+<span class="c1"># We will upscale the image by 2: 20m --&gt; 10m</span>
+<span class="n">upscale_factor</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># As SCL is categorical data, we MUST use &quot;nearest neighbor&quot; resampling method</span>
+<span class="n">resampling_method_cat</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span>
+
+<span class="c1"># As BOA is continuous data, we can use other resampling methods : nearest, bilinear, cubic</span>
+<span class="n">resampling_method_cont</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span>
+
+<span class="c1"># ------------- #</span>
+<span class="c1"># MASK with SCL #</span>
+<span class="c1"># ------------- #</span>
+
+<span class="n">nodata_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-the-list-of-L2A-that-will-be-processed">Set the list of L2A that will be processed<a class="anchor-link" href="#Set-the-list-of-L2A-that-will-be-processed">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_L2A</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">*.SAFE&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">list_L2A</span><span class="p">)</span><span class="si">}</span><span class="s1"> L2A will be pre-processed </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">L2A_safe</span> <span class="ow">in</span> <span class="n">list_L2A</span><span class="p">:</span>
+    <span class="n">L2A_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">L2A_safe</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">L2A_name</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>2 L2A will be pre-processed 
+
+S2A_MSIL2A_20200417T104021_N0214_R008_T31UFS_20200417T112906.SAFE
+S2A_MSIL2A_20200520T105031_N0214_R051_T31UFS_20200520T134332.SAFE
 </pre>
 </div>
 </div>
@@ -14407,62 +14528,52 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Filenames</span>
-<span class="c1"># ---------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">L2A_safe</span> <span class="ow">in</span> <span class="n">list_L2A</span><span class="p">:</span>
 
-<span class="n">im_file_20m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">R20m/T31UFS_20200731T103629_SCL_20m.jp2&#39;</span>
-<span class="n">im_file_10m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_SCL_10m.tif&#39;</span>
+    <span class="n">im_file_20m</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_safe</span><span class="si">}</span><span class="s1">/GRANULE/*/IMG_DATA/R20m/*_SCL_20m.jp2&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">im_file_20m</span> <span class="o">=</span> <span class="n">im_file_20m</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="n">im_file_10m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">)[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span><span class="si">}</span><span class="s1">10m.tif&#39;</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">):</span>
 
-<span class="c1"># Parameters</span>
-<span class="c1"># ----------</span>
+        <span class="c1"># Open file</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;JP2OpenJPEG&#39;</span><span class="p">)</span>
 
-<span class="c1"># We will upscale the image by 2: 20m --&gt; 10m</span>
-<span class="n">upscale_factor</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="c1"># Resample data to target shape</span>
+        <span class="n">resampled_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
+                                <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">),</span>
+                                <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">)),</span>
+                                <span class="n">resampling</span><span class="o">=</span><span class="n">resampling_method_cat</span><span class="p">)</span>
 
-<span class="c1"># As SCL is categorical data, we must use &quot;nearest neighbor&quot; resampling method</span>
-<span class="n">resampling_method</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span>
+        <span class="c1"># Scale image transform</span>
+        <span class="n">new_transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="p">)</span>
 
-<span class="c1"># RESAMPLE</span>
-<span class="c1"># --------</span>
-
-<span class="c1"># Open file</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;JP2OpenJPEG&#39;</span><span class="p">)</span>
-
-<span class="c1"># Resample data to target shape</span>
-<span class="n">resampled_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
-                           <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">),</span>
-                           <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">)</span>
-                           <span class="p">),</span>
-                          <span class="n">resampling</span><span class="o">=</span><span class="n">resampling_method</span>
-                          <span class="p">)</span>
-
-<span class="c1"># Scale image transform</span>
-<span class="n">new_transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
-    <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">)</span>
-
-<span class="c1"># Update metadata</span>
-<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-<span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
-               <span class="n">width</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
-               <span class="n">height</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
-               <span class="n">transform</span><span class="o">=</span><span class="n">new_transform</span><span class="p">)</span>
+        <span class="c1"># Update metadata</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+        <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">new_transform</span><span class="p">)</span>
 
 
-<span class="c1"># Write resampled image</span>
-<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resampled_data</span><span class="p">)</span>
+        <span class="c1"># Write resampled image</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resampled_data</span><span class="p">)</span>
 
-<span class="c1"># Close rasterio objects</span>
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1"># Close rasterio objects</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; A new resampled raster file is created : </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; A new resampled raster file is created : </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14482,7 +14593,8 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>--&gt; A new resampled raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/RESAMPLED/T31UFS_20200731T103629_SCL_10m.tif
+<pre>--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200417T104021_SCL_10m.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200520T105031_SCL_10m.tif - already exists
 </pre>
 </div>
 </div>
@@ -14501,62 +14613,56 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Filenames</span>
-<span class="c1"># ---------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">L2A_safe</span> <span class="ow">in</span> <span class="n">list_L2A</span><span class="p">:</span>
 
-<span class="n">im_file_20m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">R20m/T31UFS_20200731T103629_B11_20m.jp2&#39;</span>
-<span class="n">im_file_10m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_B11_10m.tif&#39;</span>
+    <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">band_20m_list</span><span class="p">:</span>
 
-<span class="c1"># Parameters</span>
-<span class="c1"># ----------</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Band : </span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="c1"># We will upscale the image by 2: 20m --&gt; 10m</span>
-<span class="n">upscale_factor</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">im_file_20m</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_safe</span><span class="si">}</span><span class="s1">/GRANULE/*/IMG_DATA/R20m/*_B*</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">_20m.jp2&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">im_file_20m</span> <span class="o">=</span> <span class="n">im_file_20m</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="n">im_file_10m</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">)[:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span><span class="si">}</span><span class="s1">10m.tif&#39;</span>
 
-<span class="c1"># As BOA is continuous data, we can use other resampling methods : nearest, bilinear, cubic</span>
-<span class="n">resampling_method</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">):</span>
 
-<span class="c1"># RESAMPLE</span>
-<span class="c1"># --------</span>
+            <span class="c1"># Open file</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;JP2OpenJPEG&#39;</span><span class="p">)</span>
 
-<span class="c1"># Open file</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_20m</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;JP2OpenJPEG&#39;</span><span class="p">)</span>
+            <span class="c1"># Resample data to target shape</span>
+            <span class="n">resampled_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
+                                    <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">),</span>
+                                    <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">)),</span>
+                                    <span class="n">resampling</span><span class="o">=</span><span class="n">resampling_method_cont</span><span class="p">)</span>
 
-<span class="c1"># Resample data to target shape</span>
-<span class="n">resampled_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
-                           <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">),</span>
-                           <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">)</span>
-                           <span class="p">),</span>
-                          <span class="n">resampling</span><span class="o">=</span><span class="n">resampling_method</span>
-                          <span class="p">)</span>
+            <span class="c1"># Scale image transform</span>
+            <span class="n">new_transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+            <span class="p">)</span>
 
-<span class="c1"># Scale image transform</span>
-<span class="n">new_transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
-    <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">resampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-<span class="p">)</span>
-
-<span class="c1"># Update metadata</span>
-<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-<span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
-               <span class="n">width</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
-               <span class="n">height</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
-               <span class="n">transform</span><span class="o">=</span><span class="n">new_transform</span><span class="p">)</span>
+            <span class="c1"># Update metadata</span>
+            <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+            <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">upscale_factor</span><span class="p">,</span>
+                        <span class="n">transform</span><span class="o">=</span><span class="n">new_transform</span><span class="p">)</span>
 
 
-<span class="c1"># Write resampled image</span>
-<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resampled_data</span><span class="p">)</span>
+            <span class="c1"># Write resampled image</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_10m</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+            <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">resampled_data</span><span class="p">)</span>
 
-<span class="c1"># Close rasterio objects</span>
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; A new resampled raster file is created : </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># Close rasterio objects</span>
+            <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; A new resampled raster file is created : </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">im_file_10m</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14576,7 +14682,14 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>--&gt; A new resampled raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/RESAMPLED/T31UFS_20200731T103629_B11_10m.tif
+<pre>Band : 5
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200417T104021_B05_10m.tif - already exists
+Band : 12
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200417T104021_B12_10m.tif - already exists
+Band : 5
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200520T105031_B05_10m.tif - already exists
+Band : 12
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/1_L2A_RESAMPLED/T31UFS_20200520T105031_B12_10m.tif - already exists
 </pre>
 </div>
 </div>
@@ -14593,65 +14706,58 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Geometry of ROI</span>
-<span class="c1"># -------------------</span>
 
-<span class="n">roi_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">ROI/extent_roi_32631.shp&#39;</span>
-
-<span class="n">roi_geom</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roi_file</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span>
-
-<span class="c1"># Filenames</span>
-<span class="c1"># ---------</span>
+<span class="n">roi_geom</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">ROI_file</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span>
 
 <span class="c1"># Get list of image to clip (all images must be at same spatial resolution !)</span>
 
-<span class="n">B03_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">R10m/T31UFS_20200731T103629_B03_10m.jp2&#39;</span>
-<span class="n">B11_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_B11_10m.tif&#39;</span>
-<span class="n">SCL_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_SCL_10m.tif&#39;</span>
+<span class="n">list_im_to_clip</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">resampled_path</span><span class="si">}</span><span class="s1">*_10m.tif&#39;</span><span class="p">)</span>
 
-<span class="n">list_im</span> <span class="o">=</span> <span class="p">[</span><span class="n">B03_im_file</span><span class="p">,</span>
-           <span class="n">B11_im_file</span><span class="p">,</span>
-           <span class="n">SCL_im_file</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">band_10m_list</span><span class="p">:</span>
+
+    <span class="n">list_im_to_clip</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">*.SAFE/GRANULE/*/IMG_DATA/R10m/*_B*</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">_10m.jp2&#39;</span><span class="p">)</span>
 
 
 <span class="c1"># CLIP</span>
 <span class="c1"># ----</span>
 
-<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im_to_clip</span><span class="p">:</span>
 
-    <span class="c1"># Get the output file name</span>
-    <span class="n">im_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
-    <span class="n">im_file_roi</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}{</span><span class="n">im_filename</span><span class="si">}</span><span class="s1">_ROI.tif&#39;</span>
+    <span class="n">im_file_roi</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">_ROI.tif&#39;</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_file_roi</span><span class="p">):</span>
+        
+        <span class="c1"># Open file</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Open file</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="c1"># Crop the raster to the extent of the shape</span>
+        <span class="n">out_image</span><span class="p">,</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">roi_geom</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Update metadata</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
 
-    <span class="c1"># Crop the raster to the extent of the shape</span>
-    <span class="n">out_image</span><span class="p">,</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">roi_geom</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
-    <span class="c1"># Update metadata</span>
-    <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+        <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="n">height</span><span class="o">=</span><span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">out_transform</span><span class="p">)</span>
 
-    <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">,</span>
-                   <span class="n">width</span><span class="o">=</span><span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                   <span class="n">height</span><span class="o">=</span><span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                   <span class="n">transform</span><span class="o">=</span><span class="n">out_transform</span><span class="p">)</span>
+        <span class="c1"># Write clipped image</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_roi</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_image</span><span class="p">)</span>
 
-    <span class="c1"># Write clipped image</span>
-    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_roi</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_image</span><span class="p">)</span>
-
-    <span class="c1"># Close rasterio objects</span>
-    <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1"># Close rasterio objects</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster file is created : </span><span class="si">{</span><span class="n">im_file_roi</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster file is created : </span><span class="si">{</span><span class="n">im_file_roi</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">im_file_roi</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14671,12 +14777,20 @@ Output path is set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>T31UFS_20200731T103629_B03_10m
-A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CLIPPED/T31UFS_20200731T103629_B03_10m_ROI.tif
-T31UFS_20200731T103629_B11_10m
-A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CLIPPED/T31UFS_20200731T103629_B11_10m_ROI.tif
-T31UFS_20200731T103629_SCL_10m
-A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CLIPPED/T31UFS_20200731T103629_SCL_10m_ROI.tif
+<pre>--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B12_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_SCL_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B05_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_SCL_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B05_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B12_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B02_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B02_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B03_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B03_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B04_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B04_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200417T104021_B08_10m_ROI.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/2_L2A_CLIPPED/T31UFS_20200520T105031_B08_10m_ROI.tif - already exists
 </pre>
 </div>
 </div>
@@ -14693,96 +14807,88 @@ A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CL
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Filenames</span>
-<span class="c1"># ---------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get a list with all reflectance bands clipped on the ROI</span>
 
-<span class="c1"># Get list of BOA images on which to apply the SCL</span>
-
-<span class="n">B03_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_B03_10m_ROI.tif&#39;</span>
-<span class="n">B11_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_B11_10m_ROI.tif&#39;</span>
-
-<span class="n">list_im</span> <span class="o">=</span> <span class="p">[</span><span class="n">B03_im_file</span><span class="p">,</span>
-           <span class="n">B11_im_file</span><span class="p">]</span>
-
-<span class="n">SCL_im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">T31UFS_20200731T103629_SCL_10m_ROI.tif&#39;</span>
-
-<span class="c1"># Parameters</span>
-<span class="c1"># ----------</span>
-
-<span class="n">nodata_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+<span class="n">list_im_ROI</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">*_B*_ROI.tif&#39;</span><span class="p">)</span>
 
 
 <span class="c1"># APPLY SCL</span>
 <span class="c1"># ---------</span>
 
-<span class="c1"># Open SCL and change invalid pixels categories by NaN</span>
+<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im_ROI</span><span class="p">:</span>
+    
+    <span class="c1"># Get date of image</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[</span><span class="mi">7</span><span class="p">:</span><span class="mi">7</span><span class="o">+</span><span class="mi">15</span><span class="p">]</span>
+    
+    <span class="c1"># Find SCL corresponding to the given reflectances image</span>
+    <span class="n">scl_file</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">*SCL_10m_ROI.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">scl_file</span> <span class="o">=</span> <span class="n">scl_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    
+    <span class="n">im_file_scl</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">masked_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">_SCL.tif&#39;</span>
 
-<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">SCL_im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">SCL</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_file_scl</span><span class="p">):</span>
+        
+        <span class="c1"># Open SCL and change invalid pixels categories by NaN</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">scl_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scene Classification map&#39;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">(</span><span class="n">SCL</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set3&#39;</span><span class="p">)</span>
+        <span class="c1"># Read file as numpy array</span>
+        <span class="n">SCL</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<span class="n">SCL</span> <span class="o">=</span> <span class="n">SCL</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="c1">#print(&#39;Scene Classification map&#39;)</span>
+        <span class="c1">#show(SCL, cmap=&#39;Set3&#39;)</span>
 
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># No data</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Saturated or defective</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Dark area pixels</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud shadows</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Vegetation</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Not vegetated</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Water</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Unclassified</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud medium probability</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud high probability</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Thin cirrus</span>
-<span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Snow</span>
+        <span class="n">SCL</span> <span class="o">=</span> <span class="n">SCL</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># No data</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Saturated or defective</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Dark area pixels</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud shadows</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Vegetation</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Not vegetated</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Water</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Unclassified</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud medium probability</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud high probability</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Thin cirrus</span>
+        <span class="n">SCL</span><span class="p">[</span><span class="n">SCL</span> <span class="o">==</span> <span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Snow</span>
 
-<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
+        <span class="c1"># Open file</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Get the output file name</span>
-    <span class="n">im_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
-    <span class="n">im_file_scl</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}{</span><span class="n">im_filename</span><span class="si">}</span><span class="s1">_with_SCL.tif&#39;</span>
+        <span class="c1"># Read file as numpy array</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_filename</span><span class="p">)</span>
+        <span class="c1"># Update metadata</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+        <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>  <span class="c1"># Set to int16 it is lighter than float</span>
+                       <span class="n">nodata</span><span class="o">=</span><span class="n">nodata_val</span><span class="p">,</span>     <span class="c1"># Set nodata value in metadata</span>
+                       <span class="n">compress</span><span class="o">=</span><span class="s1">&#39;lzw&#39;</span><span class="p">)</span>        <span class="c1"># Compression option</span>
 
-    <span class="c1"># Open file</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="c1"># Mask image reflectance with SCL</span>
+        <span class="n">im_SLC</span> <span class="o">=</span> <span class="n">im</span> <span class="o">*</span> <span class="n">SCL</span>
 
-    <span class="c1"># Read file as numpy array</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Change numpy NaN by nodata_val (e.g. -10000)</span>
+        <span class="n">im_SLC</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">im_SLC</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nodata_val</span>
 
-    <span class="c1"># Update metadata</span>
-    <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-    <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>  <span class="c1"># Set to int16 it is lighter than float</span>
-                   <span class="n">nodata</span><span class="o">=</span><span class="n">nodata_val</span><span class="p">,</span>     <span class="c1"># Set nodata value in metadata</span>
-                   <span class="n">compress</span><span class="o">=</span><span class="s1">&#39;lzw&#39;</span><span class="p">,</span>        <span class="c1"># Compression option</span>
-                   <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span>
+        <span class="c1"># Change the array&#39;s type : from float to integer 16</span>
+        <span class="n">im_SLC</span> <span class="o">=</span> <span class="n">im_SLC</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
 
+        <span class="c1"># Write image</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_scl</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">im_SLC</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1"># Mask image reflectance with SCL</span>
-    <span class="n">im_SLC</span> <span class="o">=</span> <span class="n">im</span> <span class="o">*</span> <span class="n">SCL</span>
+        <span class="c1"># Close rasterio objects</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="c1"># Change numpy NaN by nodata_val (e.g. -10000)</span>
-    <span class="n">im_SLC</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">im_SLC</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nodata_val</span>
-
-    <span class="c1"># Change the array&#39;s type : from float to integer 16</span>
-    <span class="n">im_SLC</span> <span class="o">=</span> <span class="n">im_SLC</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-
-    <span class="c1"># Write image</span>
-    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_scl</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">im_SLC</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># Close rasterio objects</span>
-    <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster file is created : </span><span class="si">{</span><span class="n">im_file_scl</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster file is created : </span><span class="si">{</span><span class="n">im_file_scl</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">im_file_scl</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14802,498 +14908,18 @@ A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CL
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Scene Classification map
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedSVG jp-OutputArea-output " data-mime-type="image/svg+xml">
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="228.253206pt" version="1.1" viewBox="0 0 375.2875 228.253206" width="375.2875pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <metadata>
-  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-04-01T12:40:12.833955</dc:date>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.3.4, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
- </defs>
- <g id="figure_1">
-  <g id="patch_1">
-   <path d="M 0 228.253206 
-L 375.2875 228.253206 
-L 375.2875 0 
-L 0 0 
-z
-" style="fill:none;"/>
-  </g>
-  <g id="axes_1">
-   <g id="patch_2">
-    <path d="M 33.2875 204.375081 
-L 368.0875 204.375081 
-L 368.0875 10.829442 
-L 33.2875 10.829442 
-z
-" style="fill:#ffffff;"/>
-   </g>
-   <g clip-path="url(#pf6a70d5931)">
-    <image height="194" id="image4f9611e197" transform="scale(1 -1)translate(0 -194)" width="335" x="33.2875" xlink:href="data:image/png;base64,
-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" y="-10.375081"/>
-   </g>
-   <g id="matplotlib.axis_1">
-    <g id="xtick_1">
-     <g id="line2d_1">
-      <defs>
-       <path d="M 0 0 
-L 0 3.5 
-" id="m2c4fa47264" style="stroke:#000000;stroke-width:0.8;"/>
-      </defs>
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.457277" xlink:href="#m2c4fa47264" y="204.375081"/>
-      </g>
-     </g>
-     <g id="text_1">
-      <!-- 0 -->
-      <g transform="translate(30.276027 218.973518)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 31.78125 66.40625 
-Q 24.171875 66.40625 20.328125 58.90625 
-Q 16.5 51.421875 16.5 36.375 
-Q 16.5 21.390625 20.328125 13.890625 
-Q 24.171875 6.390625 31.78125 6.390625 
-Q 39.453125 6.390625 43.28125 13.890625 
-Q 47.125 21.390625 47.125 36.375 
-Q 47.125 51.421875 43.28125 58.90625 
-Q 39.453125 66.40625 31.78125 66.40625 
-z
-M 31.78125 74.21875 
-Q 44.046875 74.21875 50.515625 64.515625 
-Q 56.984375 54.828125 56.984375 36.375 
-Q 56.984375 17.96875 50.515625 8.265625 
-Q 44.046875 -1.421875 31.78125 -1.421875 
-Q 19.53125 -1.421875 13.0625 8.265625 
-Q 6.59375 17.96875 6.59375 36.375 
-Q 6.59375 54.828125 13.0625 64.515625 
-Q 19.53125 74.21875 31.78125 74.21875 
-z
-" id="DejaVuSans-48"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_2">
-     <g id="line2d_2">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="101.368027" xlink:href="#m2c4fa47264" y="204.375081"/>
-      </g>
-     </g>
-     <g id="text_2">
-      <!-- 200 -->
-      <g transform="translate(91.824277 218.973518)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 19.1875 8.296875 
-L 53.609375 8.296875 
-L 53.609375 0 
-L 7.328125 0 
-L 7.328125 8.296875 
-Q 12.9375 14.109375 22.625 23.890625 
-Q 32.328125 33.6875 34.8125 36.53125 
-Q 39.546875 41.84375 41.421875 45.53125 
-Q 43.3125 49.21875 43.3125 52.78125 
-Q 43.3125 58.59375 39.234375 62.25 
-Q 35.15625 65.921875 28.609375 65.921875 
-Q 23.96875 65.921875 18.8125 64.3125 
-Q 13.671875 62.703125 7.8125 59.421875 
-L 7.8125 69.390625 
-Q 13.765625 71.78125 18.9375 73 
-Q 24.125 74.21875 28.421875 74.21875 
-Q 39.75 74.21875 46.484375 68.546875 
-Q 53.21875 62.890625 53.21875 53.421875 
-Q 53.21875 48.921875 51.53125 44.890625 
-Q 49.859375 40.875 45.40625 35.40625 
-Q 44.1875 33.984375 37.640625 27.21875 
-Q 31.109375 20.453125 19.1875 8.296875 
-z
-" id="DejaVuSans-50"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-50"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_3">
-     <g id="line2d_3">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="169.278778" xlink:href="#m2c4fa47264" y="204.375081"/>
-      </g>
-     </g>
-     <g id="text_3">
-      <!-- 400 -->
-      <g transform="translate(159.735028 218.973518)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 37.796875 64.3125 
-L 12.890625 25.390625 
-L 37.796875 25.390625 
-z
-M 35.203125 72.90625 
-L 47.609375 72.90625 
-L 47.609375 25.390625 
-L 58.015625 25.390625 
-L 58.015625 17.1875 
-L 47.609375 17.1875 
-L 47.609375 0 
-L 37.796875 0 
-L 37.796875 17.1875 
-L 4.890625 17.1875 
-L 4.890625 26.703125 
-z
-" id="DejaVuSans-52"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-52"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_4">
-     <g id="line2d_4">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="237.189528" xlink:href="#m2c4fa47264" y="204.375081"/>
-      </g>
-     </g>
-     <g id="text_4">
-      <!-- 600 -->
-      <g transform="translate(227.645778 218.973518)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 33.015625 40.375 
-Q 26.375 40.375 22.484375 35.828125 
-Q 18.609375 31.296875 18.609375 23.390625 
-Q 18.609375 15.53125 22.484375 10.953125 
-Q 26.375 6.390625 33.015625 6.390625 
-Q 39.65625 6.390625 43.53125 10.953125 
-Q 47.40625 15.53125 47.40625 23.390625 
-Q 47.40625 31.296875 43.53125 35.828125 
-Q 39.65625 40.375 33.015625 40.375 
-z
-M 52.59375 71.296875 
-L 52.59375 62.3125 
-Q 48.875 64.0625 45.09375 64.984375 
-Q 41.3125 65.921875 37.59375 65.921875 
-Q 27.828125 65.921875 22.671875 59.328125 
-Q 17.53125 52.734375 16.796875 39.40625 
-Q 19.671875 43.65625 24.015625 45.921875 
-Q 28.375 48.1875 33.59375 48.1875 
-Q 44.578125 48.1875 50.953125 41.515625 
-Q 57.328125 34.859375 57.328125 23.390625 
-Q 57.328125 12.15625 50.6875 5.359375 
-Q 44.046875 -1.421875 33.015625 -1.421875 
-Q 20.359375 -1.421875 13.671875 8.265625 
-Q 6.984375 17.96875 6.984375 36.375 
-Q 6.984375 53.65625 15.1875 63.9375 
-Q 23.390625 74.21875 37.203125 74.21875 
-Q 40.921875 74.21875 44.703125 73.484375 
-Q 48.484375 72.75 52.59375 71.296875 
-z
-" id="DejaVuSans-54"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-54"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="xtick_5">
-     <g id="line2d_5">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="305.100279" xlink:href="#m2c4fa47264" y="204.375081"/>
-      </g>
-     </g>
-     <g id="text_5">
-      <!-- 800 -->
-      <g transform="translate(295.556529 218.973518)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 31.78125 34.625 
-Q 24.75 34.625 20.71875 30.859375 
-Q 16.703125 27.09375 16.703125 20.515625 
-Q 16.703125 13.921875 20.71875 10.15625 
-Q 24.75 6.390625 31.78125 6.390625 
-Q 38.8125 6.390625 42.859375 10.171875 
-Q 46.921875 13.96875 46.921875 20.515625 
-Q 46.921875 27.09375 42.890625 30.859375 
-Q 38.875 34.625 31.78125 34.625 
-z
-M 21.921875 38.8125 
-Q 15.578125 40.375 12.03125 44.71875 
-Q 8.5 49.078125 8.5 55.328125 
-Q 8.5 64.0625 14.71875 69.140625 
-Q 20.953125 74.21875 31.78125 74.21875 
-Q 42.671875 74.21875 48.875 69.140625 
-Q 55.078125 64.0625 55.078125 55.328125 
-Q 55.078125 49.078125 51.53125 44.71875 
-Q 48 40.375 41.703125 38.8125 
-Q 48.828125 37.15625 52.796875 32.3125 
-Q 56.78125 27.484375 56.78125 20.515625 
-Q 56.78125 9.90625 50.3125 4.234375 
-Q 43.84375 -1.421875 31.78125 -1.421875 
-Q 19.734375 -1.421875 13.25 4.234375 
-Q 6.78125 9.90625 6.78125 20.515625 
-Q 6.78125 27.484375 10.78125 32.3125 
-Q 14.796875 37.15625 21.921875 38.8125 
-z
-M 18.3125 54.390625 
-Q 18.3125 48.734375 21.84375 45.5625 
-Q 25.390625 42.390625 31.78125 42.390625 
-Q 38.140625 42.390625 41.71875 45.5625 
-Q 45.3125 48.734375 45.3125 54.390625 
-Q 45.3125 60.0625 41.71875 63.234375 
-Q 38.140625 66.40625 31.78125 66.40625 
-Q 25.390625 66.40625 21.84375 63.234375 
-Q 18.3125 60.0625 18.3125 54.390625 
-z
-" id="DejaVuSans-56"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-56"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-   </g>
-   <g id="matplotlib.axis_2">
-    <g id="ytick_1">
-     <g id="line2d_6">
-      <defs>
-       <path d="M 0 0 
-L -3.5 0 
-" id="ma24c145eb0" style="stroke:#000000;stroke-width:0.8;"/>
-      </defs>
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="10.999219"/>
-      </g>
-     </g>
-     <g id="text_6">
-      <!-- 0 -->
-      <g transform="translate(19.925 14.798437)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="ytick_2">
-     <g id="line2d_7">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="44.954594"/>
-      </g>
-     </g>
-     <g id="text_7">
-      <!-- 100 -->
-      <g transform="translate(7.2 48.753813)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 12.40625 8.296875 
-L 28.515625 8.296875 
-L 28.515625 63.921875 
-L 10.984375 60.40625 
-L 10.984375 69.390625 
-L 28.421875 72.90625 
-L 38.28125 72.90625 
-L 38.28125 8.296875 
-L 54.390625 8.296875 
-L 54.390625 0 
-L 12.40625 0 
-z
-" id="DejaVuSans-49"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-49"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="ytick_3">
-     <g id="line2d_8">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="78.909969"/>
-      </g>
-     </g>
-     <g id="text_8">
-      <!-- 200 -->
-      <g transform="translate(7.2 82.709188)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-50"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="ytick_4">
-     <g id="line2d_9">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="112.865345"/>
-      </g>
-     </g>
-     <g id="text_9">
-      <!-- 300 -->
-      <g transform="translate(7.2 116.664563)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 40.578125 39.3125 
-Q 47.65625 37.796875 51.625 33 
-Q 55.609375 28.21875 55.609375 21.1875 
-Q 55.609375 10.40625 48.1875 4.484375 
-Q 40.765625 -1.421875 27.09375 -1.421875 
-Q 22.515625 -1.421875 17.65625 -0.515625 
-Q 12.796875 0.390625 7.625 2.203125 
-L 7.625 11.71875 
-Q 11.71875 9.328125 16.59375 8.109375 
-Q 21.484375 6.890625 26.8125 6.890625 
-Q 36.078125 6.890625 40.9375 10.546875 
-Q 45.796875 14.203125 45.796875 21.1875 
-Q 45.796875 27.640625 41.28125 31.265625 
-Q 36.765625 34.90625 28.71875 34.90625 
-L 20.21875 34.90625 
-L 20.21875 43.015625 
-L 29.109375 43.015625 
-Q 36.375 43.015625 40.234375 45.921875 
-Q 44.09375 48.828125 44.09375 54.296875 
-Q 44.09375 59.90625 40.109375 62.90625 
-Q 36.140625 65.921875 28.71875 65.921875 
-Q 24.65625 65.921875 20.015625 65.03125 
-Q 15.375 64.15625 9.8125 62.3125 
-L 9.8125 71.09375 
-Q 15.4375 72.65625 20.34375 73.4375 
-Q 25.25 74.21875 29.59375 74.21875 
-Q 40.828125 74.21875 47.359375 69.109375 
-Q 53.90625 64.015625 53.90625 55.328125 
-Q 53.90625 49.265625 50.4375 45.09375 
-Q 46.96875 40.921875 40.578125 39.3125 
-z
-" id="DejaVuSans-51"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-51"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="ytick_5">
-     <g id="line2d_10">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="146.82072"/>
-      </g>
-     </g>
-     <g id="text_10">
-      <!-- 400 -->
-      <g transform="translate(7.2 150.619939)scale(0.1 -0.1)">
-       <use xlink:href="#DejaVuSans-52"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-    <g id="ytick_6">
-     <g id="line2d_11">
-      <g>
-       <use style="stroke:#000000;stroke-width:0.8;" x="33.2875" xlink:href="#ma24c145eb0" y="180.776095"/>
-      </g>
-     </g>
-     <g id="text_11">
-      <!-- 500 -->
-      <g transform="translate(7.2 184.575314)scale(0.1 -0.1)">
-       <defs>
-        <path d="M 10.796875 72.90625 
-L 49.515625 72.90625 
-L 49.515625 64.59375 
-L 19.828125 64.59375 
-L 19.828125 46.734375 
-Q 21.96875 47.46875 24.109375 47.828125 
-Q 26.265625 48.1875 28.421875 48.1875 
-Q 40.625 48.1875 47.75 41.5 
-Q 54.890625 34.8125 54.890625 23.390625 
-Q 54.890625 11.625 47.5625 5.09375 
-Q 40.234375 -1.421875 26.90625 -1.421875 
-Q 22.3125 -1.421875 17.546875 -0.640625 
-Q 12.796875 0.140625 7.71875 1.703125 
-L 7.71875 11.625 
-Q 12.109375 9.234375 16.796875 8.0625 
-Q 21.484375 6.890625 26.703125 6.890625 
-Q 35.15625 6.890625 40.078125 11.328125 
-Q 45.015625 15.765625 45.015625 23.390625 
-Q 45.015625 31 40.078125 35.4375 
-Q 35.15625 39.890625 26.703125 39.890625 
-Q 22.75 39.890625 18.8125 39.015625 
-Q 14.890625 38.140625 10.796875 36.28125 
-z
-" id="DejaVuSans-53"/>
-       </defs>
-       <use xlink:href="#DejaVuSans-53"/>
-       <use x="63.623047" xlink:href="#DejaVuSans-48"/>
-       <use x="127.246094" xlink:href="#DejaVuSans-48"/>
-      </g>
-     </g>
-    </g>
-   </g>
-   <g id="patch_3">
-    <path d="M 33.2875 204.375081 
-L 33.2875 10.829442 
-" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
-   </g>
-   <g id="patch_4">
-    <path d="M 368.0875 204.375081 
-L 368.0875 10.829442 
-" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
-   </g>
-   <g id="patch_5">
-    <path d="M 33.2875 204.375081 
-L 368.0875 204.375081 
-" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
-   </g>
-   <g id="patch_6">
-    <path d="M 33.2875 10.829442 
-L 368.0875 10.829442 
-" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
-   </g>
-  </g>
- </g>
- <defs>
-  <clipPath id="pf6a70d5931">
-   <rect height="193.545639" width="334.8" x="33.2875" y="10.829442"/>
-  </clipPath>
- </defs>
-</svg>
-
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>T31UFS_20200731T103629_B03_10m_ROI
-A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CLIPPED/T31UFS_20200731T103629_B03_10m_ROI_with_SCL.tif
-T31UFS_20200731T103629_B11_10m_ROI
-A new raster file is created : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/CLIPPED/T31UFS_20200731T103629_B11_10m_ROI_with_SCL.tif
+<pre>--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B05_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B04_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B08_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B03_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B02_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B12_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B08_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B05_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B04_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B12_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B03_10m_ROI_SCL.tif - already exists
+--&gt; /Users/Nicolas/Documents/LBRAT2104/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B02_10m_ROI_SCL.tif - already exists
 </pre>
 </div>
 </div>
