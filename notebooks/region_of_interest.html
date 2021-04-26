@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>loops_multiple_images</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>region_of_interest</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14259,425 +14259,41 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Working-with-multiple-images">Working with multiple images<a class="anchor-link" href="#Working-with-multiple-images">&#182;</a></h1><p>In this Jupyter Notebook, we will see how to apply multiples geometric manipulations on a large number of images with the help of the <code>for</code> loops.</p>
-<ol>
-<li>Clip images to the extent of the Region of Interest (ROI) and resample Scene Classification maps from 20m to 10m</li>
-<li>Apply SCL to reflectances images to mask invalid pixels (clouds, shadows,...)</li>
-<li>Compute NDVI at each date</li>
-<li>Compute mean NDVI for each polygon</li>
-</ol>
+<h1 id="Build-Region-of-Interest-with-GeoPandas">Build Region of Interest with GeoPandas<a class="anchor-link" href="#Build-Region-of-Interest-with-GeoPandas">&#182;</a></h1><p>We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.</p>
+<h3 id="Choose-the-CRS-of-the-new-shapefile---crs_dst">Choose the CRS of the new shapefile - crs_dst<a class="anchor-link" href="#Choose-the-CRS-of-the-new-shapefile---crs_dst">&#182;</a></h3><p>It is important to set the EPSG code matching with the EPSG code of your satellite images!</p>
+<p>For instance, if your ROI is located in Belgium,</p>
+<ul>
+<li>the CRS is WGS 84 / UTM zone 31N</li>
+<li>the EPSG code is 32631</li>
+</ul>
+<h3 id="Choose-the-CRS-of-the-coordinates---crs_src">Choose the CRS of the coordinates - crs_src<a class="anchor-link" href="#Choose-the-CRS-of-the-coordinates---crs_src">&#182;</a></h3><ul>
+<li>Degree - WGS84 - EPSG:4326</li>
+<li>Meters - WGS 84 / UTM zone 31N - EPSG:32631 (RECOMMANDED)</li>
+</ul>
+<h3 id="Coordinates-bounding-box">Coordinates bounding box<a class="anchor-link" href="#Coordinates-bounding-box">&#182;</a></h3><p>Extent in QGIS --&gt; ulx, uly : lrx, lry</p>
+<ul>
+<li>ulx = Upper Left x</li>
+<li>uly = Upper Left y</li>
+<li>lrx = Lower Right x</li>
+<li>lry = Lower Right y</li>
+</ul>
+<p><img src="figures/ROI_box.png" width="500"></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-
-<span class="kn">import</span> <span class="nn">rasterio</span>
-<span class="kn">import</span> <span class="nn">rasterio.mask</span>
-<span class="kn">from</span> <span class="nn">rasterio.enums</span> <span class="kn">import</span> <span class="n">Resampling</span>
-<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">plot</span>
-<span class="kn">from</span> <span class="nn">rasterio.plot</span> <span class="kn">import</span> <span class="n">show</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="kn">import</span> <span class="nn">rasterstats</span>
-<span class="kn">from</span> <span class="nn">rasterstats</span> <span class="kn">import</span> <span class="n">zonal_stats</span>
-
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Numpy : </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pandas : </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GeoPandas : </span><span class="si">{</span><span class="n">gpd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterio : </span><span class="si">{</span><span class="n">rasterio</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterstats : </span><span class="si">{</span><span class="n">rasterstats</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Matplotlib : </span><span class="si">{</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Numpy : 1.19.2
-Pandas : 1.1.5
-GeoPandas : 0.8.1
-Rasterio : 1.1.0
-Rasterstats : 0.14.0
-Matplotlib : 3.3.2
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Set-paths-for-input-and-output-directories">Set paths for input and output directories<a class="anchor-link" href="#Set-paths-for-input-and-output-directories">&#182;</a></h2><p>Create directories if there are missing using <code>Path</code> and <code>mkdir</code></p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_letter</span>   <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="n">student_name</span> <span class="o">=</span> <span class="s1">&#39;ndeffense&#39;</span>
-
-<span class="c1"># When you are connected to the computer room</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">vector_path = &#39;X:/data/VECTOR/&#39;</span>
-<span class="sd">raster_path = &#39;X:/data/RASTER/&#39;</span>
-<span class="sd">output_path = f&#39;X:/GROUP_{grp_letter}/TP/{student_name}/DATA/&#39;</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="c1"># When you are connected to your personnal computer</span>
-<span class="n">vector_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/&#39;</span>
-<span class="n">raster_path</span> <span class="o">=</span> <span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/data/RASTER/&#39;</span>
-<span class="n">output_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/&#39;</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vector input path are set to : </span><span class="si">{</span><span class="n">vector_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster input path are set to : </span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output path are set to       : </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># Directory to store all clipped images</span>
-<span class="n">clip_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IM_ROI/&#39;</span>
-
-<span class="c1"># Directory to store all clipped images with SCL</span>
-<span class="n">clip_scl_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IM_ROI_SCL/&#39;</span>
-
-<span class="c1"># Directory to store all NDVI images</span>
-<span class="n">ndvi_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">NDVI_ROI/&#39;</span>
-
-<span class="c1"># Create directories if missing</span>
-<span class="n">Path</span><span class="p">(</span><span class="n">clip_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Path</span><span class="p">(</span><span class="n">clip_scl_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Path</span><span class="p">(</span><span class="n">ndvi_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Vector input path are set to : /Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/
-Raster input path are set to : /Volumes/nbdid-sst-lbrat2104/data/RASTER/
-Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Set-parameters">Set parameters<a class="anchor-link" href="#Set-parameters">&#182;</a></h2><p>It is a good habit to set all parameters at the begining of the script to easily find them and modify them if needed.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Resampling parameters</span>
-<span class="c1"># ---------------------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">upscale_factor</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;nearest&#39;</span>
-
-<span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;nearest&#39;</span><span class="p">:</span>
-    <span class="n">resampling_method</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span>
-<span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span>
-    <span class="n">resampling_method</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span>
-<span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cubic&#39;</span><span class="p">:</span>
-    <span class="n">resampling_method</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">cubic</span>
-
-
-<span class="c1"># Cloud mask parameters</span>
-<span class="c1"># ---------------------</span>
-
-<span class="n">nodata_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Manipulate-a-large-number-of-images">Manipulate a large number of images<a class="anchor-link" href="#Manipulate-a-large-number-of-images">&#182;</a></h2><p>Create a <em>DataFrame</em> with <code>Pandas</code> using <code>glob</code> to store all informations from the SAFE directories you have uploaded on <em>Copernicus Open Access Hub</em></p>
-<hr>
-<p><strong>pandas</strong></p>
-<p><code>pandas</code> is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,
-built on top of the Python programming language</p>
-<ul>
-<li>A fast and efficient DataFrame object for data manipulation with integrated indexing;</li>
-<li>Tools for reading and writing data between in-memory data structures and different formats: CSV and text files, Microsoft Excel, SQL databases;</li>
-<li>Time series-functionality;</li>
-<li>Python with pandas is in use in a wide variety of academic and commercial domains, including Finance, Neuroscience, Economics, Statistics, Advertising, Web Analytics, and more</li>
-</ul>
-<p><strong>glob</strong></p>
-<p>The <code>glob</code> module finds all the pathnames matching a specified pattern according to the rules used by the Unix shell, although results are returned in arbitrary order. No tilde expansion is done, but *, ?, and character ranges expressed with [] will be correctly matched.</p>
-<p><code>glob.glob()</code> : Return a possibly-empty list of path names that match <em>pathname</em>, which must be a string containing a path specification. <em>pathname</em> can be either absolute (like <code>/usr/src/Python-1.5/Makefile</code>) or relative (like <code>../../Tools/*/*.gif</code>)</p>
-<p><strong>for loop</strong></p>
-<p>In Python, a <code>for</code> loop is usually written as a loop over an iterable object (e.g. list, dataframe, array,...). This means you don’t need a counting variable to access items in the iterable. Sometimes, though, you do want to have a variable that changes on each loop iteration. Rather than creating and incrementing a variable yourself, you can use Python’s <code>enumerate()</code> to get a counter and the value from the iterable at the same time!</p>
-<hr>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Set path where your SAFE folders are</span>
-<span class="n">L2A_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">TP_2/&#39;</span>
-
-<span class="c1"># Get a list with all reflectance bands at 10m resolution</span>
-<span class="n">L2A_BANDS_10M</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">*.SAFE/GRANULE/*/IMG_DATA/R10m/*B0*.jp2&#39;</span><span class="p">)</span>
-
-<span class="c1"># Get a list with all reflectance bands at 20m resolution</span>
-<span class="n">L2A_BANDS_20M</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">*.SAFE/GRANULE/*/IMG_DATA/R20m/*B0*.jp2&#39;</span><span class="p">)</span>
-
-<span class="c1"># Get a list with all Scene Classification maps (SCL) products at 20m resolution</span>
-<span class="n">L2A_SCL_20M</span>  <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">L2A_path</span><span class="si">}</span><span class="s1">*.SAFE/GRANULE/*/IMG_DATA/R20m/*SCL*.jp2&#39;</span><span class="p">)</span>
-
-<span class="n">L2A_all</span> <span class="o">=</span> <span class="n">L2A_BANDS_10M</span> <span class="o">+</span> <span class="n">L2A_SCL_20M</span>
-
-
-<span class="c1"># Create an empty DataFrame using pandas with 4 columns : date, tile name, band number and image path</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;tile&#39;</span><span class="p">,</span><span class="s1">&#39;band&#39;</span><span class="p">,</span><span class="s1">&#39;im_path&#39;</span><span class="p">])</span>
-
-<span class="c1"># Populate DataFrame using a for loop</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">im_path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">L2A_all</span><span class="p">):</span>
-    
-    <span class="n">im_path</span> <span class="o">=</span> <span class="n">im_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>      <span class="c1"># If you are working in Windows, you may need to change &#39;\&#39; by &#39;/&#39;</span>
-    
-    <span class="n">tile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="o">+</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># Find the tile name inside the file name</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_path</span><span class="p">)[</span><span class="mi">7</span><span class="p">:</span><span class="mi">7</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># Find the date inside the file name</span>
-    
-    <span class="k">if</span> <span class="s1">&#39;B0&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_path</span><span class="p">):</span>
-        <span class="n">band</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_path</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># Find the band number inside the file name</span>
-        
-    <span class="k">elif</span> <span class="s1">&#39;SCL&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_path</span><span class="p">):</span>
-        <span class="n">band</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>                               <span class="c1"># If the file is the SCL, set the band number to 0</span>
-    
-    <span class="c1"># Add file infos to the dataframe</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">date</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;tile&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">tile</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;band&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">band</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;im_path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">im_path</span>
-
-
-<span class="c1"># Now that the for loop is finished, you can sort the newly created dataframe first by date, then by tile and lastly by band.</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;tile&#39;</span><span class="p">,</span><span class="s1">&#39;band&#39;</span><span class="p">])</span>
-
-<span class="c1"># Display the entire DataFrame</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>       <span class="c1"># Maximum number of rows pandas to print</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># Maximum number of columns pandas to print</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># Maximum width in characters of a column to print</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>tile</th>
-      <th>band</th>
-      <th>im_path</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>56</th>
-      <td>20200116</td>
-      <td>31UFS</td>
-      <td>0</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200116T105309_N0213_R051_T31UFS_20200116T122813.SAFE/GRANULE/L2A_T31UFS_A014949_20200116T105304/IMG_DATA/R20m/T31UFS_20200116T105309_SCL_20m.jp2</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>20200116</td>
-      <td>31UFS</td>
-      <td>02</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200116T105309_N0213_R051_T31UFS_20200116T122813.SAFE/GRANULE/L2A_T31UFS_A014949_20200116T105304/IMG_DATA/R10m/T31UFS_20200116T105309_B02_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>20200116</td>
-      <td>31UFS</td>
-      <td>03</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200116T105309_N0213_R051_T31UFS_20200116T122813.SAFE/GRANULE/L2A_T31UFS_A014949_20200116T105304/IMG_DATA/R10m/T31UFS_20200116T105309_B03_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>20200116</td>
-      <td>31UFS</td>
-      <td>04</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200116T105309_N0213_R051_T31UFS_20200116T122813.SAFE/GRANULE/L2A_T31UFS_A014949_20200116T105304/IMG_DATA/R10m/T31UFS_20200116T105309_B04_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>20200116</td>
-      <td>31UFS</td>
-      <td>08</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200116T105309_N0213_R051_T31UFS_20200116T122813.SAFE/GRANULE/L2A_T31UFS_A014949_20200116T105304/IMG_DATA/R10m/T31UFS_20200116T105309_B08_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>64</th>
-      <td>20201218</td>
-      <td>31UFS</td>
-      <td>0</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20201218T104349_N0214_R008_T31UFS_20201218T124059.SAFE/GRANULE/L2A_T31UFS_A019768_20201218T104343/IMG_DATA/R20m/T31UFS_20201218T104349_SCL_20m.jp2</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>20201218</td>
-      <td>31UFS</td>
-      <td>02</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20201218T104349_N0214_R008_T31UFS_20201218T124059.SAFE/GRANULE/L2A_T31UFS_A019768_20201218T104343/IMG_DATA/R10m/T31UFS_20201218T104349_B02_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>20201218</td>
-      <td>31UFS</td>
-      <td>03</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20201218T104349_N0214_R008_T31UFS_20201218T124059.SAFE/GRANULE/L2A_T31UFS_A019768_20201218T104343/IMG_DATA/R10m/T31UFS_20201218T104349_B03_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>20201218</td>
-      <td>31UFS</td>
-      <td>04</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20201218T104349_N0214_R008_T31UFS_20201218T124059.SAFE/GRANULE/L2A_T31UFS_A019768_20201218T104343/IMG_DATA/R10m/T31UFS_20201218T104349_B04_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>20201218</td>
-      <td>31UFS</td>
-      <td>08</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20201218T104349_N0214_R008_T31UFS_20201218T124059.SAFE/GRANULE/L2A_T31UFS_A019768_20201218T104343/IMG_DATA/R10m/T31UFS_20201218T104349_B08_10m.jp2</td>
-    </tr>
-  </tbody>
-</table>
-<p>65 rows × 4 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Display-a-subset-of-the-DataFrame">Display a subset of the DataFrame<a class="anchor-link" href="#Display-a-subset-of-the-DataFrame">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">date_select</span> <span class="o">=</span> <span class="s1">&#39;20200212&#39;</span>
-
-<span class="n">df_subset</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">date_select</span><span class="p">]</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Information for image at date : </span><span class="si">{</span><span class="n">date_select</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">df_subset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pandas    : </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GeoPandas : </span><span class="si">{</span><span class="n">gpd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14697,207 +14313,8 @@ built on top of the Python programming language</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Information for image at date : 20200212
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>tile</th>
-      <th>band</th>
-      <th>im_path</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>57</th>
-      <td>20200212</td>
-      <td>31UFS</td>
-      <td>0</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200212T104049_N0214_R008_T31UFS_20200213T134833.SAFE/GRANULE/L2A_T31UFS_A015335_20200212T104614/IMG_DATA/R20m/T31UFS_20200212T104049_SCL_20m.jp2</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>20200212</td>
-      <td>31UFS</td>
-      <td>02</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200212T104049_N0214_R008_T31UFS_20200213T134833.SAFE/GRANULE/L2A_T31UFS_A015335_20200212T104614/IMG_DATA/R10m/T31UFS_20200212T104049_B02_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>20200212</td>
-      <td>31UFS</td>
-      <td>03</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200212T104049_N0214_R008_T31UFS_20200213T134833.SAFE/GRANULE/L2A_T31UFS_A015335_20200212T104614/IMG_DATA/R10m/T31UFS_20200212T104049_B03_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>20200212</td>
-      <td>31UFS</td>
-      <td>04</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200212T104049_N0214_R008_T31UFS_20200213T134833.SAFE/GRANULE/L2A_T31UFS_A015335_20200212T104614/IMG_DATA/R10m/T31UFS_20200212T104049_B04_10m.jp2</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>20200212</td>
-      <td>31UFS</td>
-      <td>08</td>
-      <td>/Volumes/nbdid-sst-lbrat2104/data/RASTER/TP_2/S2B_MSIL2A_20200212T104049_N0214_R008_T31UFS_20200213T134833.SAFE/GRANULE/L2A_T31UFS_A015335_20200212T104614/IMG_DATA/R10m/T31UFS_20200212T104049_B08_10m.jp2</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="1.-Clip-all-images-&amp;-resample-to-10m-if-needed">1. Clip all images &amp; resample to 10m if needed<a class="anchor-link" href="#1.-Clip-all-images-&amp;-resample-to-10m-if-needed">&#182;</a></h2><p>With a few lines of code and the powerful libraries <code>rasterio</code> and <code>GeoPandas</code>, we will automatically crop/clip the Sentinel-2 images over our study area (ROI) and resample the Scene Classification maps from 20m to 10m.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read ROI as a GeoDataFrame</span>
-<span class="n">roi_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">ROI/extent_roi_32631.shp&#39;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ROI filename is : </span><span class="si">{</span><span class="n">roi_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="n">roi</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">roi_file</span><span class="p">)</span>
-
-
-<span class="c1"># Make a for loop to get all images paths from dataframe and apply operations one after the other</span>
-
-<span class="k">for</span> <span class="n">src_file</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;im_path&#39;</span><span class="p">]:</span>
-    
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">src_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>      <span class="c1"># Get the image name without the extension (.tif)</span>
-    
-    <span class="n">clipped_dst_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clip_path</span><span class="si">}{</span><span class="n">filename</span><span class="si">}</span><span class="s1">_ROI.tif&#39;</span>  <span class="c1"># Set the name of the new clipped image</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">clipped_dst_file</span><span class="p">):</span>     <span class="c1"># If clipped image doesn&#39;t exist, create it</span>
-        
-        <span class="c1"># Open original file with rasterio</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">src_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;JP2OpenJPEG&#39;</span><span class="p">)</span>
-        
-        <span class="c1"># Clip original file with rasterio</span>
-        <span class="n">out_image</span><span class="p">,</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">roi</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">out_meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
-
-        <span class="n">out_meta</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;driver&quot;</span><span class="p">:</span> <span class="s2">&quot;GTiff&quot;</span><span class="p">,</span>
-                         <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                         <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">out_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                         <span class="s2">&quot;transform&quot;</span><span class="p">:</span> <span class="n">out_transform</span><span class="p">})</span>
-        
-        <span class="c1"># Write clipped file</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">clipped_dst_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">out_meta</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_image</span><span class="p">)</span>
-
-        <span class="c1"># Close rasterio objects</span>
-        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new clipped raster file is created : </span><span class="si">{</span><span class="n">clipped_dst_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
-        <span class="c1"># ------------------------------------------------------------------- #</span>
-        <span class="c1"># If the new created file is a SCL map, we also need to resample it ! #</span>
-        <span class="c1"># ------------------------------------------------------------------- #</span>
-
-        <span class="k">if</span> <span class="s1">&#39;SCL_20m&#39;</span> <span class="ow">in</span> <span class="n">clipped_dst_file</span><span class="p">:</span>
-
-            <span class="c1"># Create new name for the resampled SCL</span>
-            <span class="n">resampled_dst_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_dst_file</span><span class="p">[:</span><span class="o">-</span><span class="mi">11</span><span class="p">]</span><span class="si">}</span><span class="s1">10m_ROI.tif&#39;</span>
-
-            <span class="c1"># Open clipped SCL</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">clipped_dst_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span>
-
-            <span class="c1"># Update the metadata</span>
-            <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-            <span class="n">width</span>   <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">upscale_factor</span>
-            <span class="n">height</span>  <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">upscale_factor</span>
-
-            <span class="c1"># Resample data to target shape</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
-                <span class="n">out_shape</span><span class="o">=</span><span class="p">(</span>
-                    <span class="n">src</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
-                    <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">),</span>
-                    <span class="nb">int</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">upscale_factor</span><span class="p">)</span>
-                <span class="p">),</span>
-                <span class="n">resampling</span><span class="o">=</span><span class="n">resampling_method</span>
-            <span class="p">)</span>
-
-            <span class="c1"># Scale image transform</span>
-            <span class="n">transform</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span>
-                <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
-                <span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-            <span class="p">)</span>
-
-            <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
-
-
-            <span class="c1"># Write resampled image</span>
-            <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">resampled_dst_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-            <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-            <span class="c1"># Close rasterio objects</span>
-            <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; A new resampled raster file is created : </span><span class="si">{</span><span class="n">resampled_dst_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>ROI filename is : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/ROI/extent_roi_32631.shp
+<pre>Pandas    : 1.1.5
+GeoPandas : 0.8.1
 </pre>
 </div>
 </div>
@@ -14909,303 +14326,133 @@ built on top of the Python programming language</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="2.-Apply-Scene-Classification-maps-on-all-reflectances-images">2. Apply Scene Classification maps on all reflectances images<a class="anchor-link" href="#2.-Apply-Scene-Classification-maps-on-all-reflectances-images">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get a list with all reflectance bands clipped on the ROI</span>
-<span class="n">list_im_ROI</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clip_path</span><span class="si">}</span><span class="s1">*_B*_ROI.tif&#39;</span><span class="p">)</span>
-
-
-<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im_ROI</span><span class="p">:</span>
-    
-    <span class="c1"># Get date of image</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[</span><span class="mi">7</span><span class="p">:</span><span class="mi">7</span><span class="o">+</span><span class="mi">15</span><span class="p">]</span>
-    
-    <span class="c1"># Find SCL corresponding to the given reflectances image</span>
-    <span class="n">scl_file</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clip_path</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">*SCL_10m_ROI.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-   
-    <span class="c1"># Change \\ to / in path if you areworking on Windows</span>
-    <span class="n">im_file</span>  <span class="o">=</span> <span class="n">im_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-    <span class="n">scl_file</span> <span class="o">=</span> <span class="n">scl_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-    
-    <span class="c1"># Get filename (only basename without path!) and create a new file name</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
-    <span class="n">im_scl_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clip_scl_path</span><span class="si">}{</span><span class="n">filename</span><span class="si">}</span><span class="s1">_SCL.tif&#39;</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_scl_file</span><span class="p">):</span>
-
-        <span class="c1"># Open reflectance image with rasterio and read it as a numpy array</span>
-        <span class="n">im_src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">im_src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1"># Open SCL image with rasterio and read it as a numpy array</span>
-        <span class="n">scl_src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">scl_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;GTiff&#39;</span><span class="p">)</span>
-        <span class="n">scl</span> <span class="o">=</span> <span class="n">scl_src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        
-        <span class="c1"># Update profile informations with the new metadata</span>
-        <span class="n">profile</span> <span class="o">=</span> <span class="n">scl_src</span><span class="o">.</span><span class="n">profile</span>
-
-        <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>  <span class="c1"># Set to int16 it is lighter than float</span>
-                       <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>               <span class="c1"># We will write 1 band by file</span>
-                       <span class="n">nodata</span><span class="o">=</span><span class="n">nodata_val</span><span class="p">,</span>     <span class="c1"># Set nodata value in metadata</span>
-                       <span class="n">compress</span><span class="o">=</span><span class="s1">&#39;lzw&#39;</span><span class="p">)</span>        <span class="c1"># Compression option)</span>
-        
-        <span class="c1"># Use SCL categorical values to mask invalid reflectance pixels</span>
-        <span class="c1"># -------------------------------------------------------------</span>
-        
-        <span class="n">scl</span> <span class="o">=</span> <span class="n">scl</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Convert scl array to float to be able to use &quot;np.nan&quot;</span>
-        
-        <span class="c1"># Set nan to categories corresponding to invalid pixels</span>
-        <span class="c1"># Set 1 to categories corresponding to valid pixels</span>
-        
-        <span class="c1"># Be careful, you may have to change this! (e.g. if you are working on snow anomalies)</span>
-
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># No data</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Saturated or defective</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Dark area pixels</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud shadows</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Vegetation</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Not vegetated</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Water</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>         <span class="c1"># Unclassified</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud medium probability</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>    <span class="c1"># Cloud high probability</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Thin cirrus</span>
-        <span class="n">scl</span><span class="p">[</span><span class="n">scl</span> <span class="o">==</span> <span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   <span class="c1"># Snow</span>
-        
-        <span class="n">im_scl</span> <span class="o">=</span> <span class="n">im</span><span class="o">*</span><span class="n">scl</span>
-        <span class="n">im_scl</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">im_scl</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nodata_val</span>  <span class="c1"># Change np.nan by -10000</span>
-        
-        <span class="c1"># Convert image type from float to integer16 to reduce storage</span>
-        <span class="n">im_scl</span> <span class="o">=</span> <span class="n">im_scl</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-
-        <span class="c1"># Write reflectance with no data values</span>
-        <span class="n">im_scl_dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_scl_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-        <span class="n">im_scl_dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">im_scl</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1"># Close all rasterio objects</span>
-        <span class="n">im_src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">scl_src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">im_scl_dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster with SCL is created : </span><span class="si">{</span><span class="n">im_scl_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All your reflectances images with SCL are ready ! &quot;</span><span class="p">)</span>
-    
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>All your reflectances images with SCL are ready ! 
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="3.-Compute-NDVI-in-your-ROI-at-each-date">3. Compute NDVI in your ROI at each date<a class="anchor-link" href="#3.-Compute-NDVI-in-your-ROI-at-each-date">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get a list with all reflectance bands clipped on the ROI</span>
-<span class="n">list_im_red_ROI_SCL</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clip_scl_path</span><span class="si">}</span><span class="s1">*_B04_10m_ROI_SCL.tif&#39;</span><span class="p">)</span>
-
-<span class="c1"># Suppress error message if we divide by NaN</span>
-<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-
-
-<span class="k">for</span> <span class="n">im_file_red</span> <span class="ow">in</span> <span class="n">list_im_red_ROI_SCL</span><span class="p">:</span>
-    
-    <span class="n">im_file_nir</span> <span class="o">=</span> <span class="n">im_file_red</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B08&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Set the name of the new NDVI image based on the name of the RED image </span>
-    <span class="n">im_file_ndvi</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ndvi_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_red</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;B04&quot;</span><span class="p">,</span><span class="s2">&quot;NDVI&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">im_file_ndvi</span><span class="p">):</span>
-
-        <span class="c1"># Open RED band</span>
-        <span class="n">red_src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_red</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-        <span class="n">red</span> <span class="o">=</span> <span class="n">red_src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1"># Open NIR band</span>
-        <span class="n">nir_src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_nir</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-        <span class="n">nir</span> <span class="o">=</span> <span class="n">nir_src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1">#  Get a copy of the source dataset&#39;s profile</span>
-        <span class="n">profile</span> <span class="o">=</span> <span class="n">red_src</span><span class="o">.</span><span class="n">profile</span>
-
-        <span class="c1"># Convert -10000 to np.nan before computing NDVI</span>
-        <span class="n">red</span> <span class="o">=</span> <span class="n">red</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">red</span><span class="p">[</span><span class="n">red</span> <span class="o">==</span> <span class="n">nodata_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-        <span class="n">nir</span> <span class="o">=</span> <span class="n">nir</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">nir</span><span class="p">[</span><span class="n">nir</span> <span class="o">==</span> <span class="n">nodata_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-        
-        <span class="c1"># Compute NDVI</span>
-        <span class="n">NDVI</span> <span class="o">=</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">red</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
-        
-        <span class="c1"># Convert np.nan to -10000 to be able to store the data in integer16 (int16)</span>
-        <span class="n">NDVI</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">NDVI</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nodata_val</span>
-        <span class="n">NDVI</span> <span class="o">=</span> <span class="n">NDVI</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-
-        <span class="c1"># Write NDVI image</span>
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_ndvi</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">NDVI</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        
-        <span class="c1"># Close all rasterio objects</span>
-        <span class="n">nir_src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">red_src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new raster file is created : </span><span class="si">{</span><span class="n">im_file_ndvi</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All your NDVI images are ready ! &quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>All your NDVI images are ready ! 
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="4.-Compute-mean-NDVI-for-each-polygon">4. Compute mean NDVI for each polygon<a class="anchor-link" href="#4.-Compute-mean-NDVI-for-each-polygon">&#182;</a></h2><p>Geospatial data typically comes in one of two data models: <em>rasters</em> which are similar to images with a regular grid of pixels whose values represent some spatial phenomenon (e.g. elevation) and <em>vectors</em> which are entities with discrete geometries (e.g. state boundaries). <strong>This software, <code>rasterstats</code>, exists solely to extract information from geospatial raster data based on vector geometries.</strong></p>
-<p>Primarily, this involves zonal statistics: a method of summarizing and aggregating the raster values intersecting a vector geometry. For example, zonal statistics provides answers such as the mean precipitation or maximum elevation of an administrative unit.</p>
-<h3 id="Statistics">Statistics<a class="anchor-link" href="#Statistics">&#182;</a></h3><p>By default, the <code>zonal_stats</code> function will return the following statistics</p>
-<ul>
-<li>min</li>
-<li>max</li>
-<li>mean</li>
-<li>count</li>
-</ul>
-<p>Optionally, these statistics are also available.</p>
-<ul>
-<li>sum</li>
-<li>std</li>
-<li>median</li>
-<li>majority</li>
-<li>minority</li>
-<li>unique</li>
-<li>range</li>
-<li>nodata</li>
-<li>percentile (see note below for details)</li>
-</ul>
-<p><a href="https://pythonhosted.org/rasterstats/manual.html">https://pythonhosted.org/rasterstats/manual.html</a></p>
-
+<h2 id="Set-directory-and-parameters">Set directory and parameters<a class="anchor-link" href="#Set-directory-and-parameters">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Choose the statistic you want to calculate : min, max, mean, count, ...</span>
-<span class="n">stat</span> <span class="o">=</span> <span class="s1">&#39;mean&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Directory for all work files</span>
 
-<span class="c1"># File where in-situ polygons are located</span>
-<span class="n">in_situ_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IN_SITU/WALLONIA_2018_IN_SITU_ROI.shp&#39;</span>
+<span class="c1">#grp_letter = &#39;Z&#39;</span>
+<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/WORK/&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/Documents/LBRAT2104/WORK/&#39;</span>
 
-<span class="c1"># New file with NDVI statistics for each polygons</span>
-<span class="n">in_situ_ndvi_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_file</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">_with_NDVI_</span><span class="si">{</span><span class="n">stat</span><span class="si">}</span><span class="s1">.shp&#39;</span>
+<span class="n">roi_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">ROI/&#39;</span>
 
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">in_situ_ndvi_file</span><span class="p">):</span>
-
-    <span class="c1"># Get list of all NDVI files corresponding to tile 31UFS and sort it</span>
-    <span class="n">NDVI_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ndvi_path</span><span class="si">}</span><span class="s1">*31UFS*_NDVI_*.tif&#39;</span><span class="p">))</span>
-
-    <span class="c1"># Initiate an empty list to store all &quot;zonal stat DataFrames&quot; that will be created during the loop</span>
-    <span class="n">zs_dfs</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">NDVI_file</span> <span class="ow">in</span> <span class="n">NDVI_list</span><span class="p">:</span>
-        
-        <span class="c1"># Get date of the NDVI file</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">NDVI_file</span><span class="p">)[</span><span class="mi">9</span><span class="p">:</span><span class="mi">9</span><span class="o">+</span><span class="mi">6</span><span class="p">]</span>
-
-        <span class="c1"># Compute the zonal stat and store output in a DataFrame</span>
-        <span class="n">zs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">zonal_stats</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">in_situ_file</span><span class="p">,</span>
-                                         <span class="n">raster</span><span class="o">=</span><span class="n">NDVI_file</span><span class="p">,</span>
-                                         <span class="n">stats</span><span class="o">=</span><span class="n">stat</span><span class="p">))</span>
-
-        <span class="c1"># Replace NaN by -10000 and convert to integer</span>
-        <span class="n">zs_df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">zs_df</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nodata_val</span>
-        <span class="n">zs_df</span> <span class="o">=</span> <span class="n">zs_df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-        <span class="c1"># Rename column with the date</span>
-        <span class="n">zs_df</span> <span class="o">=</span> <span class="n">zs_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">stat</span><span class="p">:</span> <span class="n">date</span><span class="p">})</span>
-
-        <span class="c1"># Add the zonal stat dataframe in the list to save it</span>
-        <span class="n">zs_dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zs_df</span><span class="p">)</span>
+<span class="n">Path</span><span class="p">(</span><span class="n">roi_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-    <span class="c1"># Once the loop is done, concatenate all the dataframe in one big dataframe</span>
-    <span class="n">zs_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">zs_dfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># EPSG of your ROI</span>
 
-    <span class="c1"># Read in-situ shapefile as a GeoDataFrame</span>
-    <span class="n">in_situ_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_situ_file</span><span class="p">)</span>
+<span class="n">crs_dst</span> <span class="o">=</span> <span class="s1">&#39;EPSG:32631&#39;</span>    <span class="c1"># WGS 84 / UTM zone 31N</span>
 
-    <span class="c1"># Join NDVI mean with polygons informations</span>
-    <span class="n">in_situ_with_ndvi_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">in_situ_gdf</span><span class="p">,</span> <span class="n">zs_final</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="n">roi_name</span>      <span class="o">=</span> <span class="s1">&#39;extent_roi&#39;</span>
+<span class="n">roi_extension</span> <span class="o">=</span> <span class="s1">&#39;.shp&#39;</span>
 
-    <span class="c1"># Write into a new shapefile</span>
-    <span class="n">in_situ_with_ndvi_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_ndvi_file</span><span class="p">)</span>
+<span class="n">roi_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">roi_path</span><span class="si">}{</span><span class="n">roi_name</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">crs_dst</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span><span class="si">}{</span><span class="n">roi_extension</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-coordinates-of-your-ROI---be-carefull-of-the-crs_src-you-chose!">Set coordinates of your ROI - be carefull of the crs_src you chose!<a class="anchor-link" href="#Set-coordinates-of-your-ROI---be-carefull-of-the-crs_src-you-chose!">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># EPSG of your coordinates</span>
+<span class="n">crs_src</span> <span class="o">=</span> <span class="s1">&#39;EPSG:32631&#39;</span>
+
+<span class="n">ulx</span> <span class="o">=</span> <span class="mf">627263.7</span>
+<span class="n">uly</span> <span class="o">=</span> <span class="mf">5596175.1</span>
+<span class="n">lrx</span> <span class="o">=</span> <span class="mi">637115</span>
+<span class="n">lry</span> <span class="o">=</span> <span class="mf">5590485.2</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Build-shapefile">Build shapefile<a class="anchor-link" href="#Build-shapefile">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a list with the longitude coordinates (x)</span>
+<span class="n">lon_point_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ulx</span><span class="p">,</span> <span class="n">lrx</span><span class="p">,</span> <span class="n">lrx</span><span class="p">,</span> <span class="n">ulx</span><span class="p">,</span> <span class="n">ulx</span><span class="p">]</span>
+
+
+<span class="c1"># Create a list with the latitude coordinates (y)</span>
+<span class="n">lat_point_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">uly</span><span class="p">,</span> <span class="n">uly</span><span class="p">,</span> <span class="n">lry</span><span class="p">,</span> <span class="n">lry</span><span class="p">,</span> <span class="n">uly</span><span class="p">]</span>
+
+
+<span class="c1"># Create a polygon object from the two list (lon and lat)</span>
+<span class="n">polygon_geom</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lon_point_list</span><span class="p">,</span> <span class="n">lat_point_list</span><span class="p">))</span>
+
+
+<span class="c1"># Create a GeoDataFrame with the polygon object</span>
+<span class="n">polygon_src</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">crs_src</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">polygon_geom</span><span class="p">])</span>       
+
+
+<span class="c1"># Reproject the GeoDataFrame to the destination CRS (needed only if you set your coordinates in WGS 84)</span>
+<span class="n">polygon_dst</span> <span class="o">=</span> <span class="n">polygon_src</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs_dst</span><span class="p">)</span>
+
+<span class="c1"># Check CRS of your polygon</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ROI CRS : </span><span class="si">{</span><span class="n">polygon_dst</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Write the GeoDataFrame in a shapefile if not exists</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">roi_file</span><span class="p">):</span>
+    <span class="n">polygon_dst</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">roi_file</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;ESRI Shapefile&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new vector file is created : </span><span class="si">{</span><span class="n">roi_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The ROI vector file already exists --&gt; delete it or change the variable &quot;roi_name&quot; if you want to create a new one&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>ROI CRS : EPSG:32631 
+
+A new vector file is created : /Users/Nicolas/Documents/LBRAT2104/WORK/ROI/extent_roi_32631.shp
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
