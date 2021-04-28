@@ -11,13 +11,13 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 ## Jupyter Notebooks
 
-### Vector data
+#### Vector data
 
 [GeoPandas basics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/geopandas_basics.html)
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
 
-### Pre-processing Sentinel-2 data
+#### Pre-processing Sentinel-2 data
 
 [Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
 
@@ -26,15 +26,22 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 [Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
 
 
-### Classification
+#### Classification
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
 
 [Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/random_forest_classification.html)
 
-### Timeserie analysis
+#### Timeserie analysis
 
 [Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
+
+#### Tools
+
+[Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/multiband_raster.html)
+
+[Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/zonal_stats.html)
+
 
 
 
