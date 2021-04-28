@@ -14354,8 +14354,8 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Directory for all work files</span>
 
 <span class="n">grp_letter</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/WORK/&#39;</span>
-<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;X:/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
+<span class="c1">#work_path = f&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_{grp_letter}/WORK/&#39;</span>
 
 <span class="c1"># ----- #</span>
 <span class="c1"># INPUT #</span>
@@ -14487,9 +14487,6 @@ Check if the number of images found for each band is the same !!
     
     <span class="n">index_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">22</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_file_2</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">index_file</span><span class="p">):</span>
         
         <span class="c1"># Open first band and update metadata</span>
@@ -14563,42 +14560,18 @@ Check if the number of images found for each band is the same !!
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200116T105309_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200116T105309_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200116T105309_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200212T104049_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200212T104049_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200212T104049_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200316T104709_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200316T104709_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200316T104709_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200417T104021_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200520T105031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200621T103629_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200621T103629_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200621T103629_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200719T105031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200719T105031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200719T105031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200813T104629_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200813T104629_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200813T104629_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200914T104031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200914T104031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200914T104031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201019T103959_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201019T103959_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201019T103959_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201118T104329_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201118T104329_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201118T104329_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201218T104349_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201218T104349_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201218T104349_NDWI.tif
+<pre>--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200116T105309_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200212T104049_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200316T104709_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200417T104021_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200520T105031_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200621T103629_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200719T105031_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200813T104629_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200914T104031_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201019T103959_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201118T104329_NDWI.tif - already exists
+--&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201218T104349_NDWI.tif - already exists
 </pre>
 </div>
 </div>
@@ -14618,7 +14591,7 @@ A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31U
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TELL ME IF YOU NEED THIS SCRIPT FOR YOUR POSTER</span>
