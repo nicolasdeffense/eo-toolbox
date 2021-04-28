@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>spectral_indices</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>extract_stats_timeserie</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14259,7 +14259,7 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Compute-Spectral-indices">Compute Spectral indices<a class="anchor-link" href="#Compute-Spectral-indices">&#182;</a></h1>
+<h1 id="Extraction-of-statistics-from-timeserie">Extraction of statistics from timeserie<a class="anchor-link" href="#Extraction-of-statistics-from-timeserie">&#182;</a></h1>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14284,12 +14284,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Choose-which-spectral-index-you-want-to-compute">Choose which spectral index you want to compute<a class="anchor-link" href="#Choose-which-spectral-index-you-want-to-compute">&#182;</a></h2><h3 id="NDVI---Normalized-Difference-Vegetation-Index">NDVI - Normalized Difference Vegetation Index<a class="anchor-link" href="#NDVI---Normalized-Difference-Vegetation-Index">&#182;</a></h3><p>NDVI is used to outline the presence of vegetation. It is used to indicate relative density, or the amount, of the green vegetation present in the image. This index uses reflectance from a red band around 0.66 μm and a near-Infrared band around 0.86 μm. The red band is found in the absorption region of the chlorophyll, while the near-IR band is used in high reflectance plateau of the vegetation canopies. These two bands sense different depths over the vegetation canopies.</p>
-$$ NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}$$<h3 id="NDWI---Normalized-Difference-Water-Index">NDWI - Normalized Difference Water Index<a class="anchor-link" href="#NDWI---Normalized-Difference-Water-Index">&#182;</a></h3><p>NDWI is used to differentiate water from the dry land or rather most suitable for water body mapping. Water bodies have a low radiation and strong absorbability in the visible infrared wavelengths range. NDWI uses near Infra-red and green bands of remote sensing images based on the occurrence. It can boost the water information efficiently in most of the cases. It’s subtle in land built-up and often ends up in overestimated water bodies.</p>
-$$ NDWI = \frac{NIR - SWIR}{NIR + SWIR} = \frac{B08 - B11}{B08 + B11}$$<h3 id="NDSI---Normalized-Difference-Snow-Index">NDSI - Normalized Difference Snow Index<a class="anchor-link" href="#NDSI---Normalized-Difference-Snow-Index">&#182;</a></h3><p>NDSI is used to delineate the presence of snow/ice. It is a standardized ratio of the difference in the reflectance in the bands that take advantage of unique signature and the spectral difference to indicate snow from the surrounding features and even clouds.</p>
-$$ NDSI = \frac{GREEN - SWIR}{GREEN + SWIR} = \frac{B03 - B11}{B03 + B11}$$<h3 id="BRIGHTNESS">BRIGHTNESS<a class="anchor-link" href="#BRIGHTNESS">&#182;</a></h3><p>Brightness provide complementary information improving the discrimination between crop and no-crop areas.</p>
-$$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2}+B08^{2}+B11^{2}}$$<p>Source : <a href="https://eos.com/make-an-analysis/index-stack/">https://eos.com/make-an-analysis/index-stack/</a></p>
-
+<h2 id="Set-paths-for-input-and-output-directories">Set paths for input and output directories<a class="anchor-link" href="#Set-paths-for-input-and-output-directories">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14297,21 +14292,31 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index_name</span>   <span class="o">=</span> <span class="s1">&#39;NDWI&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_letter</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/TP/llesne/DATA/&#39;</span>
+<span class="c1">#work_path = f&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_{grp_letter}/TP/llesne/DATA/&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
 
-<span class="k">if</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="c1"># Directory where the images of the timeserie are stored</span>
+<span class="n">im_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI/&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDSI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="c1"># Directory to store the statistics</span>
+<span class="n">stat_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI_stat/&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;BRIGHTNESS&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="n">Path</span><span class="p">(</span><span class="n">stat_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You chose to compute </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1"> !&#39;</span><span class="p">)</span>
+
+<span class="c1"># Output files</span>
+
+<span class="n">ts_name</span> <span class="o">=</span> <span class="s1">&#39;NDVI&#39;</span>
+
+<span class="n">out_max</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stat_path</span><span class="si">}{</span><span class="n">ts_name</span><span class="si">}</span><span class="s1">_mean_3_max.tif&#39;</span>
+<span class="n">out_min</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">stat_path</span><span class="si">}{</span><span class="n">ts_name</span><span class="si">}</span><span class="s1">_mean_3_min.tif&#39;</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Input directory  : </span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output directory : </span><span class="si">{</span><span class="n">stat_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14331,7 +14336,8 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>You chose to compute NDWI !
+<pre>Input directory  : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/
+Output directory : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI_stat/
 </pre>
 </div>
 </div>
@@ -14343,7 +14349,7 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Set-paths-for-input-and-output-directories">Set paths for input and output directories<a class="anchor-link" href="#Set-paths-for-input-and-output-directories">&#182;</a></h2>
+<h2 id="Check-list-of-images">Check list of images<a class="anchor-link" href="#Check-list-of-images">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14351,28 +14357,10 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Directory for all work files</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_im</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))</span>
 
-<span class="n">grp_letter</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/WORK/&#39;</span>
-<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
-
-<span class="c1"># ----- #</span>
-<span class="c1"># INPUT #</span>
-<span class="c1"># ----- #</span>
- 
-<span class="n">im_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span>
-
-<span class="c1"># ------ #</span>
-<span class="c1"># OUTPUT #</span>
-<span class="c1"># ------ #</span>
-
-<span class="n">index_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">/&#39;</span>
-
-<span class="n">Path</span><span class="p">(</span><span class="n">index_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;General work path is set to   : </span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Spectral index path is set to : </span><span class="si">{</span><span class="n">index_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">im_file</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14392,8 +14380,18 @@ $$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>General work path is set to   : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/
-Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/
+<pre>/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200116T105309_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200212T104049_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200316T104709_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200417T104021_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200520T105031_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200621T103629_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200719T105031_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200813T104629_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20200914T104031_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20201019T103959_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20201118T104329_NDVI.tif
+/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDVI/T31UFS_20201218T104349_NDVI.tif
 </pre>
 </div>
 </div>
@@ -14405,7 +14403,7 @@ Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-if-you-have-the-necessary-spectral-bands">Check if you have the necessary spectral bands<a class="anchor-link" href="#Check-if-you-have-the-necessary-spectral-bands">&#182;</a></h2>
+<h2 id="Get-metadata-from-one-image-of-the-list">Get metadata from one image of the list<a class="anchor-link" href="#Get-metadata-from-one-image-of-the-list">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14413,12 +14411,18 @@ Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">band_nb</span> <span class="ow">in</span> <span class="n">bands_needed</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;We need band </span><span class="si">{</span><span class="n">band_nb</span><span class="si">}</span><span class="s1"> to compute </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">list_im</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*_B*</span><span class="si">{</span><span class="n">band_nb</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">list_im</span><span class="p">)</span><span class="si">}</span><span class="s1"> images are found </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">list_im</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Check if the number of images found for each band is the same !!&#39;</span><span class="p">)</span>
+<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+<span class="n">dtype</span>  <span class="o">=</span> <span class="n">profile</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span>
+<span class="n">width</span>  <span class="o">=</span> <span class="n">profile</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">profile</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Type   : </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Width  : </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Height : </span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14438,13 +14442,9 @@ Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>We need band 8 to compute NDWI
---&gt; 12 images are found 
-
-We need band 11 to compute NDWI
---&gt; 12 images are found 
-
-Check if the number of images found for each band is the same !!
+<pre>Type   : float64
+Width  : 986
+Height : 570
 </pre>
 </div>
 </div>
@@ -14456,12 +14456,7 @@ Check if the number of images found for each band is the same !!
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compute-Spectral-Indices-using-2-spectral-bands">Compute Spectral Indices using 2 spectral bands<a class="anchor-link" href="#Compute-Spectral-Indices-using-2-spectral-bands">&#182;</a></h2><ul>
-<li>NDVI</li>
-<li>NDWI</li>
-<li>NDSI</li>
-</ul>
-
+<h2 id="Stack-all-raster-into-a-single-3-D-array">Stack all raster into a single 3-D array<a class="anchor-link" href="#Stack-all-raster-into-a-single-3-D-array">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14469,81 +14464,19 @@ Check if the number of images found for each band is the same !!
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_band</span>  <span class="o">=</span> <span class="n">bands_needed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">second_band</span> <span class="o">=</span> <span class="n">bands_needed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_src_arr</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">nodata_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
 
-<span class="n">list_im</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*_B*</span><span class="si">{</span><span class="n">first_band</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">im_file_1</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
-
-    <span class="c1"># Get date of image</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">)[</span><span class="mi">7</span><span class="p">:</span><span class="mi">7</span><span class="o">+</span><span class="mi">15</span><span class="p">]</span>
-    
-    <span class="c1"># Find second band needed</span>
-    <span class="n">im_file_2</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">*_B*</span><span class="si">{</span><span class="n">second_band</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">im_file_2</span> <span class="o">=</span> <span class="n">im_file_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-    
-    <span class="n">index_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">22</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">im_file_2</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">index_file</span><span class="p">):</span>
-        
-        <span class="c1"># Open first band and update metadata</span>
-
-        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_1</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-
-        <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-        <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-
-        <span class="n">band_1</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="c1"># Open second band</span>
-
-        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file_2</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-        <span class="n">band_2</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="c1"># Convert no-data value into Numpy NaN</span>
-
-        <span class="n">band_1</span> <span class="o">=</span> <span class="n">band_1</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-        <span class="n">band_1</span><span class="p">[</span><span class="n">band_1</span> <span class="o">==</span> <span class="n">nodata_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-        <span class="n">band_2</span> <span class="o">=</span> <span class="n">band_2</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-        <span class="n">band_2</span><span class="p">[</span><span class="n">band_2</span> <span class="o">==</span> <span class="n">nodata_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-        <span class="c1"># Compute Spectral Index</span>
-
-        <span class="k">if</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">:</span>
-            <span class="c1"># band_1 = RED / B04</span>
-            <span class="c1"># band_2 = NIR / B08</span>
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">band_2</span> <span class="o">-</span> <span class="n">band_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">band_2</span> <span class="o">+</span> <span class="n">band_1</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">:</span>
-            <span class="c1"># band_1 = RED / B08</span>
-            <span class="c1"># band_2 = NIR / B11</span>
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">band_1</span> <span class="o">-</span> <span class="n">band_2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">band_1</span> <span class="o">+</span> <span class="n">band_2</span><span class="p">)</span>
-        
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDSI&#39;</span><span class="p">:</span>
-            <span class="c1"># band_1 = RED / B03</span>
-            <span class="c1"># band_2 = NIR / B11</span>
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">band_1</span> <span class="o">-</span> <span class="n">band_2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">band_1</span> <span class="o">+</span> <span class="n">band_2</span><span class="p">)</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
-        <span class="c1"># Write Spectral Index image into GeoTIFF</span>
+<span class="n">ts_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index_arr</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1"> file is created : </span><span class="si">{</span><span class="n">index_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">index_file</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14563,42 +14496,7 @@ Check if the number of images found for each band is the same !!
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200116T105309_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200116T105309_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200116T105309_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200212T104049_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200212T104049_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200212T104049_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200316T104709_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200316T104709_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200316T104709_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200417T104021_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200520T105031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200520T105031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200621T103629_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200621T103629_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200621T103629_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200719T105031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200719T105031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200719T105031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200813T104629_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200813T104629_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200813T104629_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200914T104031_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200914T104031_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20200914T104031_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201019T103959_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201019T103959_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201019T103959_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201118T104329_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201118T104329_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201118T104329_NDWI.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201218T104349_B08_10m_ROI_SCL.tif
-/Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201218T104349_B11_10m_ROI_SCL.tif
-A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31UFS_20201218T104349_NDWI.tif
+<pre>(12, 570, 986)
 </pre>
 </div>
 </div>
@@ -14610,10 +14508,7 @@ A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31U
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compute-Spectral-Indices-using-4-spectral-bands">Compute Spectral Indices using 4 spectral bands<a class="anchor-link" href="#Compute-Spectral-Indices-using-4-spectral-bands">&#182;</a></h2><ul>
-<li>BRIGHTNESS</li>
-</ul>
-
+<h2 id="Compute-statistics-on-3-D-array">Compute statistics on 3-D array<a class="anchor-link" href="#Compute-statistics-on-3-D-array">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14621,7 +14516,72 @@ A new NDWI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/NDWI/T31U
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TELL ME IF YOU NEED THIS SCRIPT FOR YOUR POSTER</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create empty array with NaN</span>
+
+<span class="n">result_arr_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">result_arr_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="c1"># Remove values out of the range</span>
+
+<span class="n">max_val</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">min_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">ts_arr</span><span class="p">[(</span><span class="n">ts_arr</span> <span class="o">&gt;=</span> <span class="n">max_val</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">ts_arr</span> <span class="o">&lt;=</span> <span class="n">min_val</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+
+<span class="c1"># Compute the mean of the 3 max/min for every pixels</span>
+<span class="c1"># --------------------------------------------------</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">height</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width</span><span class="p">):</span>
+        
+        <span class="c1"># Get vector of timeserie values for a given pixel</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">ts_arr</span><span class="p">[:,</span> <span class="n">line</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
+
+        <span class="c1"># Sort vector</span>
+        <span class="n">sorted_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+
+        <span class="c1"># Remove NaN from the sorted vector</span>
+        <span class="n">sorted_vec</span> <span class="o">=</span> <span class="n">sorted_vec</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">sorted_vec</span><span class="p">)]</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_vec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            
+            <span class="c1"># Compute mean of the 3 largest values</span>
+            <span class="n">result_arr_max</span><span class="p">[</span><span class="n">line</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            
+            <span class="c1"># Compute mean of the 3 smallest values</span>
+            <span class="n">result_arr_min</span><span class="p">[</span><span class="n">line</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_vec</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># There are not enough values to calculate an average !</span>
+            <span class="n">result_arr_max</span><span class="p">[</span><span class="n">line</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">result_arr_min</span><span class="p">[</span><span class="n">line</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Write-statistics-in-new-GeoTIFF-file">Write statistics in new GeoTIFF file<a class="anchor-link" href="#Write-statistics-in-new-GeoTIFF-file">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">out_max</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result_arr_max</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">out_min</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result_arr_min</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
      </div>

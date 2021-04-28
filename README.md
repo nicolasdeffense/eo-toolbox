@@ -11,25 +11,31 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 ## Jupyter Notebooks
 
+### Vector data
+
 [GeoPandas basics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/geopandas_basics.html)
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
 
-[Sentinel-2 Preprocessing](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
+### Pre-processing Sentinel-2 data
+
+[Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
 
 [Compute Spectral Indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/spectral_indices.html)
 
 [Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
 
-[Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
+
+### Classification
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
 
 [Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/random_forest_classification.html)
 
+### Timeserie analysis
 
+[Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
 
-This repository was created in the framework of the course *LBRAT2104 - Land Monitoring by Advanced Earth Observation* by Nicolas Deffense. 
 
 
 ## Installation notes
@@ -55,3 +61,6 @@ To make sure everything was installed correctly, open a terminal, and change its
 ```sh
 python3 check_environment.py
 ```
+
+
+*This repository was created in the framework of the course **LBRAT2104 - Land Monitoring by Advanced Earth Observation** by Nicolas Deffense.*
