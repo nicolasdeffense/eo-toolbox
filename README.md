@@ -17,6 +17,10 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 [Sentinel-2 Preprocessing](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
 
+[Compute Spectral Indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/spectral_indices.html)
+
+[Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
+
 [Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
