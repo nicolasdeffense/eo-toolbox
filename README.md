@@ -13,9 +13,10 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 #### Vector data
 
-[GeoPandas basics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/geopandas_basics.html)
-
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
+
+[In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ.html)
+
 
 #### Pre-processing Sentinel-2 data
 
@@ -44,7 +45,6 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 
 
-
 ## Installation notes
 
 - Python 3.6
@@ -60,6 +60,15 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 If you do not yet have these packages installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
+#### GeoPandas
+
+`GeoPandas` is an open source project to make working with geospatial data in python easier. `GeoPandas` extends the datatypes used by `Pandas` to allow spatial operations on geometric types.
+
+More infos on : https://geopandas.org/
+
+#### Rasterio
+
+`Rasterio`
 
 ### Test the environment
 
