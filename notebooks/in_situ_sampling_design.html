@@ -14259,7 +14259,7 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="In-Situ-Sampling-Design">In-Situ Sampling Design<a class="anchor-link" href="#In-Situ-Sampling-Design">&#182;</a></h1>
+<h1 id="In-situ-prepration-for-Classification">In-situ prepration for Classification<a class="anchor-link" href="#In-situ-prepration-for-Classification">&#182;</a></h1>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14320,28 +14320,34 @@ GeoPandas : 0.8.1
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_letter</span>   <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="n">student_name</span> <span class="o">=</span> <span class="s1">&#39;ndeffense&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#computer_path = &#39;X:/&#39;</span>
+<span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/&#39;</span>
+<span class="n">grp_letter</span>    <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
 
-<span class="c1"># When you are connected to the computer room</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">vector_path = &#39;X:/data/VECTOR/&#39;</span>
-<span class="sd">raster_path = &#39;X:/data/RASTER/&#39;</span>
-<span class="sd">output_path = f&#39;X:/GROUP_{grp_letter}/TP/{student_name}/DATA/&#39;</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># Directory for all work files</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
 
-<span class="c1"># When you are connected to your personnal computer</span>
-<span class="n">vector_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/&#39;</span>
-<span class="n">raster_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/&#39;</span>
-<span class="n">output_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/&#39;</span>
+<span class="c1"># ----- #</span>
+<span class="c1"># INPUT #</span>
+<span class="c1"># ----- #</span>
+
+<span class="n">clipped_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">2_L2A_CLIPPED/&#39;</span>
+<span class="n">in_situ_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">IN_SITU/&#39;</span>
+
+<span class="c1"># ------ #</span>
+<span class="c1"># OUTPUT #</span>
+<span class="c1"># ------ #</span>
+
+<span class="n">in_situ_SD_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">IN_SITU_SD/&#39;</span>
+
+<span class="n">Path</span><span class="p">(</span><span class="n">in_situ_SD_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vector input path are set to : </span><span class="si">{</span><span class="n">vector_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster input path are set to : </span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output path are set to       : </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;In-Situ data path is set to : </span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;In-Situ data for classification path is set to : </span><span class="si">{</span><span class="n">in_situ_SD_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14361,9 +14367,8 @@ GeoPandas : 0.8.1
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Vector input path are set to : /Users/Nicolas/OneDrive - UCL/LBRAT2104/VECTOR/
-Raster input path are set to : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
-Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
+<pre>In-Situ data path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU/
+In-Situ data for classification path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/
 </pre>
 </div>
 </div>
@@ -14378,20 +14383,36 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 <h2 id="1.-Prepare-in-situ-dataset">1. Prepare in-situ dataset<a class="anchor-link" href="#1.-Prepare-in-situ-dataset">&#182;</a></h2><p><img src="figures/prepare_in_situ.png" width="10000"></p>
 <h3 id="Set-up-filenames-and-parameters">Set up filenames and parameters<a class="anchor-link" href="#Set-up-filenames-and-parameters">&#182;</a></h3>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># In-Situ datasets</span>
-<span class="n">in_situ_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">vector_path</span><span class="si">}</span><span class="s1">WALLONIA_2018_IN_SITU_ROI.shp&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># In-Situ original dataset</span>
+<span class="c1"># ------------------------</span>
+
+<span class="n">in_situ_name</span> <span class="o">=</span> <span class="s1">&#39;WALLONIA_2018_IN_SITU_ROI&#39;</span>
+
+<span class="n">in_situ_shp</span>       <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">in_situ_name</span><span class="si">}</span><span class="s1">.shp&#39;</span>
+<span class="n">in_situ_count_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_SD_path</span><span class="si">}{</span><span class="n">in_situ_name</span><span class="si">}</span><span class="s1">_pixCount.shp&#39;</span>
+
 
 <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_situ_shp</span><span class="p">)</span>
 
-<span class="c1"># Raster template with no NaN (before applying SCL)</span>
-<span class="n">img_temp_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">raster_path</span><span class="si">}</span><span class="s1">IM_ROI/T31UFR_20200316T104709_B02_10m_ROI.tif&#39;</span>
+<span class="n">epsg_code</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="n">epsg_code</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+
+<span class="c1"># Raster template with no NaN (before applying SCL)</span>
+<span class="c1"># -------------------------------------------------</span>
+
+<span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">clipped_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster template file : </span><span class="si">{</span><span class="n">img_temp_tif</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># Parameters</span>
 <span class="c1"># ----------</span>
@@ -14404,15 +14425,136 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>epsg:32631
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ID</th>
+      <th>CROP</th>
+      <th>LC</th>
+      <th>CODE</th>
+      <th>IRRIGATION</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1877</td>
+      <td>1</td>
+      <td>Maize (for livestock)</td>
+      <td>201</td>
+      <td>0</td>
+      <td>POLYGON ((634719.076 5591248.019, 634788.109 5...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1878</td>
+      <td>1</td>
+      <td>Common wheat (winter)</td>
+      <td>311</td>
+      <td>0</td>
+      <td>POLYGON ((634996.603 5591774.690, 635051.974 5...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1879</td>
+      <td>1</td>
+      <td>Maize (for livestock)</td>
+      <td>201</td>
+      <td>0</td>
+      <td>POLYGON ((635196.857 5591331.590, 635199.724 5...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1880</td>
+      <td>1</td>
+      <td>Grassland (temporary)</td>
+      <td>62</td>
+      <td>0</td>
+      <td>POLYGON ((635003.339 5591080.041, 635021.807 5...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3251</td>
+      <td>1</td>
+      <td>Barley (winter)</td>
+      <td>321</td>
+      <td>0</td>
+      <td>POLYGON ((634708.850 5590509.262, 634710.400 5...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Raster template file : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/2_L2A_CLIPPED/T31UFS_20200116T105309_B02_10m_ROI.tif
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="1.1-Apply-a-negative-buffer-in-cropland-polygons-to-avoid-border-effects">1.1 Apply a negative buffer in cropland polygons to avoid border effects<a class="anchor-link" href="#1.1-Apply-a-negative-buffer-in-cropland-polygons-to-avoid-border-effects">&#182;</a></h3>
+<h3 id="1.1-Apply-a-negative-buffer">1.1 Apply a negative buffer<a class="anchor-link" href="#1.1-Apply-a-negative-buffer">&#182;</a></h3><p>This step is useful to avoid border effects</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">buf_size</span><span class="p">)</span>
@@ -14526,12 +14668,13 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="1.1.1-Explode-MultiPolygon-geometry-into-individual-Polygon-geometries-using-GeoPandas-and-Shapely">1.1.1 Explode MultiPolygon geometry into individual Polygon geometries using <code>GeoPandas</code> and <code>Shapely</code><a class="anchor-link" href="#1.1.1-Explode-MultiPolygon-geometry-into-individual-Polygon-geometries-using-GeoPandas-and-Shapely">&#182;</a></h3>
+<h3 id="1.1.1-Explode-MultiPolygon-geometry-into-individual-Polygon-geometries-using-GeoPandas-and-Shapely">1.1.1 Explode <em>MultiPolygon</em> geometry into individual <em>Polygon</em> geometries using <code>GeoPandas</code> and <code>Shapely</code><a class="anchor-link" href="#1.1.1-Explode-MultiPolygon-geometry-into-individual-Polygon-geometries-using-GeoPandas-and-Shapely">&#182;</a></h3><p><em>MultiPolygons</em> geometries can cause problems later on (e.g. for rasterisation) !</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a function to explode MultiPolygons from a GeoDataFrame</span>
@@ -14665,7 +14808,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -14788,7 +14931,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">zs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">zonal_stats</span><span class="p">(</span><span class="n">vectors</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span>
@@ -14982,13 +15125,15 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="1.4-Write-dataset-in-shapefiles">1.4 Write dataset in shapefiles<a class="anchor-link" href="#1.4-Write-dataset-in-shapefiles">&#182;</a></h3>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_count_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_shp</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">_pixCount.shp&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Write In-Situ --&gt; </span><span class="si">{</span><span class="n">in_situ_count_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">pixCount_gdf</span> <span class="o">=</span> <span class="n">pixCount_gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg_code</span><span class="p">)</span>
 
 <span class="n">pixCount_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_count_shp</span><span class="p">)</span>
 </pre></div>
@@ -14996,6 +15141,27 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Write In-Situ --&gt; /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_SITU_ROI_pixCount.shp
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -15007,13 +15173,13 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IN_SITU/WALLONIA_2018_IN_SITU_ROI_cal.shp&#39;</span>
-<span class="n">in_situ_val_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IN_SITU/WALLONIA_2018_IN_SITU_ROI_val.shp&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_SD_path</span><span class="si">}{</span><span class="n">in_situ_name</span><span class="si">}</span><span class="s1">_cal.shp&#39;</span>
+<span class="n">in_situ_val_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_SD_path</span><span class="si">}{</span><span class="n">in_situ_name</span><span class="si">}</span><span class="s1">_val.shp&#39;</span>
 
-<span class="n">csv_strategies</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s1">IN_SITU/WALLONIA_2018_IN_SITU_ROI_sampling_design.csv&#39;</span>
+<span class="n">csv_strategies</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_SD_path</span><span class="si">}{</span><span class="n">in_situ_name</span><span class="si">}</span><span class="s1">_sampling_design.csv&#39;</span>
 
 <span class="c1"># Open the in-situ shapefile in a GeoDataFrame</span>
 
@@ -15042,7 +15208,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-- Remove parcels with less than </span><span class="si">{</span><span class="n">S2pixMin</span><span class="si">}</span><span class="s1"> pixels&#39;</span><span class="p">)</span>
@@ -15089,7 +15255,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;-- Move parcels with less than </span><span class="si">{</span><span class="n">S2pixBest</span><span class="si">}</span><span class="s1"> pixels in the validation dataset&#39;</span><span class="p">)</span>
@@ -15137,7 +15303,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-- Split parcels into cal/val&#39;</span><span class="p">)</span>
@@ -15524,7 +15690,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">parcels_cal_gdfs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -15538,7 +15704,7 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
     <span class="n">pixel_cal</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">classes_strategy_all</span><span class="p">[</span><span class="s1">&#39;pix_cal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">classes_strategy_all</span><span class="p">[</span><span class="s1">&#39;CODE&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">code</span><span class="p">])</span>
 
     <span class="n">parcels_by_sub_class</span> <span class="o">=</span> <span class="n">parcels_best_gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">parcels_best_gdf</span><span class="p">[</span><span class="s1">&#39;CODE&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">code</span><span class="p">]</span>
-    <span class="n">parcels_by_sub_class_reordered</span> <span class="o">=</span> <span class="n">parcels_by_sub_class</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parcels_by_sub_class</span><span class="p">),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">parcels_by_sub_class_reordered</span> <span class="o">=</span> <span class="n">parcels_by_sub_class</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parcels_by_sub_class</span><span class="p">),</span><span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
     <span class="n">parcels_cal_gdf</span> <span class="o">=</span> <span class="n">parcels_by_sub_class_reordered</span><span class="p">[</span><span class="n">parcels_by_sub_class_reordered</span><span class="p">[</span><span class="s1">&#39;pix_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">pixel_cal</span><span class="p">]</span>
     <span class="n">parcels_val_gdf</span> <span class="o">=</span> <span class="n">parcels_by_sub_class_reordered</span><span class="p">[</span><span class="n">parcels_by_sub_class_reordered</span><span class="p">[</span><span class="s1">&#39;pix_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">pixel_cal</span><span class="p">]</span>
@@ -15599,7 +15765,12 @@ Output path are set to       : /Users/Nicolas/OneDrive - UCL/LBRAT2104/Output/
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parcels_cal_final_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_cal_shp</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Write calibration In-Situ --&gt; </span><span class="si">{</span><span class="n">in_situ_cal_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">parcels_cal_final_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_cal_shp</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Write validation In-Situ --&gt; </span><span class="si">{</span><span class="n">in_situ_cal_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
 <span class="n">parcels_val_final_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_val_shp</span><span class="p">)</span>
 
 <span class="n">classes_strategy_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_strategies</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>

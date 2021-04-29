@@ -14264,7 +14264,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
@@ -14289,13 +14289,15 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_letter</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/TP/llesne/DATA/&#39;</span>
-<span class="c1">#work_path = f&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_{grp_letter}/TP/llesne/DATA/&#39;</span>
-<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#computer_path = &#39;X:/&#39;</span>
+<span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/&#39;</span>
+<span class="n">grp_letter</span>    <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+
+<span class="c1"># Directory for all work files</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
 
 
 <span class="c1"># Directory where the images of the timeserie are stored</span>

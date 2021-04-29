@@ -14294,11 +14294,12 @@ The most common case is when you want to create a color composite. But it could 
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Directory for all work files</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#computer_path = &#39;X:/&#39;</span>
+<span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/&#39;</span>
+<span class="n">grp_letter</span>    <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
 
-<span class="n">grp_letter</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
-<span class="c1">#work_path = f&#39;X:/GROUP_{grp_letter}/WORK/&#39;</span>
-<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/Volumes/nbdid-sst-lbrat2104/GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
+<span class="c1"># Directory for all work files</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
 
 
 <span class="n">multi_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">MULTIBAND/&#39;</span>
