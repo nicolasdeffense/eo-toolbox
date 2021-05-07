@@ -33,9 +33,8 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 [Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/random_forest_classification.html)
 
-#### Timeserie analysis
+[Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/validation.html)
 
-[Timeseries Analysis](https://nicolasdeffense.github.io/eo-toolbox/notebooks/timeseries_analysis.html)
 
 #### Tools
 
@@ -43,6 +42,7 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 [Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/zonal_stats.html)
 
+[Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
 
 
 ## Installation notes

@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>spectral_indices</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>validation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14259,17 +14259,7 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Compute-Spectral-indices">Compute Spectral indices<a class="anchor-link" href="#Compute-Spectral-indices">&#182;</a></h1><h2 id="NDVI---Normalized-Difference-Vegetation-Index">NDVI - Normalized Difference Vegetation Index<a class="anchor-link" href="#NDVI---Normalized-Difference-Vegetation-Index">&#182;</a></h2><p>NDVI is used to outline the presence of vegetation. It is used to indicate relative density, or the amount, of the green vegetation present in the image. This index uses reflectance from a red band around 0.66 μm and a near-Infrared band around 0.86 μm. The red band is found in the absorption region of the chlorophyll, while the near-IR band is used in high reflectance plateau of the vegetation canopies. These two bands sense different depths over the vegetation canopies.</p>
-$$ NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}$$<h2 id="NDWI---Normalized-Difference-Water-Index">NDWI - Normalized Difference Water Index<a class="anchor-link" href="#NDWI---Normalized-Difference-Water-Index">&#182;</a></h2><p>NDWI concept as formulated by Gao combining reflectance of NIR and SWIR has a wide range of application. It can be used for exploring water content at single leaf level as well as canopy/satellite level. The range of application of NDWI spreads from agricultural monitoring for crop irrigation and pasture management to forest monitoring for assessing fire risk and live fuel moisture particularly relevant in the context of climate change.</p>
-$$ NDWI = \frac{NIR - SWIR}{NIR + SWIR} = \frac{B08 - B11}{B08 + B11}$$<h2 id="NDSI---Normalized-Difference-Snow-Index">NDSI - Normalized Difference Snow Index<a class="anchor-link" href="#NDSI---Normalized-Difference-Snow-Index">&#182;</a></h2><p>NDSI is used to delineate the presence of snow/ice. It is a standardized ratio of the difference in the reflectance in the bands that take advantage of unique signature and the spectral difference to indicate snow from the surrounding features and even clouds.</p>
-$$ NDSI = \frac{GREEN - SWIR}{GREEN + SWIR} = \frac{B03 - B11}{B03 + B11}$$<h2 id="NBR---Normalized-Burn-Ratio">NBR - Normalized Burn Ratio<a class="anchor-link" href="#NBR---Normalized-Burn-Ratio">&#182;</a></h2><p>To detect burned areas, the NBR index is the most appropriate choice. Using bands 8 and 12 it highlights burnt areas in large fire zones greater than 500 acres. To observe burn severity, you may subtract the post-fire NBR image from the pre-fire NBR image.</p>
-<p>The NIR and SWIR parts of the electromagnetic spectrum are a powerful combination of bands to use for this index given vegetation reflects strongly in the NIR region of the electromagnetic spectrum and weekly in the SWIR. Alternatively, it has been shown that a fire scar which contains scarred woody vegetation and earth will reflect more strongly in the SWIR part of the electromagnetic spectrum and beyond (see figure below).</p>
-$$ NBR = \frac{NIR - SWIR}{NIR + SWIR} = \frac{B08 - B12}{B08 + B12}$$<p>For a given area, NBR is calculated from an image just prior to the burn and a second NBR is calculated for an image immediately following the burn. Burn extent and severity is judged by taking the difference between these two index layers:</p>
-$$ dNBR = NBR_{prefire} - NBR_{postfire} $$<h2 id="BAIS2---Burned-Area-Index-for-Sentinel-2">BAIS2 - Burned Area Index for Sentinel-2<a class="anchor-link" href="#BAIS2---Burned-Area-Index-for-Sentinel-2">&#182;</a></h2><p>BAIS2 adapts the traditional BAI for Sentinel-2 bands, taking advantage of the wider spectrum of Visible, Red-Edge, NIR and SWIR bands.</p>
-<p>Values description: The range of values for the BAIS2 is -1 to 1 for burn scars, and 1 - 6 for active fires. Different fire intensities may result in different thresholds, the current values were calibrates, as per original author, on mostly Mediterranen regions.</p>
-$$ BAIS2 = \left(1-\sqrt{\frac{B06*B07*B8A}{B4}}\right) *\left(\frac{B12-B8A}{\sqrt{B12+B8A}}+1\right)$$<h2 id="BRIGHTNESS">BRIGHTNESS<a class="anchor-link" href="#BRIGHTNESS">&#182;</a></h2><p>Brightness provide complementary information improving the discrimination between crop and no-crop areas.</p>
-$$ Brightness = \sqrt{GREEN^{2}+RED^{2}+NIR^{2}+SWIR^{2}} = \sqrt{B03^{2}+B04^{2}+B08^{2}+B11^{2}}$$<h2 id="SWI---Surface-Waterproofing-Index">SWI - Surface Waterproofing Index<a class="anchor-link" href="#SWI---Surface-Waterproofing-Index">&#182;</a></h2><p>SWI, based on NDVI and NDWI, is a useful tool for monitoring waterproofing.</p>
-$$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis/index-stack/">https://eos.com/make-an-analysis/index-stack/</a></p>
+<h1 id="Validation">Validation<a class="anchor-link" href="#Validation">&#182;</a></h1><p>When a classification is performed, whether it is generated with machine learning tools such as Random Forest or based on thresholds of a spectral index for example, it should be validated on the basis of in-situ data (ground data). In the case where in-situ data are also used to generate the classification, the data used to validate the classification must be independent.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14278,15 +14268,26 @@ $$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">rasterio</span>
-<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">plot</span>
-<span class="kn">from</span> <span class="nn">rasterio.plot</span> <span class="kn">import</span> <span class="n">show</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">features</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterio : </span><span class="si">{</span><span class="n">rasterio</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Numpy : </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pandas : </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GeoPandas : </span><span class="si">{</span><span class="n">gpd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scipy: </span><span class="si">{</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scikit-learn: </span><span class="si">{</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14306,7 +14307,11 @@ $$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Rasterio : 1.1.0
+<pre>Numpy : 1.19.2
+Pandas : 1.1.5
+GeoPandas : 0.8.1
+Scipy: 1.5.2
+Scikit-learn: 0.24.1
 </pre>
 </div>
 </div>
@@ -14318,12 +14323,12 @@ $$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Set-the-work-directory">Set the work directory<a class="anchor-link" href="#Set-the-work-directory">&#182;</a></h2>
+<h2 id="Set-paths-for-input-and-output-directories">Set paths for input and output directories<a class="anchor-link" href="#Set-paths-for-input-and-output-directories">&#182;</a></h2>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#computer_path = &#39;X:/&#39;</span>
@@ -14332,77 +14337,39 @@ $$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis
 
 <span class="c1"># Directory for all work files</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
-</pre></div>
 
-     </div>
-</div>
-</div>
-</div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Choose-the-spectral-index-to-compute">Choose the spectral index to compute<a class="anchor-link" href="#Choose-the-spectral-index-to-compute">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Set the index name you want to compute !</span>
-<span class="c1"># ---------------------------------------- #</span>
-<span class="n">index_name</span>   <span class="o">=</span> <span class="s1">&#39;NDVI&#39;</span>
-<span class="c1"># ---------------------------------------- #</span>
+<span class="c1"># ----- #</span>
+<span class="c1"># INPUT #</span>
+<span class="c1"># ----- #</span>
 
-<span class="k">if</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B08&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="c1"># Product name</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B08&#39;</span><span class="p">,</span><span class="s1">&#39;B11&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="n">prod_name</span> <span class="o">=</span> <span class="s1">&#39;Classif_RF_with_NDVI&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDSI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B03&#39;</span><span class="p">,</span><span class="s1">&#39;B11&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="c1"># Set the name of the classification map</span>
+<span class="n">classif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">CLASSIF/</span><span class="si">{</span><span class="n">prod_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;BRIGHTNESS&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B03&#39;</span><span class="p">,</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B08&#39;</span><span class="p">,</span><span class="s1">&#39;B11&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="c1"># Set the name of the in-situ used for validate the classification map</span>
+<span class="n">in_situ_val_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">IN_SITU_SD/WALLONIA_2018_IN_SITU_ROI_val.shp&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NBR&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B08&#39;</span><span class="p">,</span><span class="s1">&#39;B12&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="c1"># Set the field name of the class code</span>
+<span class="n">field_name_code</span> <span class="o">=</span> <span class="s1">&#39;CODE&#39;</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;BAIS2&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B06&#39;</span><span class="p">,</span><span class="s1">&#39;B07&#39;</span><span class="p">,</span><span class="s1">&#39;B8A&#39;</span><span class="p">,</span><span class="s1">&#39;B12&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span><span class="p">]</span>
+<span class="c1"># ------ #</span>
+<span class="c1"># OUTPUT #</span>
+<span class="c1"># ------ #</span>
 
-<span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;SWI&#39;</span><span class="p">:</span>
-    <span class="n">bands_needed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NDVI&#39;</span><span class="p">,</span><span class="s1">&#39;NDWI&#39;</span><span class="p">]</span>
-    <span class="n">list_im_path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI/&#39;</span><span class="p">,</span>
-                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDWI/&#39;</span><span class="p">]</span>
+<span class="n">am_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">ACCURACY_METRICS/&#39;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You chose to compute </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1"> !&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You need : </span><span class="si">{</span><span class="n">bands_needed</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># Set the name of the Confusion Matrix</span>
+<span class="n">cm_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">am_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">prod_name</span><span class="si">}</span><span class="s1">_CM.csv&#39;</span>
 
-<span class="n">index_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">/&#39;</span>
 
-<span class="n">Path</span><span class="p">(</span><span class="n">index_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Spectral index path is set to : </span><span class="si">{</span><span class="n">index_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">Path</span><span class="p">(</span><span class="n">am_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy metrics path are set to : </span><span class="si">{</span><span class="n">am_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14422,10 +14389,7 @@ $$ SWI = (NDVI - NDWI)^2 $$<p>Source : <a href="https://eos.com/make-an-analysis
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>You chose to compute NDVI !
-You need : [&#39;B04&#39;, &#39;B08&#39;] 
-
-Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/
+<pre>Accuracy metrics path are set to : /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/ACCURACY_METRICS/
 </pre>
 </div>
 </div>
@@ -14437,261 +14401,65 @@ Spectral index path is set to : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Check-if-you-have-the-necessary-spectral-bands">Check if you have the necessary spectral bands<a class="anchor-link" href="#Check-if-you-have-the-necessary-spectral-bands">&#182;</a></h2>
+<h2 id="Rasterize-in-situ-data-validation-shapefile">Rasterize in-situ data validation shapefile<a class="anchor-link" href="#Rasterize-in-situ-data-validation-shapefile">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">band</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bands_needed</span><span class="p">):</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;We need band/index </span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1"> to compute </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">list_im</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">list_im_path</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)</span>
-    
-    <span class="n">nb_im</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_im</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">nb_im</span><span class="si">}</span><span class="s1"> images are found </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_val_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_val_shp</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Check if the number of images found for each band/index is the same !!&#39;</span><span class="p">)</span>
-</pre></div>
+<span class="n">no_data_rasterize</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
 
-     </div>
-</div>
-</div>
-</div>
+<span class="c1"># Open the shapefile with GeoPandas</span>
 
-<div class="jp-Cell-outputWrapper">
+<span class="n">in_situ_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_situ_val_shp</span><span class="p">)</span>
 
 
-<div class="jp-OutputArea jp-Cell-outputArea">
+<span class="c1"># Open the raster file you want to use as a template for rasterize</span>
 
-<div class="jp-OutputArea-child">
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<span class="c1"># Update metadata</span>
+<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+<span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">nodata</span><span class="o">=</span><span class="n">no_data_rasterize</span><span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The CRS of in-situ data is       : </span><span class="si">{</span><span class="n">in_situ_gdf</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The CRS of classification map is : </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>We need band/index B04 to compute NDVI
---&gt; 2 images are found 
+<span class="k">if</span> <span class="n">in_situ_gdf</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CRS are the same&quot;</span><span class="p">)</span>
 
-We need band/index B08 to compute NDVI
---&gt; 2 images are found 
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterize </span><span class="si">{</span><span class="n">in_situ_val_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-Check if the number of images found for each band/index is the same !!
-</pre>
-</div>
-</div>
+    <span class="c1"># Burn the features into the raster and write it out</span>
 
-</div>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">in_situ_val_tif</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+    <span class="n">dst_arr</span> <span class="o">=</span> <span class="n">dst</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-</div>
+    <span class="c1"># this is where we create a generator of geom, value pairs to use in rasterizing</span>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compute-Spectral-Indices">Compute Spectral Indices<a class="anchor-link" href="#Compute-Spectral-Indices">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nodata_val</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10000</span>
+    <span class="n">geom_col</span> <span class="o">=</span> <span class="n">in_situ_gdf</span><span class="o">.</span><span class="n">geometry</span>
+    <span class="n">code_col</span> <span class="o">=</span> <span class="n">in_situ_gdf</span><span class="p">[</span><span class="n">field_name_code</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-<span class="c1"># Compute the SI for all dates</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nb_im</span><span class="p">):</span>
-    
-    <span class="n">im</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">list_im_path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">bands_needed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im</span><span class="p">)[</span><span class="mi">7</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Date : </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="p">((</span><span class="n">geom</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">geom_col</span><span class="p">,</span> <span class="n">code_col</span><span class="p">))</span>
 
-    <span class="n">list_im</span> <span class="o">=</span> <span class="p">[</span><span class="n">im</span><span class="p">]</span>
+    <span class="n">in_situ_arr</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span>
+                                     <span class="n">fill</span><span class="o">=</span><span class="n">no_data_rasterize</span><span class="p">,</span>
+                                     <span class="n">out</span><span class="o">=</span><span class="n">dst_arr</span><span class="p">,</span>
+                                     <span class="n">transform</span><span class="o">=</span><span class="n">dst</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">band</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bands_needed</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">list_im_path</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">list_im</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write_band</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_situ_arr</span><span class="p">)</span>
 
-    <span class="c1"># Name the output SI file</span>
-    <span class="n">index_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_path</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">list_im</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">:</span><span class="mi">22</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">index_file</span><span class="p">):</span>
-        
-        <span class="c1"># Create a list with all reflectance images needed to compute the SI in Numpy array</span>
-        <span class="n">list_im_arr</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
-
-            <span class="c1"># Open band and update metadata</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-            <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-            <span class="n">profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">rasterio</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-            <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-            <span class="c1"># Convert no-data value into Numpy NaN</span>
-            <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-            <span class="n">im</span><span class="p">[</span><span class="n">im</span> <span class="o">==</span> <span class="n">nodata_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-            
-            <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-            <span class="n">list_im_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-        
-        <span class="c1"># Compute Spectral Index</span>
-        
-        <span class="k">if</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">:</span>
-            <span class="n">red</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B04</span>
-            <span class="n">nir</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B08</span>
-
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">red</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">:</span>
-            <span class="n">nir</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B08</span>
-            <span class="n">swir</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B11</span>
-
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">swir</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">swir</span><span class="p">)</span>
-        
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NDSI&#39;</span><span class="p">:</span>
-            <span class="n">green</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B03</span>
-            <span class="n">swir</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B11 </span>
-            
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">green</span> <span class="o">-</span> <span class="n">swir</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">green</span> <span class="o">+</span> <span class="n">swir</span><span class="p">)</span>
-        
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;NBR&#39;</span><span class="p">:</span>
-            <span class="n">nir</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B08</span>
-            <span class="n">swir</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B12</span>
-
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">swir</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">swir</span><span class="p">)</span>
-        
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;BRIGHTNESS&#39;</span><span class="p">:</span>
-            <span class="n">green</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B03</span>
-            <span class="n">red</span>   <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B04</span>
-            <span class="n">nir</span>   <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># B08</span>
-            <span class="n">swir</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># B11</span>
-
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">green</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">red</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">nir</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">swir</span><span class="p">))</span>
-
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;BAIS2&#39;</span><span class="p">:</span>
-            <span class="n">red</span>         <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># B04</span>
-            <span class="n">redEdge_B6</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># B06</span>
-            <span class="n">redEdge_B7</span>  <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># B07</span>
-            <span class="n">nir</span>         <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># B08</span>
-            <span class="n">swir</span>        <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="c1"># B12</span>
-            
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sqrt</span><span class="p">((</span><span class="n">redEdge_B6</span><span class="o">*</span><span class="n">redEdge_B7</span><span class="o">*</span><span class="n">nir</span><span class="p">)</span><span class="o">/</span><span class="n">red</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="n">swir</span><span class="o">-</span><span class="n">nir</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">swir</span><span class="o">+</span><span class="n">nir</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-        
-        <span class="k">elif</span> <span class="n">index_name</span> <span class="o">==</span> <span class="s1">&#39;SWI&#39;</span><span class="p">:</span>
-            <span class="n">ndvi</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># NDVI</span>
-            <span class="n">ndwi</span> <span class="o">=</span> <span class="n">list_im_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># NDWI</span>
-
-            <span class="n">index_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">ndvi</span> <span class="o">-</span> <span class="n">ndwi</span><span class="p">)</span>
-        
-        <span class="c1"># Write Spectral Index image into GeoTIFF</span>
-
-        <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index_arr</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new </span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1"> file is created : </span><span class="si">{</span><span class="n">index_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">index_file</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------------------------&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Date : 20170707
-A new NDVI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/T31UFS_20170707T104019_NDVI.tif
-Date : 20200731
-A new NDVI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/T31UFS_20200731T103629_NDVI.tif
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compute-difference-between-2-spectral-indices">Compute difference between 2 spectral indices<a class="anchor-link" href="#Compute-difference-between-2-spectral-indices">&#182;</a></h2><h3 id="Set-the-output-directory">Set the output directory<a class="anchor-link" href="#Set-the-output-directory">&#182;</a></h3>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index_calc_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">_CALC/&#39;</span>
-
-<span class="n">Path</span><span class="p">(</span><span class="n">index_calc_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Choose the two dates you want to subtract</span>
-<span class="n">date_1</span> <span class="o">=</span> <span class="s1">&#39;20170707&#39;</span>
-<span class="n">date_2</span> <span class="o">=</span> <span class="s1">&#39;20200731&#39;</span>
-
-<span class="c1"># Get the spectral indices associated with the dates you have chosen</span>
-<span class="n">index_file_1</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_path</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date_1</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">index_file_2</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_path</span><span class="si">}</span><span class="s1">*</span><span class="si">{</span><span class="n">date_2</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Name the output index file</span>
-<span class="n">index_file_diff</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">index_calc_path</span><span class="si">}{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">date_2</span><span class="si">}</span><span class="s1">_MINUS_</span><span class="si">{</span><span class="n">date_1</span><span class="si">}</span><span class="s1">.tif&#39;</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">index_file_diff</span><span class="p">):</span>
-
-    <span class="c1"># Open the spectral index at date 1</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index_file_1</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-    <span class="n">date_1_arr</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-    <span class="c1"># Open the spectral index at date 2</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index_file_2</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">date_2_arr</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-    <span class="c1"># Compute the difference between date 2 and date 1</span>
-    <span class="n">diff_index</span> <span class="o">=</span> <span class="n">date_2_arr</span> <span class="o">-</span> <span class="n">date_1_arr</span>
-
-    <span class="c1"># Write the output in GeoTIFF</span>
-    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">index_file_diff</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">diff_index</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A new </span><span class="si">{</span><span class="n">index_file_diff</span><span class="si">}</span><span class="s1"> file is created : </span><span class="si">{</span><span class="n">index_file_diff</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="n">index_file_diff</span><span class="si">}</span><span class="s1"> - already exists&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRS are different --&gt; repoject in-situ data shapefile with &quot;to_crs&quot;&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Close rasterio objects</span>
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14711,7 +14479,10 @@ A new NDVI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/T31U
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>A new /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI_CALC/NDVI_20200731_MINUS_20170707.tif file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI_CALC/NDVI_20200731_MINUS_20170707.tif
+<pre>The CRS of in-situ data is       : epsg:32631
+The CRS of classification map is : EPSG:32631
+CRS are the same
+Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_SITU_ROI_val.shp
 </pre>
 </div>
 </div>
@@ -14720,6 +14491,916 @@ A new NDVI file is created : /Volumes/nbdid-sst-lbrat2104/GROUP_N/WORK/NDVI/T31U
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Create-Confusion-Matrix">Create Confusion Matrix<a class="anchor-link" href="#Create-Confusion-Matrix">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Open in-situ used for validation</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">in_situ_val_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">val_arr</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Open classification map</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">classif_arr</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Get the postion of validation pixels</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">val_arr</span> <span class="o">==</span> <span class="n">no_data_rasterize</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+<span class="c1"># Get the truth vector and the prediction vector</span>
+<span class="n">truth_val</span>   <span class="o">=</span> <span class="n">val_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">predict_val</span> <span class="o">=</span> <span class="n">classif_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+<span class="c1"># Compute Confusion Matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">truth_val</span><span class="p">,</span> <span class="n">predict_val</span><span class="p">)</span>
+
+<span class="c1"># Convert CM into panda dataframe and save it</span>
+<span class="n">cm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cm_df</span><span class="p">)</span>
+<span class="n">cm_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cm_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="n">cm_values</span> <span class="o">=</span> <span class="n">cm_df</span><span class="o">.</span><span class="n">values</span>
+
+
+
+
+
+<span class="c1">#pd.DataFrame(cm).to_csv(cm_csv, index=False, sep=&#39;;&#39;)</span>
+<span class="c1">#disp = ConfusionMatrixDisplay(confusion_matrix=cm)</span>
+<span class="c1">#plot_confusion_matrix(rf, class_prediction, val_arr)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>794</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>142</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>45</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>557</td>
+      <td>0</td>
+      <td>30</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>...</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>23</td>
+      <td>2</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>54</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>82</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>95</td>
+      <td>0</td>
+      <td>0</td>
+      <td>68</td>
+      <td>0</td>
+      <td>0</td>
+      <td>113</td>
+      <td>0</td>
+      <td>0</td>
+      <td>9523</td>
+      <td>...</td>
+      <td>123</td>
+      <td>0</td>
+      <td>0</td>
+      <td>84</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>374</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>153</td>
+      <td>694</td>
+      <td>0</td>
+      <td>10</td>
+      <td>...</td>
+      <td>1821</td>
+      <td>5</td>
+      <td>0</td>
+      <td>15</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+      <td>495</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>...</td>
+      <td>294</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+      <td>34</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1513</td>
+      <td>1</td>
+      <td>0</td>
+      <td>352</td>
+      <td>...</td>
+      <td>681</td>
+      <td>344</td>
+      <td>0</td>
+      <td>621</td>
+      <td>0</td>
+      <td>25</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>332</td>
+      <td>0</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>233</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>47</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>4</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>150</td>
+      <td>0</td>
+      <td>0</td>
+      <td>52</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>146</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>23</td>
+      <td>0</td>
+      <td>0</td>
+      <td>86</td>
+      <td>...</td>
+      <td>51</td>
+      <td>256</td>
+      <td>0</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>51</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>324</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>634</td>
+      <td>148</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>921</td>
+      <td>0</td>
+      <td>0</td>
+      <td>76</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>242</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>383</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>670</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>56</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>909</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>45</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>202</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>31</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>3</td>
+      <td>114</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>319</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>89</td>
+      <td>0</td>
+      <td>0</td>
+      <td>22</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>104</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>113</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>38</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>586</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>31 rows × 31 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Compute-accuracy-metrics">Compute accuracy metrics<a class="anchor-link" href="#Compute-accuracy-metrics">&#182;</a></h2><h3 id="Compute-Overall-Accuracy">Compute Overall Accuracy<a class="anchor-link" href="#Compute-Overall-Accuracy">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OA</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">)))</span> <span class="o">*</span><span class="mi">100</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overall Accuracy : </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">OA</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Overall Accuracy : 41.32%
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Compute-F-Scores">Compute F-Scores<a class="anchor-link" href="#Compute-F-Scores">&#182;</a></h3>
+</div>
 </div>
 </body>
 
