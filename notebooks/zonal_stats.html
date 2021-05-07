@@ -14292,15 +14292,19 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[117]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">features</span>
+<span class="kn">import</span> <span class="nn">rasterio.mask</span>
 <span class="kn">import</span> <span class="nn">rasterstats</span>
 <span class="kn">from</span> <span class="nn">rasterstats</span> <span class="kn">import</span> <span class="n">zonal_stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterstats : </span><span class="si">{</span><span class="n">rasterstats</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -14431,7 +14435,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Compute-zonal-statistics">Compute zonal statistics<a class="anchor-link" href="#Compute-zonal-statistics">&#182;</a></h2>
+<h2 id="Zonal-statistics">Zonal statistics<a class="anchor-link" href="#Zonal-statistics">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14492,6 +14496,106 @@ a.anchor-link {
      </div>
 </div>
 </div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Zonal-Histograms">Zonal Histograms<a class="anchor-link" href="#Zonal-Histograms">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[173]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Open image with categorial value</span>
+<span class="n">im_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">2_L2A_CLIPPED/T31UFS_20200116T105309_SCL_10m_ROI.tif&#39;</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="c1"># Open vector with polygons</span>
+<span class="n">poly_file</span> <span class="o">=</span> <span class="n">in_situ_file</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">poly_file</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]:</span>
+    
+    <span class="n">fid</span>  <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="p">[[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;FID </span><span class="si">{</span><span class="n">fid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Crop the raster to the extent of the shape</span>
+    <span class="n">out_image</span><span class="p">,</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">out_image</span> <span class="o">=</span> <span class="n">out_image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">#print(out_image.shape)</span>
+
+    <span class="c1">#plt.imshow(out_image, interpolation=&#39;none&#39;)</span>
+    <span class="c1">#plt.show()</span>
+
+    <span class="n">unique_elements</span><span class="p">,</span> <span class="n">counts_elements</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">out_image</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">unique_elements</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">counts_elements</span><span class="p">)</span>
+
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>FID 1877
+[0 2 4 7]
+[561672    123      1    224]
+FID 1878
+[0 2 4 5 7]
+[561312    684      6      5     13]
+FID 1879
+[0 2 4 5 7]
+[561655     37     18      2    308]
+FID 1880
+[0 2 4 5 7]
+[561742     40    226      3      9]
+FID 3251
+[0 2 4 7]
+[561269    365     12    374]
+FID 3252
+[0 2 4 5 7]
+[561194    330     64     33    399]
+FID 15441
+[0 2 3 4 5 7]
+[561579    181     13    105     46     96]
+FID 15607
+[0 4 7]
+[561730    271     19]
+FID 15608
+[0 2 4 7]
+[561373      1      6    640]
+FID 15609
+[0 5 7]
+[561421      9    590]
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
