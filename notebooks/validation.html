@@ -14278,7 +14278,7 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
@@ -14328,7 +14328,7 @@ Scikit-learn: 0.24.1
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#computer_path = &#39;X:/&#39;</span>
@@ -14364,6 +14364,7 @@ Scikit-learn: 0.24.1
 
 <span class="c1"># Set the name of the Confusion Matrix</span>
 <span class="n">cm_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">am_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">prod_name</span><span class="si">}</span><span class="s1">_CM.csv&#39;</span>
+<span class="n">cm_png</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">am_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">prod_name</span><span class="si">}</span><span class="s1">_CM.png&#39;</span>
 
 
 
@@ -14406,7 +14407,7 @@ Scikit-learn: 0.24.1
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_val_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_val_shp</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s1">.tif&#39;</span>
@@ -14499,7 +14500,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Open in-situ used for validation</span>
@@ -14515,27 +14516,34 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
 <span class="c1"># Get the postion of validation pixels</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">val_arr</span> <span class="o">==</span> <span class="n">no_data_rasterize</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
 
-<span class="c1"># Get the truth vector and the prediction vector</span>
-<span class="n">truth_val</span>   <span class="o">=</span> <span class="n">val_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-<span class="n">predict_val</span> <span class="o">=</span> <span class="n">classif_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+<span class="c1"># Ground truth (correct) target values</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">val_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="c1"># Estimated targets as returned by a classifier.</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">classif_arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+
+<span class="n">labels_all</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="n">labels_unique</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels_all</span><span class="p">)</span>
+
 
 <span class="c1"># Compute Confusion Matrix</span>
-<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">truth_val</span><span class="p">,</span> <span class="n">predict_val</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1">#disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)</span>
+
 
 <span class="c1"># Convert CM into panda dataframe and save it</span>
 <span class="n">cm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">cm_df</span><span class="p">)</span>
+
 <span class="n">cm_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cm_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
 
 <span class="n">cm_values</span> <span class="o">=</span> <span class="n">cm_df</span><span class="o">.</span><span class="n">values</span>
 
+<span class="n">cm_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">labels_unique</span>
+<span class="n">cm_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">labels_unique</span>
 
-
-
-
-<span class="c1">#pd.DataFrame(cm).to_csv(cm_csv, index=False, sep=&#39;;&#39;)</span>
-<span class="c1">#disp = ConfusionMatrixDisplay(confusion_matrix=cm)</span>
-<span class="c1">#plot_confusion_matrix(rf, class_prediction, val_arr)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cm_df</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14574,32 +14582,32 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
       <th>6</th>
-      <th>7</th>
-      <th>8</th>
       <th>9</th>
-      <th>...</th>
+      <th>12</th>
+      <th>19</th>
+      <th>20</th>
       <th>21</th>
-      <th>22</th>
-      <th>23</th>
-      <th>24</th>
-      <th>25</th>
-      <th>26</th>
-      <th>27</th>
-      <th>28</th>
-      <th>29</th>
-      <th>30</th>
+      <th>36</th>
+      <th>45</th>
+      <th>53</th>
+      <th>62</th>
+      <th>...</th>
+      <th>901</th>
+      <th>931</th>
+      <th>959</th>
+      <th>4111</th>
+      <th>9202</th>
+      <th>9410</th>
+      <th>9535</th>
+      <th>9741</th>
+      <th>9742</th>
+      <th>9812</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th>6</th>
       <td>794</td>
       <td>0</td>
       <td>0</td>
@@ -14623,7 +14631,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>9</th>
       <td>142</td>
       <td>1</td>
       <td>0</td>
@@ -14647,7 +14655,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>12</th>
       <td>10</td>
       <td>0</td>
       <td>0</td>
@@ -14671,7 +14679,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>19</th>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -14695,7 +14703,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>20</th>
       <td>10</td>
       <td>0</td>
       <td>0</td>
@@ -14719,7 +14727,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>21</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14743,7 +14751,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>36</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14767,7 +14775,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>45</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14791,7 +14799,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>8</th>
+      <th>53</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14815,7 +14823,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>9</th>
+      <th>62</th>
       <td>95</td>
       <td>0</td>
       <td>0</td>
@@ -14839,7 +14847,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>10</th>
+      <th>73</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14863,7 +14871,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>11</th>
+      <th>91</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14887,7 +14895,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>12</th>
+      <th>201</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14911,7 +14919,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>13</th>
+      <th>311</th>
       <td>9</td>
       <td>0</td>
       <td>0</td>
@@ -14935,7 +14943,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>16</td>
     </tr>
     <tr>
-      <th>14</th>
+      <th>321</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14959,7 +14967,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>15</th>
+      <th>341</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -14983,7 +14991,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>16</th>
+      <th>342</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15007,7 +15015,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>17</th>
+      <th>541</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15031,7 +15039,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>18</th>
+      <th>542</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15055,7 +15063,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>19</th>
+      <th>743</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15079,7 +15087,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>20</th>
+      <th>821</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15103,7 +15111,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>21</th>
+      <th>901</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15127,7 +15135,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>931</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15151,7 +15159,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>23</th>
+      <th>959</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15175,7 +15183,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>4111</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15199,7 +15207,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>25</th>
+      <th>9202</th>
       <td>56</td>
       <td>0</td>
       <td>0</td>
@@ -15223,7 +15231,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>26</th>
+      <th>9410</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15247,7 +15255,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>27</th>
+      <th>9535</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15271,7 +15279,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>319</td>
     </tr>
     <tr>
-      <th>28</th>
+      <th>9741</th>
       <td>89</td>
       <td>0</td>
       <td>0</td>
@@ -15295,7 +15303,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>29</th>
+      <th>9742</th>
       <td>38</td>
       <td>0</td>
       <td>0</td>
@@ -15319,7 +15327,7 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
       <td>0</td>
     </tr>
     <tr>
-      <th>30</th>
+      <th>9812</th>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -15362,12 +15370,17 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OA</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">)))</span> <span class="o">*</span><span class="mi">100</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># By hand</span>
+<span class="n">OA</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">)))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overall Accuracy : </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">OA</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="c1"># With scikit-learn function</span>
+<span class="n">OA_sk</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overall Accuracy (by hand)      : </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">OA</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Overall Accuracy (scikit-learn) : </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">OA_sk</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15387,7 +15400,8 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Overall Accuracy : 41.32%
+<pre>Overall Accuracy (by hand)      : 41.32%
+Overall Accuracy (scikit-learn) : 41.32%
 </pre>
 </div>
 </div>
@@ -15399,8 +15413,168 @@ Rasterize /Volumes/nbdid-sst-lbrat2104/GROUP_X/WORK/IN_SITU_SD/WALLONIA_2018_IN_
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Compute-F-Scores">Compute F-Scores<a class="anchor-link" href="#Compute-F-Scores">&#182;</a></h3>
+<h3 id="Build-a-text-report-showing-the-main-classification-metrics">Build a text report showing the main classification metrics<a class="anchor-link" href="#Build-a-text-report-showing-the-main-classification-metrics">&#182;</a></h3><p>Some labels in <code>y_test</code> don't appear in <code>y_pred</code>. Specifically in this case, label '2' is never predicted:</p>
+
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">classes_missing</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">classes_missing</span><span class="p">)</span><span class="si">}</span><span class="s1"> classes are missing in the classification (y_pred) : </span><span class="si">{</span><span class="n">classes_missing</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="n">acc_metrics_all</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels_unique</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">acc_metrics_all</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>7 classes are missing in the classification (y_pred) : {9535, 743, 12, 9202, 341, 53, 959} 
+
+              precision    recall  f1-score   support
+
+           6       0.64      0.99      0.78       802
+           9       1.00      0.01      0.01       188
+          12       0.00      0.00      0.00        21
+          19       0.43      0.91      0.59       613
+          20       0.29      0.03      0.06        61
+          21       0.54      0.96      0.69        56
+          36       0.01      0.02      0.01      1173
+          45       0.00      0.00      0.00       354
+          53       0.00      0.00      0.00       515
+          62       0.79      0.92      0.85     10301
+          73       0.00      0.00      0.00       374
+          91       0.00      0.00      0.00      8729
+         201       0.07      0.36      0.11      1649
+         311       0.80      0.42      0.55     18885
+         321       0.16      0.59      0.25      2161
+         341       0.00      0.00      0.00       329
+         342       0.63      0.76      0.69       307
+         541       0.65      0.40      0.49       358
+         542       0.00      0.00      0.00       285
+         743       0.00      0.00      0.00       614
+         821       0.00      0.00      0.00       733
+         901       0.20      0.49      0.29      1873
+         931       0.02      0.02      0.02       639
+         959       0.00      0.00      0.00       292
+        4111       0.45      0.96      0.61       696
+        9202       0.00      0.00      0.00       974
+        9410       0.37      0.55      0.44       368
+        9535       0.00      0.00      0.00       685
+        9741       1.00      0.32      0.48       354
+        9742       0.00      0.00      0.00       711
+        9812       0.00      0.00      0.00       544
+
+    accuracy                           0.41     55644
+   macro avg       0.26      0.28      0.22     55644
+weighted avg       0.47      0.41      0.41     55644
+
+/Users/Nicolas/miniconda3/envs/python_3_6/lib/python3.6/site-packages/sklearn/metrics/_classification.py:1245: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/Users/Nicolas/miniconda3/envs/python_3_6/lib/python3.6/site-packages/sklearn/metrics/_classification.py:1245: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/Users/Nicolas/miniconda3/envs/python_3_6/lib/python3.6/site-packages/sklearn/metrics/_classification.py:1245: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>If you decide that you are not interested in the scores of labels that were not predicted, then you can explicitly specify the labels you are interested in (which are labels that were predicted at least once).</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">acc_metrics_pred</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">acc_metrics_pred</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>              precision    recall  f1-score   support
+
+           6       0.64      0.99      0.78       802
+           9       1.00      0.01      0.01       188
+          19       0.43      0.91      0.59       613
+          20       0.29      0.03      0.06        61
+          21       0.54      0.96      0.69        56
+          36       0.01      0.02      0.01      1173
+          45       0.00      0.00      0.00       354
+          62       0.79      0.92      0.85     10301
+          73       0.00      0.00      0.00       374
+          91       0.00      0.00      0.00      8729
+         201       0.07      0.36      0.11      1649
+         311       0.80      0.42      0.55     18885
+         321       0.16      0.59      0.25      2161
+         342       0.63      0.76      0.69       307
+         541       0.65      0.40      0.49       358
+         542       0.00      0.00      0.00       285
+         821       0.00      0.00      0.00       733
+         901       0.20      0.49      0.29      1873
+         931       0.02      0.02      0.02       639
+        4111       0.45      0.96      0.61       696
+        9410       0.37      0.55      0.44       368
+        9741       1.00      0.32      0.48       354
+        9742       0.00      0.00      0.00       711
+        9812       0.00      0.00      0.00       544
+
+   micro avg       0.41      0.44      0.43     52214
+   macro avg       0.33      0.36      0.29     52214
+weighted avg       0.50      0.44      0.43     52214
+
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 </body>
 
