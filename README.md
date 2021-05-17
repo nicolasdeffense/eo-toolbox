@@ -47,28 +47,26 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 ## Installation notes
 
-- Python 3.6
-- numpy
-- pandas
-- geopandas
-- ratplotlib
-- rasterio
-- rasterstats
-- scipy
-- scikit-learn
+To use the notebooks, you should first install :
+
+- [Python 3.6](https://www.python.org)
 - [Jupyter Notebook](http://jupyter.org)
 
-If you do not yet have these packages installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
+and then the following python packages/libraries :
 
-#### GeoPandas
+- [numpy 1.19.2](https://numpy.org)
+- [pandas 1.1.5](https://pandas.pydata.org)
+- [geopandas 0.8.1](https://geopandas.org/)
+- [matplotlib 3.3.4](https://matplotlib.org)
+- [rasterio 1.1.0](https://rasterio.readthedocs.io/en/latest/intro.html)
+- [rasterstats 0.14.0](https://pythonhosted.org/rasterstats/)
+- [scipy 1.5.2](https://www.scipy.org/about.html)
+- [scikit-learn 0.24.1](https://scikit-learn.org/stable/)
 
-`GeoPandas` is an open source project to make working with geospatial data in python easier. `GeoPandas` extends the datatypes used by `Pandas` to allow spatial operations on geometric types.
 
-More infos on : https://geopandas.org/
+If you do not yet have these packages/libraries installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
-#### Rasterio
 
-`Rasterio`
 
 ### Test the environment
 
