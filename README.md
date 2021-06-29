@@ -62,6 +62,7 @@ and then the following python packages/libraries :
 - [rasterstats 0.14.0](https://pythonhosted.org/rasterstats/)
 - [scipy 1.5.2](https://www.scipy.org/about.html)
 - [scikit-learn 0.24.1](https://scikit-learn.org/stable/)
+- [sentinelsat 1.0.1](https://sentinelsat.readthedocs.io/en/stable/index.html)
 
 
 If you do not yet have these packages/libraries installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
