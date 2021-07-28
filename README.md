@@ -11,6 +11,11 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 
 ## Jupyter Notebooks
 
+#### Downloading Sentinel images
+
+[Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/download_images.html)
+
+
 #### Vector data
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)

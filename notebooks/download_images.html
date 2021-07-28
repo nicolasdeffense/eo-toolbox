@@ -14266,11 +14266,12 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sentinelsat</span>
 <span class="kn">from</span> <span class="nn">sentinelsat</span> <span class="kn">import</span> <span class="n">SentinelAPI</span><span class="p">,</span> <span class="n">read_geojson</span><span class="p">,</span> <span class="n">geojson_to_wkt</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -14403,7 +14404,7 @@ New CRS : epsg:4326
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">user</span>     <span class="o">=</span> <span class="s1">&#39;ndeffense&#39;</span>
@@ -14429,7 +14430,7 @@ New CRS : epsg:4326
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_date</span>    <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -14440,7 +14441,8 @@ New CRS : epsg:4326
 <span class="n">platform_name</span> <span class="o">=</span> <span class="s1">&#39;Sentinel-2&#39;</span>
 
 <span class="k">if</span> <span class="n">platform_name</span> <span class="o">==</span> <span class="s1">&#39;Sentinel-2&#39;</span><span class="p">:</span>
-    <span class="n">s2_level</span>    <span class="o">=</span> <span class="s1">&#39;Level-2A&#39;</span>
+    <span class="n">s2_level</span>     <span class="o">=</span> <span class="s1">&#39;Level-2A&#39;</span>
+    <span class="n">product_type</span> <span class="o">=</span> <span class="s1">&#39;S2MSI2A&#39;</span>
     <span class="n">cloud_cover</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">)</span>
 
 <span class="k">elif</span> <span class="n">platform_name</span> <span class="o">==</span> <span class="s1">&#39;Sentinel-1&#39;</span><span class="p">:</span>
@@ -14455,7 +14457,7 @@ New CRS : epsg:4326
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Search by polygon, time, and SciHub query keywords</span>
@@ -14468,6 +14470,7 @@ New CRS : epsg:4326
                         <span class="n">date</span> <span class="o">=</span> <span class="n">dates</span><span class="p">,</span>
                         <span class="n">platformname</span> <span class="o">=</span> <span class="n">platform_name</span><span class="p">,</span>
                         <span class="n">processinglevel</span> <span class="o">=</span> <span class="n">s2_level</span><span class="p">,</span>
+                        <span class="n">producttype</span> <span class="o">=</span> <span class="n">product_type</span><span class="p">,</span>
                         <span class="n">cloudcoverpercentage</span> <span class="o">=</span> <span class="n">cloud_cover</span><span class="p">)</span>
 
 
@@ -14477,17 +14480,23 @@ New CRS : epsg:4326
 <span class="c1"># sort and limit to first 5 sorted products</span>
 
 <span class="n">products_df_sorted</span> <span class="o">=</span> <span class="n">products_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;cloudcoverpercentage&#39;</span><span class="p">,</span> <span class="s1">&#39;ingestiondate&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
-<span class="n">products_df_sorted</span> <span class="o">=</span> <span class="n">products_df_sorted</span><span class="p">[[</span><span class="s1">&#39;cloudcoverpercentage&#39;</span><span class="p">,</span><span class="s1">&#39;ingestiondate&#39;</span><span class="p">]]</span>
+<span class="c1">#products_df_sorted = products_df_sorted[[&#39;cloudcoverpercentage&#39;,&#39;ingestiondate&#39;]]</span>
 
-<span class="n">display</span><span class="p">(</span><span class="n">products_df_sorted</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">products_df</span><span class="p">)</span>
+
+<span class="n">products_df</span> <span class="o">=</span> <span class="n">products_df</span><span class="p">[</span><span class="n">products_df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;31UFS&#39;</span><span class="p">)]</span>
+
+<span class="c1">#display(products_df_sorted.columns)</span>
+
+
+<span class="n">display</span><span class="p">(</span><span class="n">products_df</span><span class="p">)</span>
 
 
 <span class="c1">#products_df_sorted = products_df_sorted[0:1][0:1]</span>
 
-<span class="n">products_df_sorted</span> <span class="o">=</span> <span class="n">products_df_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">products_df_sorted</span> <span class="o">=</span> <span class="n">products_df_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span>
 
-
-<span class="n">display</span><span class="p">(</span><span class="n">products_df_sorted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">products_df_sorted</span><span class="p">)</span>
 
 <span class="c1"># download sorted and reduced products</span>
 
@@ -14532,43 +14541,177 @@ New CRS : epsg:4326
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>cloudcoverpercentage</th>
+      <th>title</th>
+      <th>link</th>
+      <th>link_alternative</th>
+      <th>link_icon</th>
+      <th>summary</th>
+      <th>ondemand</th>
+      <th>generationdate</th>
+      <th>beginposition</th>
+      <th>endposition</th>
       <th>ingestiondate</th>
+      <th>...</th>
+      <th>s2datatakeid</th>
+      <th>producttype</th>
+      <th>platformidentifier</th>
+      <th>orbitdirection</th>
+      <th>platformserialidentifier</th>
+      <th>processinglevel</th>
+      <th>datastripidentifier</th>
+      <th>granuleidentifier</th>
+      <th>identifier</th>
+      <th>uuid</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c</th>
-      <td>54.091415</td>
-      <td>2021-07-09 17:59:20.908</td>
-    </tr>
-    <tr>
-      <th>56ff792c-8b3d-472d-a924-2aca10d4fcfb</th>
-      <td>54.838980</td>
-      <td>2021-07-09 17:43:59.361</td>
+      <th>dd59d338-c10d-4f7e-ab2d-93b32b5bb274</th>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFR_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-11T10:40:31.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-11 13:49:56</td>
+      <td>2021-07-11 10:40:31.024</td>
+      <td>2021-07-11 10:40:31.024</td>
+      <td>2021-07-11 16:48:35.876</td>
+      <td>...</td>
+      <td>GS2A_20210711T104031_031608_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2015-028A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2A</td>
+      <td>Level-2A</td>
+      <td>S2A_OPER_MSI_L2A_DS_VGS2_20210711T134956_S2021...</td>
+      <td>S2A_OPER_MSI_L2A_TL_VGS2_20210711T134956_A0316...</td>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFR_2...</td>
+      <td>dd59d338-c10d-4f7e-ab2d-93b32b5bb274</td>
     </tr>
     <tr>
       <th>c8484458-dcc2-4df7-b86c-433e57427bd4</th>
-      <td>58.206305</td>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-11T10:40:31.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-11 13:49:56</td>
+      <td>2021-07-11 10:40:31.024</td>
+      <td>2021-07-11 10:40:31.024</td>
       <td>2021-07-11 16:47:37.009</td>
+      <td>...</td>
+      <td>GS2A_20210711T104031_031608_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2015-028A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2A</td>
+      <td>Level-2A</td>
+      <td>S2A_OPER_MSI_L2A_DS_VGS2_20210711T134956_S2021...</td>
+      <td>S2A_OPER_MSI_L2A_TL_VGS2_20210711T134956_A0316...</td>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFS_2...</td>
+      <td>c8484458-dcc2-4df7-b86c-433e57427bd4</td>
+    </tr>
+    <tr>
+      <th>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c</th>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-09T10:46:19.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-09 14:23:18</td>
+      <td>2021-07-09 10:46:19.024</td>
+      <td>2021-07-09 10:46:19.024</td>
+      <td>2021-07-09 17:59:20.908</td>
+      <td>...</td>
+      <td>GS2B_20210709T104619_022671_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210709T142318_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210709T142318_A0226...</td>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFS_2...</td>
+      <td>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c</td>
+    </tr>
+    <tr>
+      <th>56ff792c-8b3d-472d-a924-2aca10d4fcfb</th>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFR_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-09T10:46:19.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-09 14:23:18</td>
+      <td>2021-07-09 10:46:19.024</td>
+      <td>2021-07-09 10:46:19.024</td>
+      <td>2021-07-09 17:43:59.361</td>
+      <td>...</td>
+      <td>GS2B_20210709T104619_022671_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210709T142318_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210709T142318_A0226...</td>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFR_2...</td>
+      <td>56ff792c-8b3d-472d-a924-2aca10d4fcfb</td>
     </tr>
     <tr>
       <th>cd6e3f34-2582-426a-95e4-a157b1437484</th>
-      <td>71.924243</td>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFR_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-06T10:36:29.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-06 12:58:29</td>
+      <td>2021-07-06 10:36:29.024</td>
+      <td>2021-07-06 10:36:29.024</td>
       <td>2021-07-06 18:25:36.017</td>
+      <td>...</td>
+      <td>GS2B_20210706T103629_022628_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>ASCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210706T125829_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210706T125829_A0226...</td>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFR_2...</td>
+      <td>cd6e3f34-2582-426a-95e4-a157b1437484</td>
     </tr>
     <tr>
       <th>d6a16dff-93e5-4351-b079-51cf29ef46b7</th>
-      <td>75.208396</td>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-06T10:36:29.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-06 12:58:29</td>
+      <td>2021-07-06 10:36:29.024</td>
+      <td>2021-07-06 10:36:29.024</td>
       <td>2021-07-06 18:10:42.760</td>
-    </tr>
-    <tr>
-      <th>dd59d338-c10d-4f7e-ab2d-93b32b5bb274</th>
-      <td>75.445667</td>
-      <td>2021-07-11 16:48:35.876</td>
+      <td>...</td>
+      <td>GS2B_20210706T103629_022628_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>ASCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210706T125829_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210706T125829_A0226...</td>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFS_2...</td>
+      <td>d6a16dff-93e5-4351-b079-51cf29ef46b7</td>
     </tr>
   </tbody>
 </table>
+<p>6 rows × 42 columns</p>
 </div>
 </div>
 
@@ -14600,21 +14743,121 @@ New CRS : epsg:4326
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>cloudcoverpercentage</th>
+      <th>title</th>
+      <th>link</th>
+      <th>link_alternative</th>
+      <th>link_icon</th>
+      <th>summary</th>
+      <th>ondemand</th>
+      <th>generationdate</th>
+      <th>beginposition</th>
+      <th>endposition</th>
       <th>ingestiondate</th>
+      <th>...</th>
+      <th>s2datatakeid</th>
+      <th>producttype</th>
+      <th>platformidentifier</th>
+      <th>orbitdirection</th>
+      <th>platformserialidentifier</th>
+      <th>processinglevel</th>
+      <th>datastripidentifier</th>
+      <th>granuleidentifier</th>
+      <th>identifier</th>
+      <th>uuid</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>c8484458-dcc2-4df7-b86c-433e57427bd4</th>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-11T10:40:31.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-11 13:49:56</td>
+      <td>2021-07-11 10:40:31.024</td>
+      <td>2021-07-11 10:40:31.024</td>
+      <td>2021-07-11 16:47:37.009</td>
+      <td>...</td>
+      <td>GS2A_20210711T104031_031608_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2015-028A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2A</td>
+      <td>Level-2A</td>
+      <td>S2A_OPER_MSI_L2A_DS_VGS2_20210711T134956_S2021...</td>
+      <td>S2A_OPER_MSI_L2A_TL_VGS2_20210711T134956_A0316...</td>
+      <td>S2A_MSIL2A_20210711T104031_N0301_R008_T31UFS_2...</td>
+      <td>c8484458-dcc2-4df7-b86c-433e57427bd4</td>
+    </tr>
+    <tr>
       <th>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c</th>
-      <td>54.091415</td>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-09T10:46:19.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-09 14:23:18</td>
+      <td>2021-07-09 10:46:19.024</td>
+      <td>2021-07-09 10:46:19.024</td>
       <td>2021-07-09 17:59:20.908</td>
+      <td>...</td>
+      <td>GS2B_20210709T104619_022671_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>DESCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210709T142318_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210709T142318_A0226...</td>
+      <td>S2B_MSIL2A_20210709T104619_N0301_R051_T31UFS_2...</td>
+      <td>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c</td>
+    </tr>
+    <tr>
+      <th>d6a16dff-93e5-4351-b079-51cf29ef46b7</th>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFS_2...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>https://apihub.copernicus.eu/apihub/odata/v1/P...</td>
+      <td>Date: 2021-07-06T10:36:29.024Z, Instrument: MS...</td>
+      <td>false</td>
+      <td>2021-07-06 12:58:29</td>
+      <td>2021-07-06 10:36:29.024</td>
+      <td>2021-07-06 10:36:29.024</td>
+      <td>2021-07-06 18:10:42.760</td>
+      <td>...</td>
+      <td>GS2B_20210706T103629_022628_N03.01</td>
+      <td>S2MSI2A</td>
+      <td>2017-013A</td>
+      <td>ASCENDING</td>
+      <td>Sentinel-2B</td>
+      <td>Level-2A</td>
+      <td>S2B_OPER_MSI_L2A_DS_VGS4_20210706T125829_S2021...</td>
+      <td>S2B_OPER_MSI_L2A_TL_VGS4_20210706T125829_A0226...</td>
+      <td>S2B_MSIL2A_20210706T103629_N0301_R008_T31UFS_2...</td>
+      <td>d6a16dff-93e5-4351-b079-51cf29ef46b7</td>
     </tr>
   </tbody>
 </table>
+<p>3 rows × 42 columns</p>
 </div>
 </div>
 
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>3c7677f8-53c5-42a3-b9b6-3d4f18522a4c    S2B_MSIL2A_20210709T104619_N0301_R051_T31UFS_2...
+Name: filename, dtype: object
+</pre>
+</div>
 </div>
 
 </div>
@@ -14635,6 +14878,69 @@ New CRS : epsg:4326
                      <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">api</span><span class="o">.</span><span class="n">download_all</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tiles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;33VUC&#39;</span><span class="p">,</span> <span class="s1">&#39;33UUB&#39;</span><span class="p">]</span>
+
+<span class="n">query_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;platformname&#39;</span><span class="p">:</span> <span class="n">platform_name</span><span class="p">,</span>
+        <span class="s1">&#39;producttype&#39;</span><span class="p">:</span> <span class="n">product_type</span><span class="p">,</span>
+        <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">dates</span><span class="p">}</span>
+
+<span class="n">products</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+    <span class="n">kw</span> <span class="o">=</span> <span class="n">query_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tileid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tile</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="n">products</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>OrderedDict()
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>
