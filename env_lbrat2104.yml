@@ -16,3 +16,4 @@ dependencies:
   - descartes
   - nbconvert
   - notebook
+  - jupyterlab

@@ -1,6 +1,6 @@
 # EO-Toolbox
 
-EO-Toolbox is a set of `jupyter notebooks` that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
+EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
 1. Download Sentinel images with `sentinelsat`
 1. Pre-processing Sentinel-2 images
@@ -104,7 +104,7 @@ python3 check_environment.py
 ```
 
 
-### Launch Jupyter notebook with command lines
+### Launch Jupyter-Lab from computer room
 
 1. Open *Command Prompt* (Windows) or *Terminal* (MacOS)
 
@@ -126,6 +126,36 @@ jupyter notebook
 5. Close jupyter notebook  
 `CTRL-C`  
 `CTRL-C`  
+
+### Launch Jupyter-Lab from lab server
+
+1. Connect to Windows server GEO-14 (*geo14.elie.ucl.ac.be*)
+
+*Don't forget to activate your VPN if you're not connected in eduroam WIFI !*
+
+2. Open *Anaconda Prompt (Anaconda3)*
+
+3. Activate **LBRAT2104**'s environment
+```sh
+conda activate lbrat2104
+```
+#The name of the environment must appear before the name of the disk*  
+`(lbrat2104) C:\>`
+
+4. Move to home disk, the disk where you stored all you data
+```sh
+H:
+```
+
+5. Launch Jupyter-Lab
+```sh
+jupyter lab
+```
+*By default, Jupyter Lab opens in Internet Explorer and this does not work. You need to copy the URL link and paste it into Google Chrome instead.*
+
+6. Navigates to the folder where the notebooks are located
+
+*You can download all the content of this git by clicking on "Code>Download ZIP".*
 
 
 ***
