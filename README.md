@@ -55,9 +55,10 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 
 ## Launch Jupyter-Lab from your personal computer
 
-**! Requires sotckage to install Miniconda (or Anaconda) and the necessary packages !**
+> ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
 
-1. Download Miniconda (or Anaconda)
+1. Download Miniconda (or Anaconda)  
+
 I recommend to use the `conda` package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
 > `conda` is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
