@@ -3,7 +3,7 @@
 EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
 1. Download Sentinel images with `sentinelsat`
-1. Pre-processing Sentinel-2 images
+2. Pre-processing Sentinel-2 images
 3. Deriving biophysical Indicators (e.g. NDVI, NDWI,...)
 4. Designing srategies to split in-situ data into a calibration and a validation datasets
 5. Creating classification with Random Forest
@@ -50,6 +50,7 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 [Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
 
 
+
 # Installation
 
 ## Launch Jupyter-Lab from your personal computer
@@ -57,7 +58,6 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 **! Requires sotckage to install Miniconda (or Anaconda) and the necessary packages !**
 
 1. Download Miniconda (or Anaconda)
-
 I recommend to use the `conda` package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
 > `conda` is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
@@ -66,9 +66,11 @@ I recommend to use the `conda` package manager to install all the requirements. 
 
 You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
-1. Download the YAML file `env_lbrat2104.yml` from Git to your computer.
+2. Download the YAML file [env_lbrat2104.yml](env_lbrat2104.yml) from this Git to your computer.
 
-2. Create a conda envrionment from YAML file
+3. Open *Anaconda Prompt (Anaconda3)* (Windows) or *Terminal* (MacOS)
+
+3. Create a conda envrionment from YAML file
 ```sh
 conda env create --file env_lbrat2104.yml
 ```
@@ -85,7 +87,7 @@ The following python packages/libraries are now installed :
 - [jupyter lab](http://jupyter.org)
 
 
-3. Activate environment
+4. Activate environment
 ```sh
 conda activate lbrat2104
 ```
@@ -115,16 +117,18 @@ jupyter lab
 
 ## Launch Jupyter-Lab from computer room
 
-1. Open *Command Prompt* (Windows) or *Terminal* (MacOS)
+*TODO: check if everything is ok*
+
+1. Open *Anaconda Prompt (Anaconda3)*
 
 2. Navigate to the disk where the environment was created
 ```sh
 X:
 ```
 
-3. Activate environment
+3. Activate **LBRAT2104**'s environment
 ```sh
-conda activate lbrat2104
+conda activate /anaconda_env/LBRAT2104_env_ndeffense
 ```
 
 4. Launch Jupyter-Lab
