@@ -67,11 +67,11 @@ I recommend to use the `conda` package manager to install all the requirements. 
 
 You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
-2. Download the YAML file [env_lbrat2104.yml](env_lbrat2104.yml) from this Git to your computer.
+2. Download the YAML file [env_lbrat2104.yml](installation/env_lbrat2104.yml)
 
-3. Open *Anaconda Prompt (Anaconda3)* (Windows) or *Terminal* (MacOS)
+3. Open *Anaconda Prompt* (Windows) or *Terminal* (MacOS)
 
-3. Create a conda envrionment from YAML file
+4. Create a conda envrionment from YAML file
 ```sh
 conda env create --file env_lbrat2104.yml
 ```
@@ -88,14 +88,14 @@ The following python packages/libraries are now installed :
 - [jupyter lab](http://jupyter.org)
 
 
-4. Activate environment
+5. Activate **LBRAT2104**'s environment
 ```sh
 conda activate lbrat2104
 ```
 
-4. Download other libaries
+6. Download other libaries
 
-Some libraries can not be installed with `conda` and must be isntalled through `pip`
+> Some libraries can not be installed with `conda` and must be installed through `pip`
 
 For instance, to install [sentinelsat](https://sentinelsat.readthedocs.io/en/stable/index.html) you must launch this command :
 
@@ -103,14 +103,14 @@ For instance, to install [sentinelsat](https://sentinelsat.readthedocs.io/en/sta
 pip install sentinelsat
 ```
 
-5. Test the environment (optional)
+7. Test the environment (optional)
 
-To make sure everything was installed correctly, open a terminal, and change its directory (cd) so that your working directory is repository you dowloaded. Then enter the following:
+To make sure everything was installed correctly you can run the small python script [check_environment.py](installation/check_environment.py)
 ```sh
 python3 check_environment.py
 ```
 
-6. Launch Jupyter-Lab
+8. Launch Jupyter-Lab
 ```sh
 jupyter lab
 ```
@@ -120,7 +120,7 @@ jupyter lab
 
 *TODO: check if everything is ok*
 
-1. Open *Anaconda Prompt (Anaconda3)*
+1. Open *Anaconda Prompt*
 
 2. Navigate to the disk where the environment was created
 ```sh
@@ -137,7 +137,7 @@ conda activate /anaconda_env/LBRAT2104_env_ndeffense
 jupyter lab
 ```
 
-5. Close jupyter notebook  
+5. Close Jupyter-Lab  
 `CTRL-C`  
 `CTRL-C`  
 
@@ -148,7 +148,7 @@ jupyter lab
 
 > *Don't forget to activate your VPN if you're not connected in eduroam WIFI !*
 
-2. Open *Anaconda Prompt (Anaconda3)*
+2. Open *Anaconda Prompt*
 
 3. Activate **LBRAT2104**'s environment
 ```sh
@@ -166,11 +166,11 @@ H:
 ```sh
 jupyter lab
 ```
-*By default, Jupyter Lab opens in Internet Explorer and this does not work. You need to copy the URL link and paste it into Google Chrome instead.*
+> By default, Jupyter Lab opens in Internet Explorer and this does not work. You need to copy the URL link and paste it into Google Chrome instead.
 
 6. Navigates to the folder where the notebooks are located
 
-*You can download all the content of this git by clicking on "Code>Download ZIP".*
+> You can download all the content of this git by clicking on "Code>Download ZIP".
 
 
 ***
