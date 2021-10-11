@@ -54,15 +54,15 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 
 ## Launch Jupyter-Lab from your personal computer
 
-! Requires sotckage to install mMiniconda (or Anaconda) and the necessary packages !
+**! Requires sotckage to install Miniconda (or Anaconda) and the necessary packages !**
 
 1. Download Miniconda (or Anaconda)
 
 I recommend to use the `conda` package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
-`conda` is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
+> `conda` is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
 
---> [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+[Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 
 You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
@@ -141,7 +141,7 @@ jupyter lab
 
 1. Connect to Windows server GEO-14 (*geo14.elie.ucl.ac.be*)
 
-*Don't forget to activate your VPN if you're not connected in eduroam WIFI !*
+> *Don't forget to activate your VPN if you're not connected in eduroam WIFI !*
 
 2. Open *Anaconda Prompt (Anaconda3)*
 
