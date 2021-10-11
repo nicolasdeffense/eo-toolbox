@@ -1,0 +1,18 @@
+name: lbrat2104
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - rasterio=1.1.0
+  - rasterstats=0.14.0
+  - fiona
+  - pandas=1.1.5
+  - geopandas=0.8.1
+  - matplotlib=3.3.4
+  - scipy=1.5.2
+  - numpy=1.19.2
+  - ipykernel
+  - scikit-learn=0.24.1
+  - descartes
+  - nbconvert
+  - notebook
