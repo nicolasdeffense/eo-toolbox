@@ -118,14 +118,15 @@ X:
 conda activate lbrat2104
 ```
 
-4. Launch `jupyter notebook`
+4. Launch jupyter notebook
 ```sh
 jupyter notebook
 ```
 
-5. Close `jupyter notebook`
-`CTRL-C`
-`CTRL-C`
+5. Close jupyter notebook  
+`CTRL-C`  
+`CTRL-C`  
+
 
 ***
 
