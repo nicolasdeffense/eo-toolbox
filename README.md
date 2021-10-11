@@ -50,7 +50,13 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 [Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
 
 
-## Installation notes
+# Installation
+
+## Launch Jupyter-Lab from your personal computer
+
+! Requires sotckage to install mMiniconda (or Anaconda) and the necessary packages !
+
+1. Download Miniconda (or Anaconda)
 
 I recommend to use the `conda` package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
@@ -60,11 +66,9 @@ I recommend to use the `conda` package manager to install all the requirements. 
 
 You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
-### Create a conda envrionment from YAML file
-
 1. Download the YAML file `env_lbrat2104.yml` from Git to your computer.
 
-2. Create an environment
+2. Create a conda envrionment from YAML file
 ```sh
 conda env create --file env_lbrat2104.yml
 ```
@@ -78,7 +82,7 @@ The following python packages/libraries are now installed :
 - [rasterstats 0.14.0](https://pythonhosted.org/rasterstats/)
 - [scipy 1.5.2](https://www.scipy.org/about.html)
 - [scikit-learn 0.24.1](https://scikit-learn.org/stable/)
-- [Jupyter Notebook](http://jupyter.org)
+- [jupyter lab](http://jupyter.org)
 
 
 3. Activate environment
@@ -103,8 +107,13 @@ To make sure everything was installed correctly, open a terminal, and change its
 python3 check_environment.py
 ```
 
+6. Launch Jupyter-Lab
+```sh
+jupyter lab
+```
 
-### Launch Jupyter-Lab from computer room
+
+## Launch Jupyter-Lab from computer room
 
 1. Open *Command Prompt* (Windows) or *Terminal* (MacOS)
 
@@ -118,16 +127,17 @@ X:
 conda activate lbrat2104
 ```
 
-4. Launch jupyter notebook
+4. Launch Jupyter-Lab
 ```sh
-jupyter notebook
+jupyter lab
 ```
 
 5. Close jupyter notebook  
 `CTRL-C`  
 `CTRL-C`  
 
-### Launch Jupyter-Lab from lab server
+
+## Launch Jupyter-Lab from lab server
 
 1. Connect to Windows server GEO-14 (*geo14.elie.ucl.ac.be*)
 
@@ -139,7 +149,7 @@ jupyter notebook
 ```sh
 conda activate lbrat2104
 ```
-#The name of the environment must appear before the name of the disk*  
+*The name of the environment must appear before the name of the disk*  
 `(lbrat2104) C:\>`
 
 4. Move to home disk, the disk where you stored all you data
