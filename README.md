@@ -80,6 +80,11 @@ Conda is a powerful package manager and environment manager that you use with co
 
 You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
+#### Create an envrionment from YAML file
+
+1. Download the YAML file *env_lbrat2104.yml* from Git to your computer
+2. Create an environment `conda env create --file env_lbrat2104.yml`
+3. Activate the environment `conda activate lbrat2104`
 
 ### Test the environment
 
