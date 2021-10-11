@@ -50,15 +50,24 @@ EO-Toolbox is a set of Jupyter Notebooks that explains in detail the different s
 [Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
 
 
-## Installation notes
+## Installation with Conda
 
-To use the notebooks, you should first install :
+I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution. Conda is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
 
-- [Python 3.6](https://www.python.org)
-- [Jupyter Notebook](http://jupyter.org)
+--> [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 
-and then the following python packages/libraries :
+You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
+### Create an envrionment from YAML file
+
+1. Download the YAML file `env_lbrat2104.yml` from Git to your computer.
+
+2. Create an environment
+```sh
+conda env create --file env_lbrat2104.yml
+```
+
+The following python packages/libraries are now installed :
 - [numpy 1.19.2](https://numpy.org)
 - [pandas 1.1.5](https://pandas.pydata.org)
 - [geopandas 0.8.1](https://geopandas.org/)
@@ -67,38 +76,32 @@ and then the following python packages/libraries :
 - [rasterstats 0.14.0](https://pythonhosted.org/rasterstats/)
 - [scipy 1.5.2](https://www.scipy.org/about.html)
 - [scikit-learn 0.24.1](https://scikit-learn.org/stable/)
-- [sentinelsat 1.0.1](https://sentinelsat.readthedocs.io/en/stable/index.html)
+- [Jupyter Notebook](http://jupyter.org)
 
 
-If you do not yet have these packages/libraries installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
-
-### Conda
-
-Conda is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
-
---> [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
-
-You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
-
-#### Create an envrionment from YAML file
-
-1. Download the YAML file `env_lbrat2104.yml` from Git to your computer
-2. Create an environment
-```sh
-conda env create --file env_lbrat2104.yml
-```
 3. Activate the environment
 ```sh
 conda activate lbrat2104
 ```
 
-### Test the environment
+4. Download other libaries
+
+Some libraries can not be installed with `conda` and must be isntalled through `pip`
+
+For instance, to install [sentinelsat](https://sentinelsat.readthedocs.io/en/stable/index.html) you must launch this command :
+
+```sh
+pip install sentinelsat
+```
+
+5. Test the environment (optional)
 
 To make sure everything was installed correctly, open a terminal, and change its directory (cd) so that your working directory is repository you dowloaded. Then enter the following:
-
 ```sh
 python3 check_environment.py
 ```
 
+
+***
 
 *This repository was created in the framework of the course **LBRAT2104 - Land Monitoring by Advanced Earth Observation** by Nicolas Deffense.*
