@@ -72,6 +72,13 @@ and then the following python packages/libraries :
 
 If you do not yet have these packages/libraries installed, I recommend to use the conda package manager to install all the requirements. You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or install the (larger) [Anaconda](https://www.anaconda.com/products/individual) distribution.
 
+### Conda
+
+Conda is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
+
+--> [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+
+You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
 
 ### Test the environment
