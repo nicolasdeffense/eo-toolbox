@@ -2,7 +2,7 @@
 
 EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
-This repository was created in the framework of the course **LBRAT2104 - Land Monitoring by Advanced Earth Observation** by Nicolas Deffense.
+This repository was created in the framework of the course [LBRAT2104 - Land Monitoring by Advanced Earth Observation](https://uclouvain.be/cours-2021-lbrat2104) by Nicolas Deffense.
 
 
 # Jupyter Notebooks
@@ -11,13 +11,11 @@ This repository was created in the framework of the course **LBRAT2104 - Land Mo
 
 [Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/download_images.html)
 
-
 ## Vector data
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
 
 [In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ.html)
-
 
 ## Pre-processing Sentinel-2 data
 
@@ -27,7 +25,6 @@ This repository was created in the framework of the course **LBRAT2104 - Land Mo
 
 [Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
 
-
 ## Classification
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
@@ -36,7 +33,6 @@ This repository was created in the framework of the course **LBRAT2104 - Land Mo
 
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/validation.html)
 
-
 ## Tools
 
 [Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/multiband_raster.html)
@@ -44,7 +40,6 @@ This repository was created in the framework of the course **LBRAT2104 - Land Mo
 [Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/zonal_stats.html)
 
 [Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
-
 
 
 # Installation
