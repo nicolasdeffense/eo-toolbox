@@ -2,37 +2,33 @@
 
 EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
-1. Download Sentinel images with `sentinelsat`
-2. Pre-processing Sentinel-2 images
-3. Deriving biophysical Indicators (e.g. NDVI, NDWI,...)
-4. Designing srategies to split in-situ data into a calibration and a validation datasets
-5. Creating classification with Random Forest
+This repository was created in the framework of the course **LBRAT2104 - Land Monitoring by Advanced Earth Observation** by Nicolas Deffense.
 
 
 # Jupyter Notebooks
 
-### Downloading Sentinel images
+## Downloading Sentinel images
 
 [Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/download_images.html)
 
 
-### Vector data
+## Vector data
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
 
 [In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ.html)
 
 
-### Pre-processing Sentinel-2 data
+## Pre-processing Sentinel-2 data
 
 [Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
 
-[Compute Spectral Indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/spectral_indices.html)
+[Compute Spectral Indices (NDVI, NDWI, ...)](https://nicolasdeffense.github.io/eo-toolbox/notebooks/spectral_indices.html)
 
 [Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
 
 
-### Classification
+## Classification
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
 
@@ -41,7 +37,7 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/validation.html)
 
 
-### Tools
+## Tools
 
 [Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/multiband_raster.html)
 
@@ -172,8 +168,3 @@ jupyter lab
 6. Navigates to the folder where the notebooks are located
 
 > You can download all the content of this git by clicking on "Code>Download ZIP".
-
-
-***
-
-*This repository was created in the framework of the course **LBRAT2104 - Land Monitoring by Advanced Earth Observation** by Nicolas Deffense.*
