@@ -153,10 +153,10 @@ jupyter lab
 
 3. Activate **LBRAT2104**'s environment
 ```sh
-conda activate lbrat2104
+conda activate G:\conda_env\lbrat2104
 ```
 *The name of the environment must appear before the name of the disk*  
-`(lbrat2104) C:\>`
+`(G:\conda_env\lbrat2104) C:\>`
 
 4. Move to home disk, the disk where you stored all you data
 ```sh
