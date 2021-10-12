@@ -9,21 +9,21 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 5. Creating classification with Random Forest
 
 
-## Jupyter Notebooks
+# Jupyter Notebooks
 
-#### Downloading Sentinel images
+### Downloading Sentinel images
 
 [Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/download_images.html)
 
 
-#### Vector data
+### Vector data
 
 [Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
 
 [In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ.html)
 
 
-#### Pre-processing Sentinel-2 data
+### Pre-processing Sentinel-2 data
 
 [Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
 
@@ -32,7 +32,7 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 [Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
 
 
-#### Classification
+### Classification
 
 [In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
 
@@ -41,7 +41,7 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/validation.html)
 
 
-#### Tools
+### Tools
 
 [Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/multiband_raster.html)
 
@@ -93,7 +93,7 @@ The following python packages/libraries are now installed :
 conda activate lbrat2104
 ```
 
-6. Download other libaries
+6. Download other libaries with `pip`
 
 > Some libraries can not be installed with `conda` and must be installed through `pip`
 
