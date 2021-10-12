@@ -146,7 +146,7 @@ jupyter lab
 
 1. Connect to Windows server Geo14 (*geo14.elie.ucl.ac.be*)
 
-> Only available to students doing their master thesis with Pierre Defourny
+> Only available to students doing their master thesis with Pierre Defourny  
 > *Don't forget to activate your VPN if you're not connected in eduroam WIFI !*
 
 2. Open *Anaconda Prompt*
