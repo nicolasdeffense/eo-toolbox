@@ -9,37 +9,39 @@ This repository was created in the framework of the course [LBRAT2104 - Land Mon
 
 ## Downloading Sentinel images
 
-[Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/download_images.html)
+[Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/download_images.html)
 
 ## Vector data
 
-[Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/region_of_interest.html)
+[Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/region_of_interest.html)
 
-[In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ.html)
+[In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/in_situ.html)
 
 ## Pre-processing Sentinel-2 data
 
-[Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/sentinel_2_prepro.html)
+[Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/sentinel_2_prepro.html)
 
-[Compute Spectral Indices (NDVI, NDWI, ...)](https://nicolasdeffense.github.io/eo-toolbox/notebooks/spectral_indices.html)
+[Compute Spectral Indices (NDVI, NDWI, ...)](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/spectral_indices.html)
 
-[Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/extract_stats_timeserie.html)
+[Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/extract_stats_timeserie.html)
 
 ## Classification
 
-[In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/in_situ_sampling_design.html)
+[In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/in_situ_sampling_design.html)
 
-[Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/random_forest_classification.html)
+[Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/random_forest_classification.html)
 
-[Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/validation.html)
+[Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/validation.html)
 
 ## Tools
 
-[Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/multiband_raster.html)
+[Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/multiband_raster.html)
 
-[Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/zonal_stats.html)
+[Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/zonal_stats.html)
 
-[Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/graphics.html)
+[Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/graphics.html)
+
+[Count frequency](https://nicolasdeffense.github.io/eo-toolbox/notebooks/html/count_frequency_pixels.html)
 
 
 # Installation
@@ -163,3 +165,10 @@ jupyter lab
 6. Navigates to the folder where the notebooks are located
 
 > You can download all the content of this git by clicking on "Code>Download ZIP".
+
+
+# TODO's
+
+- add temporal filtering (e.g. linear interpolation)
+- add Google Earth link QGIS in slide
+- colormap classification via script de Quentin

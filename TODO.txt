@@ -1,6 +1,0 @@
-TO DO
-- add temporal filtering (e.g. linear interpolation)
-- add sentinelsat
-- add Google Earth link QGIS in slide
-- colormap classification via script de Quentin
-- add ...
