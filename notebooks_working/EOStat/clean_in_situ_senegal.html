@@ -14284,16 +14284,13 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[76]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gpx_path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/Assemble/&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/&#39;</span>
 
-<span class="n">odk_path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/FormSenegal05/&#39;</span>
-
-<span class="n">odk_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">odk_path</span><span class="si">}</span><span class="s1">FormSenegal05.csv&#39;</span>
-
-<span class="n">odk_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">odk_path</span><span class="si">}</span><span class="s1">polygons_ODK.shp&#39;</span>
+<span class="n">odk_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Assemble/FormSenegal05.csv&#39;</span>
+<span class="n">odk_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">FormSenegal05/polygons_ODK.shp&#39;</span>
 </pre></div>
 
      </div>
@@ -14309,14 +14306,14 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[75]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[77]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gps_shp_output</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/Output_Nico/gps_with_data.shp&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gps_shp_output</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Output_Nico/gps_with_data.shp&#39;</span>
 
-<span class="n">odk_shp_output</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/Output_Nico/odk_with_data.shp&#39;</span>
+<span class="n">odk_shp_output</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Output_Nico/odk_with_data.shp&#39;</span>
 
-<span class="n">map_html_output</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/Output_Nico/odk_gps_with_data.html&#39;</span>
+<span class="n">map_html_output</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Output_Nico/odk_gps_with_data.html&#39;</span>
 </pre></div>
 
      </div>
@@ -14332,14 +14329,14 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[78]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dict_gpx_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="n">wrong_pid</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">for</span> <span class="n">gpx_file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">gpx_path</span><span class="si">}</span><span class="s1">*/*.gpx&#39;</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">gpx_file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Assemble/*/*.gpx&#39;</span><span class="p">):</span>
 
     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">gpx_file</span><span class="p">)</span>
 
