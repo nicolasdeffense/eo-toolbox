@@ -9,9 +9,10 @@ import numpy as np
 import plotly.express as px
 from plotly.subplots import make_subplots
 
+
 # ------------------------------------------------------------------------------------------------
 
-def build_histogram_plotly(gdf, lut, histo_png, prop_csv, level, area_column='area', distribution='area', cumsum=True, display_legend=False):
+def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
 
     level_nb = level + '_nb'
 
@@ -21,64 +22,36 @@ def build_histogram_plotly(gdf, lut, histo_png, prop_csv, level, area_column='ar
 
     df_area = gdf_lut.groupby(level_nb)[area_column].agg('sum').reset_index(name='area')
 
-    df_count = gdf_lut.groupby(level_nb).size().reset_index(name='count')
-
-    df = df_area.merge(df_count, on=level_nb)
-
-    display(df)
-
-    lut_df = lut_df.drop_duplicates(level_nb)
-    
-
-    df = df.merge(lut_df, on=level_nb)
-    #df = df.loc[df['lc_nb'].isin([1,2])]
-    df = df.sort_values(by=area_column, ascending=False)
-
-    df['ratio'] = df[area_column] / df[area_column].sum()
-    
-    df['cumsum'] = df[area_column].cumsum()
-    df['cumsum_ratio'] = df['cumsum'] / df['cumsum'].iloc[-1]
-
-    display(df)
-
-    fig = px.bar(df,
-             x="sub_nb",
-             y="cumsum_ratio",
-             barmode='stack')
-    
-    fig.show()
-
-# ------------------------------------------------------------------------------------------------
-
-def build_histogram(gdf, lut, histo_png, prop_csv, level, area_column='area', distribution='area', cumsum=True, display_legend=False):
-
-    level_nb = level + '_nb'
-
-    lut_df = pd.read_excel(lut)
-
-    gdf_lut = gdf.merge(lut_df, left_on='sub_nb', right_on='sub_nb', how='inner')
-
-    df_area = gdf_lut.groupby(level_nb)[area_column].agg('sum').reset_index(name='area')
+    df_area[area_column] = (df_area[area_column]/10000).round(2)
 
     df_count = gdf_lut.groupby(level_nb).size().reset_index(name='count')
 
     df = df_area.merge(df_count, on=level_nb)
-
-    display(df)
-
+    
     lut_df = lut_df.drop_duplicates(level_nb)
     
-
     df = df.merge(lut_df, on=level_nb)
-    #df = df.loc[df['lc_nb'].isin([1,2])]
+
     df = df.sort_values(by=area_column, ascending=False)
 
-    df['ratio'] = df[area_column] / df[area_column].sum()
+    df['ratio'] = ((df[area_column] / df[area_column].sum())*100).round(2)
     
     df['cumsum'] = df[area_column].cumsum()
-    df['cumsum_ratio'] = df['cumsum'] / df['cumsum'].iloc[-1]
+    df['cumsum_ratio'] = ((df['cumsum'] / df['cumsum'].iloc[-1])*100).round(2)
 
-    display(df)
+    df.loc[df['lc_nb']==1,'color'] = '#ffff64'
+    df.loc[df['lc_nb']==2,'color'] = '#c8c864'
+    df.loc[df['lc_nb']==3,'color'] = '#ffb432'
+    df.loc[df['lc_nb']==4,'color'] = '#ffebaf'
+    df.loc[df['lc_nb']==5,'color'] = '#966400'
+    df.loc[df['lc_nb']==6,'color'] = '#00a000'
+    df.loc[df['lc_nb']==7,'color'] = '#fff5d7'
+    df.loc[df['lc_nb']==8,'color'] = '#c31400'
+    df.loc[df['lc_nb']==9,'color'] = '#0046c8'
+
+    df['name'] = name
+
+    df[level] = df[level].str.slice(start=0, stop=20)
 
     # --------- #
     # Get table #
@@ -93,19 +66,92 @@ def build_histogram(gdf, lut, histo_png, prop_csv, level, area_column='area', di
 
     #prop_df.to_csv(prop_csv, index=False, sep=';')
 
-    # ------------------ #
-    # Get histogram plot #
-    # ------------------ #
+    return df
+
+# ------------------------------------------------------------------------------------------------
+
+def pie_chart_plotly(df, pie_plotly_filename, level):
+
+    color_dict = {}
+
+    for i, row in df.iterrows():
+        lc    = row['lc']
+        color = row['color']
+        color_dict[lc] = color
     
-    df.loc[df['lc_nb']==1,'color'] = '#ffff64'
-    df.loc[df['lc_nb']==2,'color'] = '#c8c864'
-    df.loc[df['lc_nb']==3,'color'] = '#ffb432'
-    df.loc[df['lc_nb']==4,'color'] = '#ffebaf'
-    df.loc[df['lc_nb']==5,'color'] = '#966400'
-    df.loc[df['lc_nb']==6,'color'] = '#00a000'
-    df.loc[df['lc_nb']==7,'color'] = '#fff5d7'
-    df.loc[df['lc_nb']==8,'color'] = '#c31400'
-    df.loc[df['lc_nb']==9,'color'] = '#0046c8'
+
+    fig = px.pie(df,
+                values='area',
+                names=level,
+                color='lc',
+                color_discrete_map=color_dict,
+                hover_data=['count']
+                )
+    
+    fig.show()
+
+    fig.write_html(pie_plotly_filename + '.html')
+    fig.write_image(pie_plotly_filename + '.svg')
+
+# ------------------------------------------------------------------------------------------------
+
+def bar_chart_plotly(df, plotly_html, level, y='ratio'):
+
+    
+    if level == 'sub':
+
+        color_dict = {}
+
+        for i, row in df.iterrows():
+            lc    = row['lc']
+            color = row['color']
+            color_dict[lc] = color
+
+        fig = px.bar(df,
+                x=level,
+                y=y,
+                color='lc',
+                color_discrete_map=color_dict,
+                hover_data=["area", "count","ratio"],
+                text='count')
+    
+    else:
+        fig = px.bar(df,
+                x=level,
+                y=y,
+                hover_data=["area", "count","ratio"],
+                text='count')
+
+    
+    fig.show()
+
+    fig.write_html(plotly_html)
+
+# ------------------------------------------------------------------------------------------------
+
+def grouped_bar_chart_plotly(df_1, df_2, plotly_html, level, y='ratio'):
+
+    df_list = [df_1, df_2]
+
+    df = pd.concat(df_list)
+
+    display(df)
+
+    fig = px.bar(df,
+            x=level,
+            y=y,
+            text='count',
+            color='name',
+            barmode='group',
+            hover_data=["area", "count","ratio"])
+
+    fig.show()
+
+    fig.write_html(plotly_html)
+
+# ------------------------------------------------------------------------------------------------
+
+def build_histogram_matplotlib(df, histo_png, level, area_column='area', distribution='area', cumsum=True, display_legend=False):
 
     width = 0.55
     stop = 20
@@ -122,7 +168,7 @@ def build_histogram(gdf, lut, histo_png, prop_csv, level, area_column='area', di
         plt.bar(df[level].str.slice(start=0, stop=stop), df['count'], width, color=df['color'])
         plt.ylabel('Number of polygons', size=12)
     
-    plt.text(df['ratio'])
+
     plt.xticks(rotation=90)
     plt.tick_params(axis='x', labelsize=x_size)
     plt.tick_params(axis='y',labelsize=10)
@@ -163,35 +209,9 @@ def build_histogram(gdf, lut, histo_png, prop_csv, level, area_column='area', di
 
 # ------------------------------------------------------------------------------------------------
 
-def get_proportion_lc(gdf, lut, pie_png, level, area_column='area', distribution='area'):
-    
-    level_nb = level + '_nb'
-
-    lut_df = pd.read_excel(lut)
-
-    gdf_lut = gdf.merge(lut_df, left_on='sub_nb', right_on='sub_nb', how='inner')
-
-    df_area = gdf_lut.groupby([level,level_nb])[area_column].agg('sum').reset_index(name='area')
-
-    df_count = gdf_lut.groupby(level_nb).size().reset_index(name='count')
-
-    df = df_area.merge(df_count, on=level_nb)
-
-    #df['percentage'] = round(df['pix_count']/df['pix_count'].sum()*100,2)
-    
+def get_proportion_lc(df, pie_png, level, area_column='area', distribution='area'):
+        
     df['explode'] = 0.01
-
-    df.loc[df[level_nb]==1,'color'] = '#ffff64'
-    df.loc[df[level_nb]==2,'color'] = '#c8c864'
-    df.loc[df[level_nb]==3,'color'] = '#ffb432'
-    df.loc[df[level_nb]==4,'color'] = '#ffebaf'
-    df.loc[df[level_nb]==5,'color'] = '#966400'
-    df.loc[df[level_nb]==6,'color'] = '#00a000'
-    df.loc[df[level_nb]==7,'color'] = '#fff5d7'
-    df.loc[df[level_nb]==8,'color'] = '#c31400'
-    df.loc[df[level_nb]==9,'color'] = '#0046c8'
-    
-    display(df)
     
     plt.figure(dpi=1200)
 
