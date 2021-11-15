@@ -6,8 +6,47 @@ import pandas as pd
 import geopandas as gpd
 from matplotlib.patches import Patch
 import numpy as np
+import plotly.express as px
+from plotly.subplots import make_subplots
 
+# ------------------------------------------------------------------------------------------------
 
+def build_histogram_plotly(gdf, lut, histo_png, prop_csv, level, area_column='area', distribution='area', cumsum=True, display_legend=False):
+
+    level_nb = level + '_nb'
+
+    lut_df = pd.read_excel(lut)
+
+    gdf_lut = gdf.merge(lut_df, left_on='sub_nb', right_on='sub_nb', how='inner')
+
+    df_area = gdf_lut.groupby(level_nb)[area_column].agg('sum').reset_index(name='area')
+
+    df_count = gdf_lut.groupby(level_nb).size().reset_index(name='count')
+
+    df = df_area.merge(df_count, on=level_nb)
+
+    display(df)
+
+    lut_df = lut_df.drop_duplicates(level_nb)
+    
+
+    df = df.merge(lut_df, on=level_nb)
+    #df = df.loc[df['lc_nb'].isin([1,2])]
+    df = df.sort_values(by=area_column, ascending=False)
+
+    df['ratio'] = df[area_column] / df[area_column].sum()
+    
+    df['cumsum'] = df[area_column].cumsum()
+    df['cumsum_ratio'] = df['cumsum'] / df['cumsum'].iloc[-1]
+
+    display(df)
+
+    fig = px.bar(df,
+             x="sub_nb",
+             y="cumsum_ratio",
+             barmode='stack')
+    
+    fig.show()
 
 # ------------------------------------------------------------------------------------------------
 
@@ -83,6 +122,7 @@ def build_histogram(gdf, lut, histo_png, prop_csv, level, area_column='area', di
         plt.bar(df[level].str.slice(start=0, stop=stop), df['count'], width, color=df['color'])
         plt.ylabel('Number of polygons', size=12)
     
+    plt.text(df['ratio'])
     plt.xticks(rotation=90)
     plt.tick_params(axis='x', labelsize=x_size)
     plt.tick_params(axis='y',labelsize=10)
