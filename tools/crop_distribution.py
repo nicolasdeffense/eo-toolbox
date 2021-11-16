@@ -12,7 +12,7 @@ from plotly.subplots import make_subplots
 
 # ------------------------------------------------------------------------------------------------
 
-def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
+def prepare_dataframe(gdf, lut, level,  area_column='area'):
 
     level_nb = level + '_nb'
 
@@ -20,9 +20,9 @@ def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
 
     gdf_lut = gdf.merge(lut_df, left_on='sub_nb', right_on='sub_nb', how='inner')
 
-    df_area = gdf_lut.groupby(level_nb)[area_column].agg('sum').reset_index(name='area')
+    df_area = gdf_lut.groupby(level_nb)[area_column].agg('sum').reset_index(name='area_tot')
 
-    df_area[area_column] = (df_area[area_column]/10000).round(2)
+    df_area['area_tot'] = (df_area['area_tot']/10000).round(2)
 
     df_count = gdf_lut.groupby(level_nb).size().reset_index(name='count')
 
@@ -32,11 +32,11 @@ def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
     
     df = df.merge(lut_df, on=level_nb)
 
-    df = df.sort_values(by=area_column, ascending=False)
+    df = df.sort_values(by='area_tot', ascending=False)
 
-    df['ratio'] = ((df[area_column] / df[area_column].sum())*100).round(2)
+    df['ratio'] = ((df['area_tot'] / df['area_tot'].sum())*100).round(2)
     
-    df['cumsum'] = df[area_column].cumsum()
+    df['cumsum'] = df['area_tot'].cumsum()
     df['cumsum_ratio'] = ((df['cumsum'] / df['cumsum'].iloc[-1])*100).round(2)
 
     df.loc[df['lc_nb']==1,'color'] = '#ffff64'
@@ -49,8 +49,6 @@ def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
     df.loc[df['lc_nb']==8,'color'] = '#c31400'
     df.loc[df['lc_nb']==9,'color'] = '#0046c8'
 
-    df['name'] = name
-
     df[level] = df[level].str.slice(start=0, stop=20)
 
     # --------- #
@@ -59,46 +57,53 @@ def prepare_dataframe(gdf, lut, level, name,  area_column='area'):
 
     #prop_df = df[['sub_nb','sub','lc_nb','lc','cumsum_ratio']]
     #print(prop_df)
-
-    
     #print('-- Creating table')
     #print(f'----> {prop_csv}')
-
     #prop_df.to_csv(prop_csv, index=False, sep=';')
 
     return df
 
 # ------------------------------------------------------------------------------------------------
 
-def pie_chart_plotly(df, pie_plotly_filename, level):
+def pie_chart_plotly(df, chart_filename, level, values='area_tot'):
 
-    color_dict = {}
+    if level == 'lc':
 
-    for i, row in df.iterrows():
-        lc    = row['lc']
-        color = row['color']
-        color_dict[lc] = color
+        color_dict = {}
+
+        for i, row in df.iterrows():
+            lc    = row['lc']
+            color = row['color']
+            color_dict[lc] = color
+
+        fig = px.pie(df,
+                    values='area_tot',
+                    names=level,
+                    color='lc',
+                    color_discrete_map=color_dict,
+                    hover_data=['count']
+                    )
     
+    else:
+        fig = px.pie(df,
+                    values='area_tot',
+                    names=level,
+                    color=level,
+                    hover_data=['count']
+                    )
 
-    fig = px.pie(df,
-                values='area',
-                names=level,
-                color='lc',
-                color_discrete_map=color_dict,
-                hover_data=['count']
-                )
-    
     fig.show()
 
-    fig.write_html(pie_plotly_filename + '.html')
-    fig.write_image(pie_plotly_filename + '.svg')
+    fig.write_html(chart_filename + '.html')
+    fig.write_image(chart_filename + '.svg')
+
 
 # ------------------------------------------------------------------------------------------------
 
-def bar_chart_plotly(df, plotly_html, level, y='ratio'):
+def bar_chart_plotly(df, chart_filename, level, y='ratio'):
 
     
-    if level == 'sub':
+    if level == 'lc':
 
         color_dict = {}
 
@@ -112,20 +117,22 @@ def bar_chart_plotly(df, plotly_html, level, y='ratio'):
                 y=y,
                 color='lc',
                 color_discrete_map=color_dict,
-                hover_data=["area", "count","ratio"],
+                hover_data=["area_tot", "count","ratio"],
                 text='count')
     
     else:
         fig = px.bar(df,
                 x=level,
                 y=y,
-                hover_data=["area", "count","ratio"],
+                color=level,
+                hover_data=["area_tot", "count","ratio"],
                 text='count')
 
-    
     fig.show()
 
-    fig.write_html(plotly_html)
+    fig.write_html(chart_filename + '.html')
+    fig.write_image(chart_filename + '.svg')
+
 
 # ------------------------------------------------------------------------------------------------
 
