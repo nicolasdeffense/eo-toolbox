@@ -7,8 +7,6 @@ import geopandas as gpd
 from matplotlib.patches import Patch
 import numpy as np
 import plotly.express as px
-from plotly.subplots import make_subplots
-
 
 # ------------------------------------------------------------------------------------------------
 
@@ -100,7 +98,7 @@ def pie_chart_plotly(df, chart_filename, level, values='area_tot'):
 
 # ------------------------------------------------------------------------------------------------
 
-def bar_chart_plotly(df, chart_filename, level, y='ratio'):
+def bar_chart_plotly(df, chart_filename, level, y):
 
     
     if level == 'lc':
@@ -130,8 +128,8 @@ def bar_chart_plotly(df, chart_filename, level, y='ratio'):
 
     fig.show()
 
-    fig.write_html(chart_filename + '.html')
-    fig.write_image(chart_filename + '.svg')
+    #fig.write_html(chart_filename + '.html')
+    #fig.write_image(chart_filename + '.svg')
 
 
 # ------------------------------------------------------------------------------------------------
@@ -141,8 +139,6 @@ def grouped_bar_chart_plotly(df_1, df_2, plotly_html, level, y='ratio'):
     df_list = [df_1, df_2]
 
     df = pd.concat(df_list)
-
-    display(df)
 
     fig = px.bar(df,
             x=level,
