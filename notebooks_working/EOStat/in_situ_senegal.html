@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>clean_in_situ_senegal</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>in_situ_senegal</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14268,7 +14268,6 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">fiona</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">mapping</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="c1">#import folium</span>
 <span class="kn">import</span> <span class="nn">rasterio</span>
 <span class="kn">import</span> <span class="nn">rasterio.mask</span>
 <span class="kn">import</span> <span class="nn">rasterio.plot</span>
@@ -14278,11 +14277,9 @@ a.anchor-link {
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <span class="n">tools_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/GIT/eo-toolbox/tools/&#39;</span>
-<span class="c1">#tools_path = &#39;/Users/Nicolas/Documents/Git/eo-toolbox/tools/&#39;</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tools_path</span><span class="p">)</span>
 
-<span class="c1">#import folium_def</span>
 <span class="kn">import</span> <span class="nn">remove_overlap</span>
 <span class="kn">import</span> <span class="nn">crop_distribution</span>
 </pre></div>
@@ -14295,17 +14292,15 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Input-/-Output">Input / Output<a class="anchor-link" href="#Input-/-Output">&#182;</a></h1><h2 id="Input">Input<a class="anchor-link" href="#Input">&#182;</a></h2>
+<h1 id="Input-/-Output">Input / Output<a class="anchor-link" href="#Input-/-Output">&#182;</a></h1>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/&#39;</span>
-
-<span class="n">shp_path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/shp_temp_2/&#39;</span>
 
 <span class="n">gps_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">GPS/base_nioro.xlsx&#39;</span>
 
@@ -14314,41 +14309,15 @@ a.anchor-link {
 <span class="n">odk_crop_csv</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">ODK/FormSenegal05.csv&#39;</span>
 <span class="n">odk_non_crop_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">ODK/FormSenegal07.csv&#39;</span>
 
-<span class="n">roi_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">ROI/Senegal_DepartementNioro.shp&#39;</span>
 
 <span class="n">lut_crop_xlsx</span>         <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">LUT/LUT_crop.xlsx&#39;</span>
 <span class="n">lut_non_crop_xlsx</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">LUT/LUT_non_crop.xlsx&#39;</span>
 <span class="n">lut_non_crop_lox_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">LUT/LUT_non_crop_lox.xlsx&#39;</span>
 
-<span class="n">crop_dictionary_xlsx</span>  <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Sen4Stat/LUT/crop_dictionary_new.xlsx&#39;</span>
-</pre></div>
+<span class="n">crop_dictionary_xlsx</span>  <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/export/projects/Sen4Stat/WORK/LUT/crop_dictionary_new.xlsx&#39;</span>
 
-     </div>
-</div>
-</div>
-</div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Output">Output<a class="anchor-link" href="#Output">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gps_inner_shp</span>    <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/gps_with_data_inner.shp&#39;</span>
-<span class="n">gps_left_shp</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/gps_with_data_left.shp&#39;</span>
-<span class="n">odk_crop_shp</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/odk_crop_with_data.shp&#39;</span>
-<span class="n">odk_crop_dup_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/odk_crop_with_data_duplicates.shp&#39;</span>
-<span class="n">odk_non_crop_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/odk_non_crop_with_data.shp&#39;</span>
-<span class="n">lox_non_crop_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">shp_temp/lox_non_crop_with_data.shp&#39;</span>
-
-<span class="n">full_shp_output</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">Sen4Stat/IN_SITU/SITE_41/SEN_2021_SITE_41_ori.shp&#39;</span>
-
-<span class="c1">#map_html_output = f&#39;{path}shp_temp/odk_gps_with_data.html&#39;</span>
+<span class="n">shp_path</span> <span class="o">=</span> <span class="s1">&#39;/export/projects/FAO-EOStat-Senegal/shp_temp_4/&#39;</span>
 </pre></div>
 
      </div>
@@ -14364,11 +14333,11 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">buf_size</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>  <span class="c1"># meter</span>
-<span class="n">min_area</span> <span class="o">=</span> <span class="mi">500</span>  <span class="c1"># square meter</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">buf_size</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>    <span class="c1"># meter</span>
+<span class="n">min_area</span> <span class="o">=</span> <span class="mi">300</span>    <span class="c1"># square meter</span>
 <span class="n">max_area</span> <span class="o">=</span> <span class="mi">100000</span> <span class="c1"># square meter</span>
 </pre></div>
 
@@ -14385,7 +14354,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_crop_df</span>         <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">lut_crop_xlsx</span><span class="p">)</span>
@@ -14604,7 +14573,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 
 
 
@@ -14698,7 +14667,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gps_data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">gps_xlsx</span><span class="p">)</span>
@@ -14719,7 +14688,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 
 
 
@@ -18631,7 +18600,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Initial rows </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_data_df</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -18643,7 +18612,6 @@ a.anchor-link {
 <span class="n">clean_gps_data_df</span> <span class="o">=</span> <span class="n">clean_gps_data_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id_gps&#39;</span><span class="p">,</span><span class="s1">&#39;crop_name_2021&#39;</span><span class="p">])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; After removing rows without ID and crop name : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_gps_data_df</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
 
 <span class="n">clean_gps_data_df</span><span class="p">[</span><span class="s1">&#39;id_gps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_gps_data_df</span><span class="p">[</span><span class="s1">&#39;id_gps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
@@ -18690,7 +18658,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
@@ -18774,19 +18742,24 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dict_gpx_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">gpx_file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">GPS/*/*.gpx&#39;</span><span class="p">):</span>
+<span class="n">gpx_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">GPS/*/*&#39;</span>
+
+<span class="k">for</span> <span class="n">gpx_file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">gpx_path</span><span class="p">):</span>
 
     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">gpx_file</span><span class="p">)</span>
-
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="n">filename</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Piste&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;_ &#39;</span><span class="p">)</span>
+    
+    <span class="c1">#pid = filename[filename.find(&quot;Piste&quot;)+5:-4].lstrip(&#39;_ &#39;)</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="n">filename</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Piste&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span>
+    <span class="c1">#print(pid)</span>
     <span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
     <span class="n">pid</span> <span class="o">=</span> <span class="n">pid</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
@@ -18818,14 +18791,13 @@ a.anchor-link {
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;coordinates&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of GPX files : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">GPS/*/*.gpx&quot;</span><span class="p">))</span><span class="si">}</span><span class="s1"> --&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> (without duplicates)&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- Good PID (whitout duplicates)  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;valid_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- Wrong PID (whitout duplicates) : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;valid_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of GPX files : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">gpx_path</span><span class="p">))</span><span class="si">}</span><span class="s1"> --&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> (without duplicates)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- Good ID (whitout duplicates)  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;valid_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- Wrong ID (whitout duplicates) : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;valid_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">gps_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s1">&#39;geometry&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">32628</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;valid_id&#39;</span><span class="p">,</span><span class="s1">&#39;id_gps&#39;</span><span class="p">])</span>
 
-<span class="n">gps_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shp_path</span><span class="si">}</span><span class="s1">gps_ori.shp&#39;</span><span class="p">)</span>
+<span class="c1">#gps_gdf.to_file(f&#39;{shp_path}gps_ori.shp&#39;)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons obtained with the GPS&#39;</span><span class="p">)</span>
 
@@ -18849,10 +18821,10 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Number of GPX files : 900 --&gt; 349 (without duplicates)
----- Good PID (whitout duplicates)  : 335
----- Wrong PID (whitout duplicates) : 14
---&gt; There are 349 polygons obtained with the GPS
+<pre>Number of GPX files : 897 --&gt; 359 (without duplicates)
+---- Good ID (whitout duplicates)  : 358
+---- Wrong ID (whitout duplicates) : 1
+--&gt; There are 359 polygons obtained with the GPS
 </pre>
 </div>
 </div>
@@ -18860,7 +18832,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[42]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
 
 
 
@@ -18891,39 +18863,39 @@ a.anchor-link {
   </thead>
   <tbody>
     <tr>
-      <th>317</th>
-      <td>6220101142541</td>
-      <td>0</td>
-      <td>/export/projects/FAO-EOStat-Senegal/GPS/NIOR_0...</td>
-      <td>POLYGON ((437993.758 1522537.691, 437992.288 1...</td>
-    </tr>
-    <tr>
-      <th>299</th>
-      <td>6220103386239</td>
-      <td>0</td>
-      <td>/export/projects/FAO-EOStat-Senegal/GPS/nioro2...</td>
-      <td>POLYGON ((447853.968 1520918.558, 447855.165 1...</td>
-    </tr>
-    <tr>
-      <th>300</th>
-      <td>6220103862311</td>
-      <td>0</td>
-      <td>/export/projects/FAO-EOStat-Senegal/GPS/nioro2...</td>
-      <td>POLYGON ((449591.030 1522133.396, 449616.400 1...</td>
-    </tr>
-    <tr>
-      <th>301</th>
-      <td>6220103862312</td>
-      <td>0</td>
-      <td>/export/projects/FAO-EOStat-Senegal/GPS/nioro2...</td>
-      <td>POLYGON ((446453.730 1521363.001, 446453.585 1...</td>
-    </tr>
-    <tr>
-      <th>304</th>
+      <th>308</th>
       <td>6220103862331</td>
       <td>0</td>
       <td>/export/projects/FAO-EOStat-Senegal/GPS/nioro2...</td>
-      <td>POLYGON ((446248.504 1521250.578, 446248.468 1...</td>
+      <td>POLYGON ((447817.226 1521050.759, 447817.126 1...</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>62201022411</td>
+      <td>1</td>
+      <td>/export/projects/FAO-EOStat-Senegal/GPS/NIOR1_...</td>
+      <td>POLYGON ((429548.498 1516286.092, 429548.825 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62201022412</td>
+      <td>1</td>
+      <td>/export/projects/FAO-EOStat-Senegal/GPS/NIOR1_...</td>
+      <td>POLYGON ((429863.904 1516202.422, 429863.342 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62201022413</td>
+      <td>1</td>
+      <td>/export/projects/FAO-EOStat-Senegal/GPS/NIOR1_...</td>
+      <td>POLYGON ((429972.245 1516435.077, 429973.528 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>62201022414</td>
+      <td>1</td>
+      <td>/export/projects/FAO-EOStat-Senegal/GPS/NIOR1_...</td>
+      <td>POLYGON ((429974.731 1516287.245, 429976.051 1...</td>
     </tr>
   </tbody>
 </table>
@@ -18944,7 +18916,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of polygon from GPX files   : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -18952,27 +18924,37 @@ a.anchor-link {
 
 <span class="n">gps_inner_gdf</span> <span class="o">=</span> <span class="n">gps_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">clean_gps_data_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id_gps&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
 
-<span class="n">gps_left_gdf</span> <span class="o">=</span> <span class="n">gps_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">clean_gps_data_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id_gps&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;On the </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> GPS polygons, there are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_inner_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> GPS polygons link to a row in the DB.&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_gdf</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_inner_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> GPS polygons are not linked to a row in the DB!&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clean_gps_data_df</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_inner_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> rows in the DB are not linked to a GPS polygon!&#39;</span><span class="p">)</span>
 
+
+<span class="c1">#gps_outer_gdf = gps_gdf.merge(clean_gps_data_df, on=&#39;id_gps&#39;, how=&#39;outer&#39;)</span>
+<span class="c1">#print(f&#39;Outer join {len(gps_outer_gdf)}&#39;)</span>
+<span class="c1">#gps_outer_gdf.to_file(f&#39;{shp_path}gps_outer_join_for_thib_3.shp&#39;)</span>
+
 <span class="n">gps_clean_gdf</span> <span class="o">=</span> <span class="n">gps_inner_gdf</span>
+
+<span class="c1"># Remove wrong overlapping polygons</span>
+<span class="n">list_wrong_poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">622020555411</span><span class="p">,</span> <span class="mi">622020110481</span><span class="p">,</span> <span class="mi">622020515423</span><span class="p">,</span> <span class="mi">622020531411</span><span class="p">,</span> <span class="mi">622020515422</span><span class="p">]</span>
+
+<span class="n">gps_clean_gdf</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="o">~</span><span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id_gps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">list_wrong_poly</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing polygons overlapping non-crop polygon : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Remove wrong maize polygons</span>
+<span class="n">list_wrong_poly</span> <span class="o">=</span> <span class="p">[</span><span class="mi">62201022539103</span><span class="p">]</span>
+
+<span class="n">gps_clean_gdf</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="o">~</span><span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id_gps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">list_wrong_poly</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing wrong crop-code polygons : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
 
 <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">gps_clean_gdf</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">max_area</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing polygons where area is greater than </span><span class="si">{</span><span class="n">max_area</span><span class="si">}</span><span class="s1"> square meters : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1">#gps_clean_gdf = gps_clean_gdf.loc[gps_clean_gdf[&#39;area&#39;] &gt;= min_area]</span>
-
-<span class="c1">#print(f&#39;After removing polygons where area is less than {min_area} square meters : {len(gps_clean_gdf)}&#39;)</span>
-
-<span class="c1">#gps_clean_gdf = remove_overlap.remove_overlap(gps_clean_gdf, id_column=&#39;id_gps&#39;)</span>
-
-<span class="c1">#print(f&#39;After removing overlapping parts of polygons : {len(gps_clean_gdf)}&#39;)</span>
 
 <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">buf_size</span><span class="p">)</span>
 
@@ -18982,11 +18964,16 @@ a.anchor-link {
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing polygons where area (after negative buffer) is less than </span><span class="si">{</span><span class="n">min_area</span><span class="si">}</span><span class="s1"> square meters : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
+<span class="c1">#gps_clean_gdf = remove_overlap.remove_overlap(gps_clean_gdf, id_column=&#39;id_gps&#39;)</span>
+
+<span class="c1">#print(f&#39;After removing overlapping parts of polygons : {len(gps_clean_gdf)}&#39;)</span>
+
 <span class="n">gps_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">))</span>
 
 <span class="n">gps_clean_gdf</span> <span class="o">=</span> <span class="n">gps_clean_gdf</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;id_gps&#39;</span><span class="p">,</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;area_db&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
 
 <span class="n">gps_clean_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shp_path</span><span class="si">}</span><span class="s1">gps_data_buf.shp&#39;</span><span class="p">)</span>
+
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons obtained with the GPS after cleaning&#39;</span><span class="p">)</span>
 
@@ -19010,14 +18997,16 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Number of polygon from GPX files   : 349
+<pre>Number of polygon from GPX files   : 359
 Number of row data in GPS database : 367
-On the 349 GPS polygons, there are 317 GPS polygons link to a row in the DB.
---&gt; 32 GPS polygons are not linked to a row in the DB!
---&gt; 50 rows in the DB are not linked to a GPS polygon!
-After removing polygons where area is greater than 100000 square meters : 317
-After removing polygons where area (after negative buffer) is less than 500 square meters : 306
---&gt; There are 306 polygons obtained with the GPS after cleaning
+On the 359 GPS polygons, there are 348 GPS polygons link to a row in the DB.
+--&gt; 11 GPS polygons are not linked to a row in the DB!
+--&gt; 19 rows in the DB are not linked to a GPS polygon!
+After removing polygons overlapping non-crop polygon : 343
+After removing wrong crop-code polygons : 342
+After removing polygons where area is greater than 100000 square meters : 342
+After removing polygons where area (after negative buffer) is less than 300 square meters : 334
+--&gt; There are 334 polygons obtained with the GPS after cleaning
 </pre>
 </div>
 </div>
@@ -19025,7 +19014,7 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[43]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 
 
 
@@ -19059,42 +19048,42 @@ After removing polygons where area (after negative buffer) is less than 500 squa
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>6220301171211</td>
-      <td>1421</td>
-      <td>15093.0</td>
-      <td>POLYGON ((396711.047 1505982.882, 396711.019 1...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
       <td>62201022411</td>
       <td>1421</td>
       <td>8901.4</td>
       <td>POLYGON ((429457.856 1516229.002, 429465.169 1...</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>2</td>
+      <th>1</th>
+      <td>1</td>
       <td>62201022412</td>
       <td>1181</td>
       <td>17754.0</td>
       <td>POLYGON ((429828.180 1516150.340, 429839.170 1...</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>3</td>
+      <th>2</th>
+      <td>2</td>
       <td>62201022413</td>
       <td>1181</td>
       <td>9874.2</td>
       <td>POLYGON ((429883.899 1516457.550, 429884.205 1...</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>4</td>
+      <th>3</th>
+      <td>3</td>
       <td>62201022414</td>
       <td>1121</td>
       <td>5311.7</td>
       <td>POLYGON ((429986.736 1516281.999, 429987.433 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>62202019511</td>
+      <td>1121</td>
+      <td>5609.8</td>
+      <td>POLYGON ((400791.850 1532870.364, 400815.855 1...</td>
     </tr>
   </tbody>
 </table>
@@ -19125,7 +19114,7 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">odk_crop_csv</span><span class="p">)</span>
@@ -19181,9 +19170,9 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 <span class="n">odk_dup_gdf</span> <span class="o">=</span> <span class="n">odk_gdf</span><span class="p">[</span><span class="n">odk_gdf</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="s1">&#39;id_odk&#39;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
 
 
-<span class="n">odk_dup_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shp_path</span><span class="si">}</span><span class="s1">odk_crop_duplicates_ori.shp&#39;</span><span class="p">)</span>
+<span class="c1">#odk_dup_gdf.to_file(f&#39;{shp_path}odk_crop_duplicates_ori.shp&#39;)</span>
 
-<span class="n">odk_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shp_path</span><span class="si">}</span><span class="s1">odk_crop_ori.shp&#39;</span><span class="p">)</span>
+<span class="c1">#odk_gdf.to_file(f&#39;{shp_path}odk_crop_ori.shp&#39;)</span>
 
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons obtained with ODK&#39;</span><span class="p">)</span>
@@ -19219,7 +19208,7 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[44]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
 
 
 
@@ -19303,12 +19292,24 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of polygon from ODK csv : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">odk_clean_gdf</span> <span class="o">=</span> <span class="n">odk_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">lut_crop_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;crop_code&#39;</span><span class="p">)</span>
+
+<span class="c1"># Remove wrong overlapping polygons</span>
+<span class="n">list_wrong_poly_odk</span> <span class="o">=</span> <span class="p">[</span><span class="mi">622020531411</span><span class="p">]</span>
+<span class="n">odk_clean_gdf</span> <span class="o">=</span> <span class="n">odk_clean_gdf</span><span class="p">[</span><span class="o">~</span><span class="n">odk_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id_odk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">list_wrong_poly_odk</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing polygons overlapping non-crop polygon : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="n">list_wrong_poly_odk</span> <span class="o">=</span> <span class="p">[</span><span class="mi">62201022539103</span><span class="p">]</span>
+<span class="n">odk_clean_gdf</span> <span class="o">=</span> <span class="n">odk_clean_gdf</span><span class="p">[</span><span class="o">~</span><span class="n">odk_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id_odk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">list_wrong_poly_odk</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing wrong crop-code polygons : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">odk_clean_gdf</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">odk_clean_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
@@ -19316,9 +19317,6 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After removing polygons where area is greater than </span><span class="si">{</span><span class="n">max_area</span><span class="si">}</span><span class="s1"> square meters : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="c1">#odk_clean_gdf = odk_clean_gdf.loc[odk_clean_gdf[&#39;area&#39;] &gt;= min_area]</span>
-
-<span class="c1">#print(f&#39;After removing polygons where area is less than {min_area} square meters : {len(odk_clean_gdf)}&#39;)</span>
 
 <span class="c1">#odk_clean_gdf = remove_overlap.remove_overlap(odk_clean_gdf, id_column=&#39;id_odk&#39;)</span>
 
@@ -19363,9 +19361,11 @@ After removing polygons where area (after negative buffer) is less than 500 squa
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Number of polygon from ODK csv : 234
-After removing polygons where area is greater than 100000 square meters : 233
-After removing polygons where area (after negative buffer) is less than 500 square meters : 209
-There are 209 polygons obtained with the tablet (ODK) after cleaning
+After removing polygons overlapping non-crop polygon : 233
+After removing wrong crop-code polygons : 232
+After removing polygons where area is greater than 100000 square meters : 231
+After removing polygons where area (after negative buffer) is less than 300 square meters : 211
+There are 211 polygons obtained with the tablet (ODK) after cleaning
 </pre>
 </div>
 </div>
@@ -19373,7 +19373,7 @@ There are 209 polygons obtained with the tablet (ODK) after cleaning
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[45]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
 
 
 
@@ -19458,12 +19458,12 @@ There are 209 polygons obtained with the tablet (ODK) after cleaning
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="3.-ODK-(tablet)---non-cropland">3. ODK (tablet) - non cropland<a class="anchor-link" href="#3.-ODK-(tablet)---non-cropland">&#182;</a></h2>
+<h2 id="3.-ODK-(tablet)---non-cropland---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">3. ODK (tablet) - non cropland --&gt; USE INSTEAD POLYGONS FROM SOPHIE !!<a class="anchor-link" href="#3.-ODK-(tablet)---non-cropland---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">odk_nc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">odk_non_crop_csv</span><span class="p">)</span>
@@ -19484,6 +19484,7 @@ There are 209 polygons obtained with the tablet (ODK) after cleaning
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- Before </span><span class="si">{</span><span class="n">join</span><span class="si">}</span><span class="s1"> join with LUT </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_nc_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">odk_nc_gdf</span> <span class="o">=</span> <span class="n">odk_nc_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">lut_non_crop_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;lc_code&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="n">join</span><span class="p">)</span>
+
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---- After </span><span class="si">{</span><span class="n">join</span><span class="si">}</span><span class="s1"> join with LUT </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_nc_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -19528,7 +19529,7 @@ There are 52 points obtained with the tablet (ODK)
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[46]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
 
 
 
@@ -19607,12 +19608,12 @@ There are 52 points obtained with the tablet (ODK)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="4.-From-Sophie-Lox---non-cropland">4. From Sophie Lox - non cropland<a class="anchor-link" href="#4.-From-Sophie-Lox---non-cropland">&#182;</a></h2>
+<h2 id="4.-From-Sophie-Lox---non-cropland---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">4. From Sophie Lox - non cropland --&gt; USE INSTEAD POLYGONS FROM SOPHIE !!<a class="anchor-link" href="#4.-From-Sophie-Lox---non-cropland---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lox_nc_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">sophie_shp</span><span class="p">)</span>
@@ -19659,7 +19660,7 @@ There are 52 points obtained with the tablet (ODK)
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[47]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
 
 
 
@@ -19745,12 +19746,12 @@ There are 52 points obtained with the tablet (ODK)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="5.-Concatenate-ODK-&amp;-Lox-non-crop">5. Concatenate ODK &amp; Lox non crop<a class="anchor-link" href="#5.-Concatenate-ODK-&amp;-Lox-non-crop">&#182;</a></h2>
+<h2 id="5.-Concatenate-ODK-&amp;-Lox-non-crop---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">5. Concatenate ODK &amp; Lox non crop --&gt; USE INSTEAD POLYGONS FROM SOPHIE !!<a class="anchor-link" href="#5.-Concatenate-ODK-&amp;-Lox-non-crop---&gt;-USE-INSTEAD-POLYGONS-FROM-SOPHIE-!!">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nc_gdf_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">odk_nc_gdf</span><span class="p">,</span> <span class="n">lox_nc_gdf</span><span class="p">]</span>
@@ -19797,7 +19798,7 @@ There are 52 points obtained with the tablet (ODK)
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[52]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[33]:</div>
 
 
 
@@ -19876,50 +19877,23 @@ There are 52 points obtained with the tablet (ODK)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Distribution-figures">Distribution figures<a class="anchor-link" href="#Distribution-figures">&#182;</a></h1>
+<h2 id="6.-Non-Crops-cleaned-polygons">6. Non Crops cleaned polygons<a class="anchor-link" href="#6.-Non-Crops-cleaned-polygons">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/GIT/eo-toolbox/tools/&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">non_crop_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">SHP_NON_CROP/all_non_crop.shp&#39;</span><span class="p">)</span>
 
-<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">crop_distribution</span><span class="p">)</span>
+<span class="n">non_crop_gdf</span><span class="p">[</span><span class="s1">&#39;area_db&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">non_crop_gdf</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">chart_level</span> <span class="o">=</span> <span class="s1">&#39;lc&#39;</span>
-<span class="n">chart_y</span>     <span class="o">=</span> <span class="s1">&#39;area_tot&#39;</span>
-<span class="n">chart_values</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span>
+<span class="n">non_crop_gdf</span> <span class="o">=</span> <span class="n">non_crop_gdf</span><span class="p">[[</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;area_db&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
 
-<span class="n">pie_chart_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">histograms/pie_chart_</span><span class="si">{</span><span class="n">chart_level</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">chart_values</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="n">bar_chart_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">histograms/bar_chart_</span><span class="si">{</span><span class="n">chart_level</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">chart_y</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">non_crop_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons obtained by ODK &amp; Sophie Lox and cleaned by Sophie Bontemps&#39;</span><span class="p">)</span>
 
-
-<span class="n">df_plot</span> <span class="o">=</span> <span class="n">crop_distribution</span><span class="o">.</span><span class="n">prepare_dataframe</span><span class="p">(</span><span class="n">nc_gdf</span><span class="p">,</span> <span class="n">crop_dictionary_xlsx</span><span class="p">,</span> <span class="n">chart_level</span><span class="p">)</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">df_plot</span><span class="p">)</span>
-
-
-<span class="c1"># Plotly</span>
-<span class="c1"># ------</span>
-
-<span class="n">crop_distribution</span><span class="o">.</span><span class="n">pie_chart_plotly</span><span class="p">(</span><span class="n">df_plot</span><span class="p">,</span> <span class="n">pie_chart_name</span><span class="p">,</span> <span class="n">chart_level</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">chart_values</span><span class="p">)</span>
-
-<span class="n">crop_distribution</span><span class="o">.</span><span class="n">bar_chart_plotly</span><span class="p">(</span><span class="n">df_plot</span><span class="p">,</span> <span class="n">bar_chart_name</span><span class="p">,</span> <span class="n">chart_level</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">chart_y</span><span class="p">)</span>
-
-<span class="c1">#crop_distribution.grouped_bar_chart_plotly(gps_df_plot, odk_df_plot, plotly_2_bar_html, chart_level)</span>
-
-<span class="c1">#crop_distribution.grouped_bar_chart_plotly(odk_nc_df_plot, lox_df_plot, plotly_2_bar_nc_html, chart_level)</span>
-
-
-<span class="c1"># Matplotlib</span>
-<span class="c1"># ----------</span>
-
-<span class="c1">#crop_distribution.build_histogram_matplotlib(lox_df_plot, histo_odk_png, level, distribution=&#39;area&#39;, cumsum=False)</span>
-
-<span class="c1">#crop_distribution.get_proportion_lc(lox_df_plot, pie_png, level)</span>
+<span class="n">non_crop_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -19938,8 +19912,20 @@ There are 52 points obtained with the tablet (ODK)
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>There are 83 polygons obtained by ODK &amp; Sophie Lox and cleaned by Sophie Bontemps
+</pre>
+</div>
+</div>
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -19958,236 +19944,41 @@ There are 52 points obtained with the tablet (ODK)
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>lc_nb</th>
-      <th>area_tot</th>
-      <th>count</th>
-      <th>lc</th>
-      <th>grp_nb</th>
-      <th>grp</th>
-      <th>class_nb</th>
-      <th>class</th>
       <th>sub_nb</th>
-      <th>sub</th>
-      <th>grp_1_nb</th>
-      <th>grp_1</th>
-      <th>pr_5_nb</th>
-      <th>pr_5</th>
-      <th>pr_6_nb</th>
-      <th>pr_6</th>
-      <th>pr_61_nb</th>
-      <th>pr_61</th>
-      <th>pr_7_nb</th>
-      <th>pr_7</th>
-      <th>pr_71_nb</th>
-      <th>pr_71</th>
-      <th>pr_8_nb</th>
-      <th>pr_8</th>
-      <th>grp_A_nb</th>
-      <th>grp_A</th>
-      <th>ratio</th>
-      <th>cumsum</th>
-      <th>cumsum_ratio</th>
-      <th>color</th>
+      <th>area_db</th>
+      <th>geometry</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
-      <td>9</td>
-      <td>428.39</td>
-      <td>8</td>
-      <td>Water bodies</td>
-      <td>91</td>
-      <td>Water bodies</td>
-      <td>911</td>
-      <td>Sea and coastal lagoons</td>
-      <td>9111</td>
-      <td>Sea and coastal lagoons</td>
-      <td>9</td>
-      <td>Water bodies</td>
-      <td>2</td>
-      <td>Non cropland</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>9</td>
-      <td>Water bodies</td>
-      <td>54.35</td>
-      <td>428.39</td>
-      <td>54.35</td>
-      <td>#0046c8</td>
+      <th>0</th>
+      <td>8111</td>
+      <td>29156.17</td>
+      <td>POLYGON ((385695.993 1533232.404, 385673.129 1...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>5</td>
-      <td>353.07</td>
-      <td>23</td>
-      <td>Shrub land</td>
-      <td>51</td>
-      <td>Shrub land</td>
-      <td>511</td>
-      <td>Shrub land</td>
-      <td>5111</td>
-      <td>Shrub land</td>
-      <td>5</td>
-      <td>Shrub land</td>
-      <td>2</td>
-      <td>Non cropland</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>5</td>
-      <td>Shrub land</td>
-      <td>44.80</td>
-      <td>781.46</td>
-      <td>99.15</td>
-      <td>#966400</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>8</td>
-      <td>4.86</td>
-      <td>1</td>
-      <td>Build-up surface</td>
-      <td>81</td>
-      <td>Urban</td>
-      <td>811</td>
-      <td>Urban</td>
-      <td>8111</td>
-      <td>Urban</td>
-      <td>81</td>
-      <td>Urban</td>
-      <td>2</td>
-      <td>Non cropland</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>8</td>
-      <td>Build-up surface</td>
-      <td>0.62</td>
-      <td>786.32</td>
-      <td>99.77</td>
-      <td>#c31400</td>
+      <td>9211</td>
+      <td>1598386.71</td>
+      <td>POLYGON ((381966.171 1502897.884, 381763.940 1...</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>6</td>
-      <td>0.64</td>
-      <td>9</td>
-      <td>Forest</td>
-      <td>61</td>
-      <td>Conifers</td>
-      <td>611</td>
-      <td>Conifers</td>
-      <td>6111</td>
-      <td>Conifers</td>
-      <td>61</td>
-      <td>Conifers</td>
-      <td>2</td>
-      <td>Non cropland</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>6</td>
-      <td>Forest</td>
-      <td>0.08</td>
-      <td>786.96</td>
-      <td>99.85</td>
-      <td>#00a000</td>
+      <td>9212</td>
+      <td>31945.28</td>
+      <td>POLYGON ((381949.188 1505053.581, 382008.156 1...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>7</td>
-      <td>0.64</td>
-      <td>9</td>
-      <td>Bare soil</td>
-      <td>71</td>
-      <td>Sparsely vegetated</td>
-      <td>711</td>
-      <td>Sparsely vegetated</td>
-      <td>7111</td>
-      <td>Sparsely vegetated</td>
-      <td>71</td>
-      <td>Sparsely vegetated</td>
-      <td>2</td>
-      <td>Non cropland</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>3</td>
-      <td>Non cropland</td>
-      <td>7</td>
-      <td>Bare soil</td>
-      <td>0.08</td>
-      <td>787.60</td>
-      <td>99.93</td>
-      <td>#fff5d7</td>
+      <td>9212</td>
+      <td>864139.88</td>
+      <td>POLYGON ((426376.836 1513895.848, 425818.706 1...</td>
     </tr>
     <tr>
-      <th>0</th>
-      <td>4</td>
-      <td>0.57</td>
-      <td>8</td>
-      <td>Fallows</td>
-      <td>41</td>
-      <td>Fallows</td>
-      <td>411</td>
-      <td>Fallows</td>
-      <td>4111</td>
-      <td>Fallows 1 year</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0</td>
-      <td>Remove</td>
-      <td>0.07</td>
-      <td>788.17</td>
-      <td>100.00</td>
-      <td>#ffebaf</td>
+      <th>4</th>
+      <td>6999</td>
+      <td>10510.04</td>
+      <td>POLYGON ((386562.660 1533614.206, 386463.612 1...</td>
     </tr>
   </tbody>
 </table>
@@ -20196,42 +19987,194 @@ There are 52 points obtained with the tablet (ODK)
 
 </div>
 
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="7.-Merge-GPS-with-ODK-which-not-intersect-GPS">7. Merge GPS with ODK which not intersect GPS<a class="anchor-link" href="#7.-Merge-GPS-with-ODK-which-not-intersect-GPS">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">id_odk_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row_odk</span> <span class="ow">in</span> <span class="n">odk_clean_gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">poly_odk</span> <span class="o">=</span> <span class="n">row_odk</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+    <span class="n">id_odk</span>   <span class="o">=</span> <span class="n">row_odk</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">row_gps</span> <span class="ow">in</span> <span class="n">gps_clean_gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">poly_gps</span> <span class="o">=</span> <span class="n">row_gps</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+        
+        <span class="n">test</span> <span class="o">=</span> <span class="n">poly_odk</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">poly_gps</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">test</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="n">id_odk_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id_odk</span><span class="p">)</span>
+            <span class="k">break</span>
+
+
+<span class="n">odk_without_intersect_gdf</span> <span class="o">=</span> <span class="n">odk_clean_gdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">odk_clean_gdf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">id_odk_list</span><span class="p">)]</span>
+
+<span class="n">crop_gdf_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">gps_clean_gdf</span><span class="p">,</span> <span class="n">odk_without_intersect_gdf</span><span class="p">]</span>
+
+<span class="n">crop_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">crop_gdf_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#crop_gdf[&#39;id&#39;] = np.arange(len(crop_gdf))</span>
+
+<span class="n">crop_gdf</span> <span class="o">=</span> <span class="n">crop_gdf</span><span class="p">[[</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;area_db&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">crop_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> cropland polygons from GPS and completed by ODK&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gps_clean_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons from GPS&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">odk_without_intersect_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons from ODK&#39;</span><span class="p">)</span>
+
+<span class="n">crop_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
 
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>There are 357 cropland polygons from GPS and completed by ODK
+--&gt; 334 polygons from GPS
+--&gt; 23 polygons from ODK
+</pre>
+</div>
+</div>
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>                            <div id="6efe513a-ec54-4683-9dae-1bd75f5553fd" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6efe513a-ec54-4683-9dae-1bd75f5553fd")) {                    Plotly.newPlot(                        "6efe513a-ec54-4683-9dae-1bd75f5553fd",                        [{"customdata":[[8,"Water bodies"],[23,"Shrub land"],[1,"Build-up surface"],[9,"Forest"],[9,"Bare soil"],[8,"Fallows"]],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"lc=%{customdata[1]}<br>area_tot=%{value}<br>count=%{customdata[0]}<extra></extra>","labels":["Water bodies","Shrub land","Build-up surface","Forest","Bare soil","Fallows"],"legendgroup":"","marker":{"colors":["#0046c8","#966400","#c31400","#00a000","#fff5d7","#ffebaf"]},"name":"","showlegend":true,"type":"pie","values":[428.39,353.07,4.86,0.64,0.64,0.57]}],                        {"legend":{"tracegroupgap":0},"margin":{"t":60},"template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}}},                        {"responsive": true}                    ).then(function(){
-                            
-var gd = document.getElementById('6efe513a-ec54-4683-9dae-1bd75f5553fd');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
+<div class="jp-OutputArea-child">
 
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
 
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
 
-                        })                };                });            </script>        </div>
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sub_nb</th>
+      <th>area_db</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1421</td>
+      <td>8901.4</td>
+      <td>POLYGON ((429457.856 1516229.002, 429465.169 1...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1181</td>
+      <td>17754.0</td>
+      <td>POLYGON ((429828.180 1516150.340, 429839.170 1...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1181</td>
+      <td>9874.2</td>
+      <td>POLYGON ((429883.899 1516457.550, 429884.205 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1121</td>
+      <td>5311.7</td>
+      <td>POLYGON ((429986.736 1516281.999, 429987.433 1...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1121</td>
+      <td>5609.8</td>
+      <td>POLYGON ((400791.850 1532870.364, 400815.855 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="8.-Merge-crop-&amp;-non-crop-polygons">8. Merge crop &amp; non-crop polygons<a class="anchor-link" href="#8.-Merge-crop-&amp;-non-crop-polygons">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_gdf_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">crop_gdf</span><span class="p">,</span> <span class="n">non_crop_gdf</span><span class="p">]</span>
+
+<span class="n">final_gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">final_gdf_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">final_gdf</span> <span class="o">=</span> <span class="n">final_gdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">)</span>
+
+<span class="n">final_gdf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">final_gdf</span><span class="p">))</span>
+
+<span class="n">final_gdf</span> <span class="o">=</span> <span class="n">final_gdf</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;area_db&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
+
+<span class="n">final_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;/export/projects/Sen4Stat/WORK/IN_SITU/SITE_41/SEN_2021_SITE_41_ori.shp&#39;</span><span class="p">)</span>
+
+<span class="n">final_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shp_path</span><span class="si">}</span><span class="s1">SEN_2021_SITE_41_ori.shp&#39;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">final_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons from GPS and completed by ODK and Sophie&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">crop_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> crop polygons&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--&gt; </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">non_crop_gdf</span><span class="p">)</span><span class="si">}</span><span class="s1"> non-crop polygons&#39;</span><span class="p">)</span>
+
+<span class="n">final_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
 
 <div class="jp-OutputArea-child">
 
@@ -20239,33 +20182,85 @@ if (outputEl) {{
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>There are 440 polygons from GPS and completed by ODK and Sophie
+--&gt; 357 crop polygons
+--&gt; 83 non-crop polygons
+</pre>
+</div>
+</div>
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>                            <div id="b65cdcf4-b7f2-48da-9fea-67e945f1dbee" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("b65cdcf4-b7f2-48da-9fea-67e945f1dbee")) {                    Plotly.newPlot(                        "b65cdcf4-b7f2-48da-9fea-67e945f1dbee",                        [{"alignmentgroup":"True","customdata":[[8.0,54.35]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Water bodies","marker":{"color":"#0046c8","pattern":{"shape":""}},"name":"Water bodies","offsetgroup":"Water bodies","orientation":"v","showlegend":true,"text":[8.0],"textposition":"auto","type":"bar","x":["Water bodies"],"xaxis":"x","y":[428.39],"yaxis":"y"},{"alignmentgroup":"True","customdata":[[23.0,44.8]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Shrub land","marker":{"color":"#966400","pattern":{"shape":""}},"name":"Shrub land","offsetgroup":"Shrub land","orientation":"v","showlegend":true,"text":[23.0],"textposition":"auto","type":"bar","x":["Shrub land"],"xaxis":"x","y":[353.07],"yaxis":"y"},{"alignmentgroup":"True","customdata":[[1.0,0.62]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Build-up surface","marker":{"color":"#c31400","pattern":{"shape":""}},"name":"Build-up surface","offsetgroup":"Build-up surface","orientation":"v","showlegend":true,"text":[1.0],"textposition":"auto","type":"bar","x":["Build-up surface"],"xaxis":"x","y":[4.86],"yaxis":"y"},{"alignmentgroup":"True","customdata":[[9.0,0.08]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Forest","marker":{"color":"#00a000","pattern":{"shape":""}},"name":"Forest","offsetgroup":"Forest","orientation":"v","showlegend":true,"text":[9.0],"textposition":"auto","type":"bar","x":["Forest"],"xaxis":"x","y":[0.64],"yaxis":"y"},{"alignmentgroup":"True","customdata":[[9.0,0.08]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Bare soil","marker":{"color":"#fff5d7","pattern":{"shape":""}},"name":"Bare soil","offsetgroup":"Bare soil","orientation":"v","showlegend":true,"text":[9.0],"textposition":"auto","type":"bar","x":["Bare soil"],"xaxis":"x","y":[0.64],"yaxis":"y"},{"alignmentgroup":"True","customdata":[[8.0,0.07]],"hovertemplate":"lc=%{x}<br>area_tot=%{y}<br>count=%{customdata[0]}<br>ratio=%{customdata[1]}<extra></extra>","legendgroup":"Fallows","marker":{"color":"#ffebaf","pattern":{"shape":""}},"name":"Fallows","offsetgroup":"Fallows","orientation":"v","showlegend":true,"text":[8.0],"textposition":"auto","type":"bar","x":["Fallows"],"xaxis":"x","y":[0.57],"yaxis":"y"}],                        {"barmode":"relative","legend":{"title":{"text":"lc"},"tracegroupgap":0},"margin":{"t":60},"template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"xaxis":{"anchor":"y","categoryarray":["Water bodies","Shrub land","Build-up surface","Forest","Bare soil","Fallows"],"categoryorder":"array","domain":[0.0,1.0],"title":{"text":"lc"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"area_tot"}}},                        {"responsive": true}                    ).then(function(){
-                            
-var gd = document.getElementById('b65cdcf4-b7f2-48da-9fea-67e945f1dbee');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
+<div class="jp-OutputArea-child">
 
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
 
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
 
-                        })                };                });            </script>        </div>
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sub_nb</th>
+      <th>area_db</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>74</th>
+      <td>0</td>
+      <td>1121</td>
+      <td>15283.0</td>
+      <td>POLYGON ((401594.999 1518649.411, 401592.870 1...</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>1</td>
+      <td>1121</td>
+      <td>7347.0</td>
+      <td>POLYGON ((425629.754 1515387.877, 425632.729 1...</td>
+    </tr>
+    <tr>
+      <th>212</th>
+      <td>2</td>
+      <td>1121</td>
+      <td>11967.0</td>
+      <td>POLYGON ((448767.618 1511056.508, 448766.858 1...</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>3</td>
+      <td>1121</td>
+      <td>3352.7</td>
+      <td>POLYGON ((425774.240 1515014.511, 425782.294 1...</td>
+    </tr>
+    <tr>
+      <th>161</th>
+      <td>4</td>
+      <td>1121</td>
+      <td>7174.8</td>
+      <td>POLYGON ((433388.702 1520054.127, 433395.673 1...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -20295,7 +20290,10 @@ if (outputEl) {{
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#f = folium.Figure(width=1000, height=700)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">folium</span>
+<span class="kn">import</span> <span class="nn">folium_def</span>
+
+<span class="c1">#f = folium.Figure(width=1000, height=700)</span>
 
 <span class="n">m</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="mf">13.743747099563299</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.772308355932424</span><span class="p">],</span> <span class="n">zoom_start</span><span class="o">=</span><span class="mf">11.5</span><span class="p">)</span><span class="c1">#.add_to(f)</span>
 
