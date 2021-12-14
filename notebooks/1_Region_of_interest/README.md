@@ -7,9 +7,9 @@ The very first step of your project will be to define the area you want to work 
 
 We will define our area of interest using a bounding box. This must be provided in WGS84 coordinates to build the cube.
 
-To find the coordinates of a bounding box, check: http://bboxfinder.com/
+To find the coordinates of a bounding box, check: [bboxfinder](http://bboxfinder.com/)
 
-<img src="figures/bboxfinder.png" width="500">
+<img src="figures/bboxfinder.png" width="800">
 
 
 We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.
