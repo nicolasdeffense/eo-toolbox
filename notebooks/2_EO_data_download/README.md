@@ -9,7 +9,7 @@ The *Copernicus Open Access Hub* provides complete, free and open access to Sent
 
 ### Access from the website
 
-<img src="figures/bboxfinder.png" width="800">
+<img src="figures/scihub_ui.png" width="800">
 
 
 ### Access from the Sentinelsat Python API
