@@ -7,7 +7,7 @@ NDVI is used to outline the presence of vegetation. It is used to indicate relat
 $$ NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}$$
 
 
-<img src="https://latex.codecogs.com/svg.latex?NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}"/>
+<img src="https://latex.codecogs.com/svg.latex?NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}" title="NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}"/>
 
 
 ## NDWI - Normalized Difference Water Index
