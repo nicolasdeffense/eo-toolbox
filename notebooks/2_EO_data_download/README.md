@@ -17,9 +17,9 @@ The [Copernicus Open Access Hub](https://scihub.copernicus.eu) provides complete
 
 `sentinelsat` makes searching, downloading and retrieving the metadata of Sentinel satellite images from the *Copernicus Open Access Hub* easy.
 
-[> Notebook to download Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/2_EO_datdownload/S2_data_download.html)
+[> Notebook to download Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/2_EO_data_download/S2_data_download.html)
 
-[> Notebook to download Sentinel-1 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/2_EO_datdownload/S1_data_download.html)
+[> Notebook to download Sentinel-1 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/2_EO_data_download/S1_data_download.html)
 
 ## 2. Luxembourg Space Agency (LSA) Data Center
 
