@@ -7,7 +7,7 @@ NDVI is used to outline the presence of vegetation. It is used to indicate relat
 $$ NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}$$
 
 
-![NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D)
+<img src="https://latex.codecogs.com/svg.latex?NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}"/>
 
 
 ## NDWI - Normalized Difference Water Index
@@ -60,6 +60,6 @@ $$ SWI = (NDVI - NDWI)^2 $$
 [Source](https://eos.com/make-an-analysis/index-stack/)
 
 
-[> Notebook to compute spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Sepctral_indices/spectral_indices.html)
+[> Notebook to compute spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html)
 
-[> Notebook to compute difference between spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Sepctral_indices/spectral_indices_difference.html)
+[> Notebook to compute difference between spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices_difference.html)
