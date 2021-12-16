@@ -6,6 +6,10 @@ NDVI is used to outline the presence of vegetation. It is used to indicate relat
 
 $$ NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}$$
 
+
+![NDVI = \frac{NIR - RED}{NIR + RED} = \frac{B08 - B04}{B08 + B04}](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D)
+
+
 ## NDWI - Normalized Difference Water Index
 
 NDWI concept as formulated by Gao combining reflectance of NIR and SWIR has a wide range of application. It can be used for exploring water content at single leaf level as well as canopy/satellite level. The range of application of NDWI spreads from agricultural monitoring for crop irrigation and pasture management to forest monitoring for assessing fire risk and live fuel moisture particularly relevant in the context of climate change.
