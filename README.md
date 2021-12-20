@@ -4,46 +4,6 @@ EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the differe
 
 This repository was created in the framework of the course [LBRAT2104 - Land Monitoring by Advanced Earth Observation](https://uclouvain.be/cours-2021-lbrat2104) by Nicolas Deffense.
 
-
-# Jupyter Notebooks
-
-## Downloading Sentinel images
-
-[Download Sentinel images](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/download_images.html)
-
-## Vector data
-
-[Build region of Interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/region_of_interest.html)
-
-[In-Situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/in_situ.html)
-
-## Pre-processing Sentinel-2 data
-
-[Preprocess Sentinel-2 data](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/sentinel_2_prepro.html)
-
-[Compute Spectral Indices (NDVI, NDWI, ...)](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/spectral_indices.html)
-
-[Extract statistics from timeserie](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/extract_stats_timeserie.html)
-
-## Classification
-
-[In-Situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/in_situ_sampling_design.html)
-
-[Random Forest Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/random_forest_classification.html)
-
-[Validation](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/validation.html)
-
-## Tools
-
-[Build multi-band images and RGB composite](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/multiband_raster.html)
-
-[Compute Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/zonal_stats.html)
-
-[Create graphs with matplotlib](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/graphics.html)
-
-[Count frequency](https://nicolasdeffense.github.io/eo-toolbox/notebooks_teaching/html/count_frequency_pixels.html)
-
-
 # Installation
 
 ## Launch Jupyter-Lab from your personal computer
@@ -120,9 +80,9 @@ jupyter lab
 X:
 ```
 
-3. Activate **LBRAT2104**'s environment
+3. Activate **SISE** environment
 ```sh
-conda activate /anaconda_env/LBRAT2104_env_ndeffense
+conda activate sise
 ```
 
 4. Launch Jupyter-Lab

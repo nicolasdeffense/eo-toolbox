@@ -41,4 +41,5 @@ If you are interested of NDVI mean by polygon for each date of a timeserie for i
 
 You can treat rasters as categorical (i.e. raster values represent discrete classes) if you’re only interested in the counts of unique pixel values.
 
-For example, you may have a raster vegetation dataset and want to summarize vegetation by polygon. Statistics such as mean, median, sum, etc. don’t make much sense in this context (What’s the sum of oak + grassland?).
+> For example, you may have a crop type raster and want to summarize size of each classes by polygon. Statistics such as mean, median, sum, etc. don’t make much sense in this context (What’s the sum of urban + grassland?).
+
