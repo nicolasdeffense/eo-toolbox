@@ -36,6 +36,7 @@ Optionally, these statistics are also available.
 
 If you are interested of NDVI mean by polygon for each date of a timeserie for instance.
 
+[> Notebook Zonal Stats for continuous values](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html)
 
 ## Categorical values
 
@@ -43,3 +44,4 @@ You can treat rasters as categorical (i.e. raster values represent discrete clas
 
 > For example, you may have a crop type raster and want to summarize size of each classes by polygon. Statistics such as mean, median, sum, etc. don’t make much sense in this context (What’s the sum of urban + grassland?).
 
+[> Notebook Zonal Stats for categorical values](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.html)
