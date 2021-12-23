@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Jupyter Notebooks
 description: In this section you will find all the **Jupyter Notebooks** that will help you to use programming to achieve a remote sensing project from A to Z.
 ---
