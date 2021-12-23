@@ -1,5 +1,3 @@
-# Notebooks
-
 In this section you will find all the **Jupyter Notebooks** that will help you to use programming to realize a remote sensing project from A to Z.
 
 > Jupyter Notebooks are notebooks that contain code blocks in addition to text and illustrations. They make it easy to see the output of your code!
@@ -10,7 +8,7 @@ Python is very efficient in the field of remote sensing but also in many other f
 Depending on your project, some parts of the course will be more useful than others.
 
 
-## 1. Region of interest
+[Region of interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/)
 
 ## 2. EO data download
 
