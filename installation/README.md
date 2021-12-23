@@ -1,6 +1,9 @@
-# Installation
+---
+layout: default
+title: Installation
+---
 
-## Launch Jupyter-Lab from computer room
+# Launch Jupyter-Lab from computer room
 
 1. Open *Anaconda Prompt*
 
@@ -24,7 +27,7 @@ jupyter lab
 `CTRL-C`
 
 
-## Launch Jupyter-Lab from your personal computer
+# Launch Jupyter-Lab from your personal computer
 
 > ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
 
@@ -87,7 +90,7 @@ jupyter lab
 ```
 
 
-## Launch Jupyter-Lab from Geo14
+# Launch Jupyter-Lab from Geo14
 
 1. Connect to Windows server Geo14 (*geo14.elie.ucl.ac.be*)
 

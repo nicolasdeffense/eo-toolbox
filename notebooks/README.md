@@ -1,6 +1,8 @@
-# Jupyter Notebooks
-
-In this section you will find all the **Jupyter Notebooks** that will help you to use programming to achieve a remote sensing project from A to Z.
+---
+layout: default
+title: Jupyter Notebooks
+description: In this section you will find all the **Jupyter Notebooks** that will help you to use programming to achieve a remote sensing project from A to Z.
+---
 
 > Jupyter Notebooks are notebooks that contain code blocks in addition to text and illustrations. They make it easy to see the output of your code!
 
@@ -9,7 +11,7 @@ Python is very efficient in the field of remote sensing but also in many other f
 
 Depending on your project, some parts of the course will be more useful than others.
 
-## Preprocessing Sentinel images
+# Preprocessing Sentinel images
 
 [Region of interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/)
 
@@ -26,6 +28,8 @@ Depending on your project, some parts of the course will be more useful than oth
 [Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/)
 
 
-## More tools
+# More tools
 
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/)
+
+
