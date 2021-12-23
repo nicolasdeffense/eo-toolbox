@@ -1,5 +1,5 @@
 ---
-layout: sub_pages
+layout: sub_page
 title: Installation
 ---
 
