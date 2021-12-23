@@ -1,6 +1,6 @@
 # Jupyter Notebooks
 
-In this section you will find all the **Jupyter Notebooks** that will help you to use programming to realize a remote sensing project from A to Z.
+In this section you will find all the **Jupyter Notebooks** that will help you to use programming to achieve a remote sensing project from A to Z.
 
 > Jupyter Notebooks are notebooks that contain code blocks in addition to text and illustrations. They make it easy to see the output of your code!
 

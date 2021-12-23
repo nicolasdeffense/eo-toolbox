@@ -6,3 +6,10 @@ This repository was created in the framework of the course [LBRAT2104 - Land Mon
 [Installation](https://nicolasdeffense.github.io/eo-toolbox/installation/)
 
 [Notebooks](https://nicolasdeffense.github.io/eo-toolbox/notebooks/)
+
+
+<a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
+
+{% if site.github.is_project_page %}
+<a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
+{% endif %}

@@ -1,5 +1,29 @@
 # Installation
 
+## Launch Jupyter-Lab from computer room
+
+1. Open *Anaconda Prompt*
+
+2. Navigate to the disk where the environment was created
+```sh
+X:
+```
+
+3. Activate **SISE** environment
+```sh
+conda activate sise
+```
+
+4. Launch Jupyter-Lab
+```sh
+jupyter lab
+```
+
+5. Close Jupyter-Lab  
+`CTRL-C`  
+`CTRL-C`
+
+
 ## Launch Jupyter-Lab from your personal computer
 
 > ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
@@ -61,32 +85,6 @@ python3 check_environment.py
 ```sh
 jupyter lab
 ```
-
-
-## Launch Jupyter-Lab from computer room
-
-*TODO: check if everything is ok*
-
-1. Open *Anaconda Prompt*
-
-2. Navigate to the disk where the environment was created
-```sh
-X:
-```
-
-3. Activate **SISE** environment
-```sh
-conda activate sise
-```
-
-4. Launch Jupyter-Lab
-```sh
-jupyter lab
-```
-
-5. Close Jupyter-Lab  
-`CTRL-C`  
-`CTRL-C`  
 
 
 ## Launch Jupyter-Lab from Geo14
