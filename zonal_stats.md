@@ -1,4 +1,7 @@
-# Zonal Statistics
+---
+layout: sub_page
+title: Zonal Statistics
+---
 
 `rasterstats` is a Python module for summarizing geospatial raster datasets based on vector geometries.
 

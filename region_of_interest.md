@@ -1,4 +1,7 @@
-# Region of interest
+---
+layout: sub_page
+title: Region of interest
+---
 
 [See notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/region_of_interest.html)
 
@@ -9,7 +12,7 @@ We will define our area of interest using a bounding box. This must be provided 
 
 To find the coordinates of a bounding box, check: [bboxfinder](http://bboxfinder.com/)
 
-<img src="figures/bboxfinder.png" width="800">
+<img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="800">
 
 
 We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.
@@ -37,4 +40,4 @@ Extent in QGIS --> ulx, uly : lrx, lry
 - lry = Lower Right y
 
 
-<img src="figures/ROI_box.png" width="500">
+<img src="./notebooks/1_Region_of_interest/figures/ROI_box.png" width="500">

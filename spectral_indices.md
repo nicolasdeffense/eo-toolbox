@@ -1,4 +1,7 @@
-# Spectral indices
+---
+layout: sub_page
+title: Spectral indices
+---
 
 ## NDVI - Normalized Difference Vegetation Index
 
@@ -56,9 +59,10 @@ SWI, based on NDVI and NDWI, is a useful tool for monitoring waterproofing.
 <img src="https://latex.codecogs.com/svg.latex? SWI = (NDVI - NDWI)^2"/>
 
 
-[Source](https://eos.com/make-an-analysis/index-stack/)
-
 
 [> Notebook to compute spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html)
 
 [> Notebook to compute difference between spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices_difference.html)
+
+
+[Source](https://eos.com/make-an-analysis/index-stack/)
