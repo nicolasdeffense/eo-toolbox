@@ -1,5 +1,3 @@
-# Installation
-
 ## Launch Jupyter-Lab from your personal computer
 
 > ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
