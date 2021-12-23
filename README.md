@@ -1,7 +1,3 @@
----
-layout: default
-title: EO-Toolbox
----
 
 EO-Toolbox is a set of **Jupyter Notebooks** that explains in detail the different steps to process Sentinel-2 images using `Python 3.6`
 
