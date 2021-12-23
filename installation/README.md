@@ -1,7 +1,3 @@
----
-title: Installation
----
-
 # Launch Jupyter-Lab from computer room
 
 1. Open *Anaconda Prompt*
