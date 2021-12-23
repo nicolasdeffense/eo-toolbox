@@ -14,23 +14,17 @@ Depending on your project, some parts of the course will be more useful than oth
 
 # Preprocessing Sentinel images
 
-[Region of interest](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/)
+[Region of interest](https://nicolasdeffense.github.io/eo-toolbox/region_of_interest.html)
 
-[EO data download](https://nicolasdeffense.github.io/eo-toolbox/notebooks/2_EO_data_download/)
+[EO data download](https://nicolasdeffense.github.io/eo-toolbox/eo_data_download.html)
 
-[In-situ data](https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/)
+[Sentinel-2 data preprocessing](https://nicolasdeffense.github.io/eo-toolbox/sentinel_2_prepro.html)
 
-[Sentinel-2 data preprocessing](https://nicolasdeffense.github.io/eo-toolbox/notebooks/4_Sentinel_2_preprocessing/)
-
-[Sentinel-1 data preprocessing](https://nicolasdeffense.github.io/eo-toolbox/notebooks/5_Sentinel_1_preprocessing/)
-
-[Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/)
-
-[Classification](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/)
+[Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/spectral_indices.html)
 
 
 # More tools
 
-[Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/)
+[Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 
