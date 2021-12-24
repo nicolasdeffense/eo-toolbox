@@ -37,13 +37,21 @@ Optionally, these statistics are also available.
 
 ## Coninuous values
 
-[> Notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html)
+
+[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html)
+
+[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.ipynb)
+
 
 If you are interested of NDVI mean by polygon for each date of a timeserie for instance.
 
 ## Categorical values
 
-[> Notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.html)
+
+[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.html)
+
+[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.ipynb)
+
 
 You can treat rasters as categorical (i.e. raster values represent discrete classes) if you’re only interested in the counts of unique pixel values.
 

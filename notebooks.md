@@ -22,6 +22,8 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/spectral_indices.html)
 
+[Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html)
+
 
 # More tools
 
