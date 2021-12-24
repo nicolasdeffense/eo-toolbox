@@ -37,14 +37,14 @@ Optionally, these statistics are also available.
 
 ## Coninuous values
 
+[> Notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html)
+
 If you are interested of NDVI mean by polygon for each date of a timeserie for instance.
 
-[> Notebook Zonal Stats for continuous values](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html)
-
 ## Categorical values
+
+[> Notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.html)
 
 You can treat rasters as categorical (i.e. raster values represent discrete classes) if you’re only interested in the counts of unique pixel values.
 
 > For example, you may have a crop type raster and want to summarize number of pixels of each classes by polygon. Statistics such as mean, median, sum, etc. don’t make much sense in this context (What’s the sum of urban + grassland?).
-
-[> Notebook Zonal Stats for categorical values](https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_categorical.html)

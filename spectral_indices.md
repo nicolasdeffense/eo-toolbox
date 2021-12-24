@@ -3,6 +3,8 @@ layout: sub_page
 title: Spectral indices
 ---
 
+[> Notebook](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html)
+
 ## NDVI - Normalized Difference Vegetation Index
 
 NDVI is used to outline the presence of vegetation. It is used to indicate relative density, or the amount, of the green vegetation present in the image. This index uses reflectance from a red band around 0.66 μm and a near-Infrared band around 0.86 μm. The red band is found in the absorption region of the chlorophyll, while the near-IR band is used in high reflectance plateau of the vegetation canopies. These two bands sense different depths over the vegetation canopies.
@@ -60,7 +62,7 @@ SWI, based on NDVI and NDWI, is a useful tool for monitoring waterproofing.
 
 
 
-[> Notebook to compute spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html)
+
 
 [> Notebook to compute difference between spectral indices](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices_difference.html)
 
