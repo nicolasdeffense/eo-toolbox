@@ -18,6 +18,8 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [EO data download](https://nicolasdeffense.github.io/eo-toolbox/eo_data_download.html)
 
+[In situ data](https://nicolasdeffense.github.io/eo-toolbox/in_situ_data.html)
+
 [Sentinel-2 data preprocessing](https://nicolasdeffense.github.io/eo-toolbox/sentinel_2_prepro.html)
 
 [Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/spectral_indices.html)
