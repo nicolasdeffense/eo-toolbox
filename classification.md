@@ -11,18 +11,18 @@ In this chapter we will see how to use the Random Forest implementation provided
 
 This following figure shows the classification predictions and the decision surfaces produced for three classification problems using 9 different classifiers.
 
-<img src="./notebooks/7_Classification/figures/im_classif_pixel.png" width="400">
+<img src="./notebooks/7_Classification/figures/im_classif_pixel.png" width="600">
 
 
 ## Pixel-based classification
 
-<img src="./notebooks/7_Classification/figures/pixel_based.png" width="400">
+<img src="./notebooks/7_Classification/figures/pixel_based.png" width="600">
 
 
 ## Object-based classification
 
 
-<img src="./notebooks/7_Classification/figures/object_based.png" width="400">
+<img src="./notebooks/7_Classification/figures/object_based.png" width="600">
 
 
 
