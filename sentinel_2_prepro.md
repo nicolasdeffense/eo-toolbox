@@ -20,3 +20,16 @@ The different preprocessing step are as following :
 <img src="./notebooks/4_Sentinel_2_preprocessing/figures/prepro_S2.png" width="1000">
 
 
+## 1. Resample
+
+| Methods | Type of data | How it works |
+|:---------:|:----------:| -- |
+| Nearest Neighbor | categorical| The value of of the output cell is determined by the nearest cell center on the input grid |
+| Bilinear Interpolation | continuous |  Weighted average of the four nearest cell centers. The closer an input cell center is to the output cell center, the higher the influence of its value is on the output cell value. The output value could be different than the nearest input but is always within the same range of values as the input.|
+| Cubic Convolution | continuous | Looks at the 16 nearest cell centers to the output and fits a smooth curve through the points to find the value. Not only does this change the values of the input but it could also cause the output value to be outside of the range of input values (imagine a sink or a peak occurring on a surface). |
+
+## 2. Clip
+
+
+## 3. Apply cloud mask
+

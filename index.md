@@ -13,7 +13,7 @@ Python is very efficient in the field of remote sensing but also in many other f
 
 Depending on your project, some parts of the course will be more useful than others.
 
-# Get data
+## Get data
 
 [Region of interest](https://nicolasdeffense.github.io/eo-toolbox/region_of_interest.html)
 
@@ -21,13 +21,13 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [In situ data](https://nicolasdeffense.github.io/eo-toolbox/in_situ_data.html)
 
-# Preprocess Sentinel-2 images
+## Preprocess Sentinel-2 images
 
 [Sentinel-2 preprocessing](https://nicolasdeffense.github.io/eo-toolbox/sentinel_2_prepro.html)
 
 [Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/spectral_indices.html)
 
-# Classify images
+## Classify images
 
 [In situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/sampling_design.html)
 
@@ -36,6 +36,6 @@ Depending on your project, some parts of the course will be more useful than oth
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html)
 
 
-# More tools
+## More tools
 
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
