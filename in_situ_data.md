@@ -7,13 +7,18 @@ title: In situ data
 
 [<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/in_situ_data.ipynb)
 
-*In situ* data is the data collected that is associated with measurement has the exact measurement of the actual location. An example of this would be when collecting Remote sensing data, *in situ* data will be used to verify that the measurement of the data collected will be the same as the actual location.
 
-*In situ* data are vector data (points or polygons) that give indications on the ground reality.
-The precision of the data can vary:
-- land cover
-- crop type
-- ...
+In addition to satellite EO imagery or time series, land cover / crop type mapping relies on *in situ* data collection to :
+- train the classification algorithm a priori (or to label the output classes a posteriori in the case of unsupervised classification algorithms)
+- validate the output (assess map quality)
 
 
-[Source](http://wiki.gis.com/wiki/index.php/In-situ_data)
+The validation data set is necessarily a high-quality reference data set, to be used as so-called ground-truth to assess the accuracy of a classification map. Validation should never be confused with the intercomparison of maps; this process quantifies the discrepancies between the maps, but cannot rigorously attribute errors to one or the other.
+
+Field data collection is a resource-intensive and time-consuming activity, particularly if it is sought to cover large areas. While sampling theory should define the design, logistic and resource constraints impel identification of the optimal trade-off in terms of performance and cost-efficiency.
+
+Training data sets and validation data sets may also be collected by on-screen delineation based on visual and interactive interpretation of multispectral colour composites. Very high spatial resolution (VHR) images made available on line by Google Earth, Bing, and similar geoportals, are often used for digitizing polygons instead of ground data. The acquisition date of these images displayed on geoportals can be very diverse and does not necessarily correspond to any given year of observation. This is therefore quite efficient for the most stable land cover types but should not be used for crop type for instance as they might change annually.
+
+---
+
+[Handbook on remote sensing for agricultural statistics](https://www.researchgate.net/publication/319876837_Handbook_on_remote_sensing_for_agricultural_statistics)
