@@ -53,7 +53,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb"> <i class="fas fa-download"></i></a>
 
-New Test
+New Test 2
 
 <i class="fas fa-user"></i> <!-- uses solid style -->
 <i class="far fa-user"></i> <!-- uses regular style -->
