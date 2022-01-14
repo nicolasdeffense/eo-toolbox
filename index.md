@@ -41,6 +41,5 @@ Depending on your project, some parts of the course will be more useful than oth
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 
-<i class="fa-solid fa-user">
 
 <i class="icon-camera-retro"></i> icon-camera-retro
