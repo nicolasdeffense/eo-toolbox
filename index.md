@@ -42,4 +42,6 @@ Depending on your project, some parts of the course will be more useful than oth
 
 
 
-<i class="icon-camera-retro"></i> icon-camera-retro
+<i class="icon-camera-retro"></i>
+
+<i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> Configuration

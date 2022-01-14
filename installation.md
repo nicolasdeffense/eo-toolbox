@@ -30,7 +30,6 @@ description: How to launch Jupyter-Lab ?
 
 # From your personal computer
 
-> #### <i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> Configuration
 > ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
 
 1. Download Miniconda (or Anaconda)  
