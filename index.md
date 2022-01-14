@@ -52,3 +52,7 @@ Depending on your project, some parts of the course will be more useful than oth
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.html"> <i class="fas fa-eye"></i></a>
 
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb"> <i class="fas fa-download"></i></a>
+
+<i class="fas fa-user"></i> <!-- uses solid style -->
+<i class="far fa-user"></i> <!-- uses regular style -->
+<i class="fal fa-user"></i> <!-- uses light style -->
