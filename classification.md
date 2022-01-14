@@ -3,9 +3,8 @@ layout: sub_page
 title: Classification
 ---
 
-[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.html)
-
-[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb)
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.html"> <i class="fas fa-eye fa-2x"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb"> <i class="fas fa-download fa-2x"></i></a>
 
 
 The classification step consists in one or many numerical processes to finally allocate every pixel or object to one of the classes of the land cover typology. The vast diversity of classification algorithms can be split into two main types:

@@ -11,9 +11,7 @@ title: Region of interest
 
 The very first step of your project will be to define the area you want to work on. This area is called the **region of interest** (ROI).
 
-We will define our area of interest using a bounding box. This must be provided in WGS84 coordinates to build the cube.
-
-To find the coordinates of a bounding box, check: [bboxfinder](http://bboxfinder.com/)
+We will define our area of interest using a bounding box. To find the coordinates of a bounding box, check: [bboxfinder](http://bboxfinder.com/)
 
 <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="800">
 

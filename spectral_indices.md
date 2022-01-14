@@ -3,9 +3,8 @@ layout: sub_page
 title: Spectral indices
 ---
 
-[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html)
-
-[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.ipynb)
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.html"> <i class="fas fa-eye fa-2x"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/6_Spectral_indices/spectral_indices.ipynb"> <i class="fas fa-download fa-2x"></i></a>
 
 
 ## NDVI - Normalized Difference Vegetation Index

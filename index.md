@@ -41,20 +41,4 @@ Depending on your project, some parts of the course will be more useful than oth
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 
-
-<i class="icon-camera-retro"></i>
-
-<i class="fas fa-cog" style="color: firebrick"></i> Configuration
-
-<i class="fas fa-eye"></i>
-<i class="fas fa-download"></i>
-
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.html"> <i class="fas fa-eye"></i></a>
-
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb"> <i class="fas fa-download"></i></a>
-
-New Test 2
-
-<i class="fas fa-user"></i> <!-- uses solid style -->
-<i class="far fa-user"></i> <!-- uses regular style -->
-<i class="fal fa-user"></i> <!-- uses light style -->
+<i class="fas fa-cog fa-spin" style="color: firebrick"></i> Configuration
