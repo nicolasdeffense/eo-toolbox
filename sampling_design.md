@@ -6,8 +6,8 @@ title: In situ sampling design
 
 ## 1. In situ data preparation
 
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.html"> <i class="fas fa-eye fa-2x"></i></a>
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.ipynb"> <i class="fas fa-download fa-2x"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 <figure class="image">
   <img src="./notebooks/7_Classification/figures/prepare_in_situ.png" width="10000">
@@ -16,8 +16,8 @@ title: In situ sampling design
 
 ## 2. In situ data sampling design
 
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_sampling_design.html"> <i class="fas fa-eye fa-2x"></i></a>
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_sampling_design.ipynb"> <i class="fas fa-download fa-2x"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_sampling_design.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_sampling_design.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 The two main purposes of the *in situ* data collection are referred to as algorithm calibration and output validation.
 

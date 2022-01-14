@@ -1,8 +1,8 @@
 ---
 layout: sub_page
 title: Cheat Sheets
+description: Having trouble with a command or a library? Take a look at the cheat sheets!
 ---
-
 
 [Conda](https://nicolasdeffense.github.io/eo-toolbox/cheat_sheets/conda_cheat_sheet.pdf)
 

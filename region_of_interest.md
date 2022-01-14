@@ -3,11 +3,8 @@ layout: sub_page
 title: Region of interest
 ---
 
-[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/region_of_interest.html)
-
-
-[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/region_of_interest.ipynb)
-
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/region_of_interest.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/1_Region_of_interest/region_of_interest.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 The very first step of your project will be to define the area you want to work on. This area is called the **region of interest** (ROI).
 

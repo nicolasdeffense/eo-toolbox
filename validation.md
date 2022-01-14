@@ -3,9 +3,8 @@ layout: sub_page
 title: Validation
 ---
 
-[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/validation.html)
-
-[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/validation.ipynb)
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/validation.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/validation.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 The validation data are used to assess the map accuracy defined by the agreement between the map output and the validation data assumed to be the truth. The most common way to derive the map accuracy is to analyse the confusion matrix, which is a square co-occurrence matrix compiling the number of samples matching a given land cover class with validation information. Diagonal values represent the agreement frequency between the validation data and the map output, while non-diagonal values represent the errors.
 

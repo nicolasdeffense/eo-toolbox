@@ -3,9 +3,8 @@ layout: sub_page
 title: In situ data
 ---
 
-[<img src="./buttons/view_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/in_situ_data.html)
-
-[<img src="./buttons/download_button.png" width="100"/>](https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/in_situ_data.ipynb)
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/in_situ_data.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/3_In_situ_data/in_situ_data.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 
 In addition to satellite EO imagery or time series, land cover / crop type mapping relies on *in situ* data collection to :
