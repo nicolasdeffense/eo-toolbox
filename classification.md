@@ -1,9 +1,6 @@
 ---
 layout: sub_page
 title: Classification
-output:
-    html_document:
-        css: styles.css
 ---
 
  ## Next Steps {#nextsteps}
