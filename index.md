@@ -44,4 +44,11 @@ Depending on your project, some parts of the course will be more useful than oth
 
 <i class="icon-camera-retro"></i>
 
-<i class="fa fa-gear fa-spin fa-2x" style="color: firebrick"></i> Configuration
+<i class="fas fa-cog" style="color: firebrick"></i> Configuration
+
+<i class="fas fa-eye"></i>
+<i class="fas fa-download"></i>
+
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.html"> <i class="fas fa-eye"></i></a>
+
+<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/random_forest_classification.ipynb"> <i class="fas fa-download"></i></a>
