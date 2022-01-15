@@ -16,7 +16,7 @@ The classification step consists in one or many numerical processes to finally a
 
 Random Forest (RF), an improved implementation of Decision Trees (DT), is an ensemble-learning algorithm that combines multiple classifications of the same data to produce higher classification accuracies than other forms of DT (Cutler et al., 2007; Ghimire et al., 2012). RF works by fitting many DT-based classifications to a data set, and then uses a rule-based approach to combine the predictions from all the trees. During this process, individual trees are grown from differing subsets of training data using a process called “bagging”. Bagging involves the random subsampling (with replacement) of the original data for growing each tree. Generally, for each tree grown, two thirds of the training data are used to grow the tree, while the remaining one third are left unused (out-of-bag, or OOB) for later error assessment (Breiman, 2001). A classification is then fit to each bootstrap sample; however, at each node (split), only a small number of randomly selected predictor variables are used in the binary partitioning (Rodriguez-Galiano and Chica-Olmo, 2012). The splitting process continues until further subdivision no longer reduces the Gini index (Cutler et al., 2007). Each tree contributes to the assignment of the most frequent class to the input data with a single vote (Breiman, 1984; Rodriguez-Galiano and Chica-Olmo, 2012). The predicted class of an observation is calculated by the majority vote for that observation, with ties split randomly (Cutler et al., 2007).
 
-[Watch this video if RF are not clear for you !](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ&t=313s)
+[Watch this video if RF are not clear for you !](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ&t)
 
 
 
