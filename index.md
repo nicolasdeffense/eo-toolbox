@@ -31,7 +31,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [In situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/sampling_design.html)
 
-[Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html)
+[Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
