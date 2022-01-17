@@ -35,7 +35,7 @@ Optionally, these statistics are also available.
 
 [> See User Manual](https://pythonhosted.org/rasterstats/manual.html)
 
-## Coninuous values
+## Continuous values
 
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.html"> <i class="fas fa-eye fa-lg"></i></a>
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/A_Zonal_Statistics/zonal_stats_continuous.ipynb"> <i class="fas fa-download fa-lg"></i></a>
