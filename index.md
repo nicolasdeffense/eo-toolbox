@@ -34,7 +34,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html)
 
-[Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
+[Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html)
 
 
 ## More tools
