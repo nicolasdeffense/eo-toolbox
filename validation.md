@@ -39,6 +39,33 @@ The **F-score** is calculated as a combination of PA and UA for a given land cov
 <img src="https://latex.codecogs.com/svg.latex? \mathrm{F-score}_{\mathrm{i}}(\%)=\frac{2 \times \mathrm{PA}_{\mathrm{i}} \times \mathrm{UA}_{\mathrm{i}}}{\mathrm{PA}_{\mathrm{i}} + \mathrm{UA}_{\mathrm{i}}} "/>
 </figure>
 
+
+
+
+TEST 1
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="1000" width="1000"></iframe>
+
+TEST 2
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
+
+
+TEST 3
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="500" width="500"></iframe>
+
+TEST 4
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM.html" height="500" width="500"></iframe>
+
+TEST 5
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="500" width="500"></iframe>
+
+
+
+
 ---
 
 [Handbook on remote sensing for agricultural statistics](https://www.researchgate.net/publication/319876837_Handbook_on_remote_sensing_for_agricultural_statistics)

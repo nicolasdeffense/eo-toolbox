@@ -32,7 +32,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [In situ sampling design](https://nicolasdeffense.github.io/eo-toolbox/sampling_design.html)
 
-[Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
+[Classification](https://nicolasdeffense.github.io/eo-toolbox/classification.html)
 
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
@@ -42,13 +42,3 @@ Depending on your project, some parts of the course will be more useful than oth
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/color_map.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
-
-TEST_2
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="1000" width="1000"></iframe>
-
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
-
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="500" width="500"></iframe>
