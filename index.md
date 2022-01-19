@@ -43,8 +43,12 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/color_map.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
-TEST
+TEST_2
 
-<div src="NAMUR_2020_CM_full_html_false.html"></div>
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="1000" width="1000"></iframe>
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="525" width="100%"></iframe>
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
+
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/NAMUR_2020_CM_full_html_false.html" height="500" width="500"></iframe>
