@@ -11,15 +11,6 @@ When a classification is performed, whether it is generated with machine learnin
 
 The validation data are used to assess the map accuracy defined by the agreement between the map output and the validation data assumed to be the truth. The most common way to derive the map accuracy is to analyse the confusion matrix, which is a square co-occurrence matrix compiling the number of samples matching a given land cover class with validation information. Diagonal values represent the agreement frequency between the validation data and the map output, while non-diagonal values represent the errors.
 
-{% include_relative NAMUR_2020_CM.html} 
-
-cat(plotly:::plotly_iframe())
-
-<iframe width=100%, height=650, src='NAMUR_2020_CM.html'></iframe>
-
-<iframe src="NAMUR_2020_CM.html" width="100%" height="400" id="igraph" scrolling="no" seamless="seamless" frameBorder="0"> </iframe>
-
-
 Among fourteen class-level and twenty map-level accuracy metrics, Liu et al. (2007) recommended user accuracy (UA), producer accuracy (PA) and overall accuracy (OA) as primary accuracy measures. For binary maps such as the cropland mask, the OA depends to a large extent on the respective proportion of both classes in the validation data set. In this case, the F-Score, the use of which has been recently adopted, is a more informative accuracy metric.
 
 
