@@ -48,21 +48,18 @@ TEST 1
 
 TEST 2
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
-
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="1000" width="100%"></iframe>
 
 TEST 3
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="500" width="500"></iframe>
+<iframe id="igraph" scrolling="yes" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
 
-TEST 4
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM.html" height="500" width="500"></iframe>
+TEST 2
 
-TEST 5
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="1000" width="1000"></iframe>
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="500" width="500"></iframe>
-
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="1000" width="100%"></iframe>
 
 
 
