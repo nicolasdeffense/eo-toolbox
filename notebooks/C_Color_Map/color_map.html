@@ -14264,11 +14264,12 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All libraries successfully imported!&#39;</span><span class="p">)</span>
 </pre></div>
@@ -14311,12 +14312,8 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/&#39;</span>
-<span class="n">grp_letter</span>    <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
 
-<span class="c1"># Directory for all work files</span>
-<span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
-
-<span class="n">color_map_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">COLOR_MAP/&#39;</span>
+<span class="n">color_map_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">data/COLOR_MAP/&#39;</span>
 
 <span class="n">Path</span><span class="p">(</span><span class="n">color_map_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -14334,13 +14331,13 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">field_name</span> <span class="o">=</span> <span class="s1">&#39;grp_A&#39;</span>
 
-<span class="n">filename_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color_map_path</span><span class="si">}</span><span class="s1">color_map_</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s1">.csv&#39;</span>
-<span class="n">filename_clr</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color_map_path</span><span class="si">}</span><span class="s1">color_map_</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s1">.clr&#39;</span>
+<span class="n">filename_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color_map_path</span><span class="si">}</span><span class="s1">color_map_</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s1">.xlsx&#39;</span>
+<span class="n">filename_clr</span>  <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">color_map_path</span><span class="si">}</span><span class="s1">color_map_</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s1">.clr&#39;</span>
 </pre></div>
 
      </div>
@@ -14348,23 +14345,454 @@ a.anchor-link {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Read-Excel-color-map">Read Excel color map<a class="anchor-link" href="#Read-Excel-color-map">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename_csv</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename_xlsx</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span> <span class="s1">&#39;grp_A_nb&#39;</span> <span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">})</span>
 
-<span class="c1">#print(df)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+     </div>
+</div>
+</div>
+</div>
 
-<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_clr</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>grp_A_nb</th>
+      <th>R</th>
+      <th>G</th>
+      <th>B</th>
+      <th>T</th>
+      <th>grp_A</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>111</td>
+      <td>229</td>
+      <td>141</td>
+      <td>140</td>
+      <td>255</td>
+      <td>Wheat</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>112</td>
+      <td>254</td>
+      <td>182</td>
+      <td>36</td>
+      <td>255</td>
+      <td>Maize</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>113</td>
+      <td>254</td>
+      <td>254</td>
+      <td>0</td>
+      <td>255</td>
+      <td>Rice</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>114</td>
+      <td>252</td>
+      <td>139</td>
+      <td>7</td>
+      <td>255</td>
+      <td>Sorghum</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>115</td>
+      <td>108</td>
+      <td>158</td>
+      <td>217</td>
+      <td>255</td>
+      <td>Barley</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>116</td>
+      <td>183</td>
+      <td>148</td>
+      <td>64</td>
+      <td>255</td>
+      <td>Rye</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>117</td>
+      <td>95</td>
+      <td>196</td>
+      <td>204</td>
+      <td>255</td>
+      <td>Oats</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>118</td>
+      <td>253</td>
+      <td>81</td>
+      <td>6</td>
+      <td>255</td>
+      <td>Millets</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>119</td>
+      <td>104</td>
+      <td>204</td>
+      <td>178</td>
+      <td>255</td>
+      <td>Quinoa</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>121</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>255</td>
+      <td>Leafy or stem vegetables</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>122</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>255</td>
+      <td>Fruit-bearing vegetables</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>123</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>255</td>
+      <td>Root, bulb or tuberous vegetables</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>124</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>255</td>
+      <td>Mushrooms and truffles</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>141</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>255</td>
+      <td>Soya beans</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>142</td>
+      <td>4</td>
+      <td>255</td>
+      <td>3</td>
+      <td>255</td>
+      <td>Groundnuts</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>143</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+      <td>255</td>
+      <td>Other oilseed crops</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>151</td>
+      <td>107</td>
+      <td>68</td>
+      <td>11</td>
+      <td>255</td>
+      <td>Potatoes</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>152</td>
+      <td>35</td>
+      <td>240</td>
+      <td>155</td>
+      <td>255</td>
+      <td>Sweet potatoes</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>153</td>
+      <td>7</td>
+      <td>7</td>
+      <td>7</td>
+      <td>255</td>
+      <td>Cassava</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>154</td>
+      <td>8</td>
+      <td>8</td>
+      <td>8</td>
+      <td>255</td>
+      <td>Yams</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>161</td>
+      <td>234</td>
+      <td>110</td>
+      <td>58</td>
+      <td>255</td>
+      <td>Spice crops</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>162</td>
+      <td>239</td>
+      <td>200</td>
+      <td>195</td>
+      <td>255</td>
+      <td>Hops</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>17</td>
+      <td>130</td>
+      <td>196</td>
+      <td>248</td>
+      <td>255</td>
+      <td>Leguminous crops</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>181</td>
+      <td>151</td>
+      <td>113</td>
+      <td>209</td>
+      <td>255</td>
+      <td>Sugar beet</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>182</td>
+      <td>8</td>
+      <td>112</td>
+      <td>3</td>
+      <td>255</td>
+      <td>Sugar cane</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>3</td>
+      <td>137</td>
+      <td>188</td>
+      <td>31</td>
+      <td>255</td>
+      <td>Grassland and meadows</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>192</td>
+      <td>9</td>
+      <td>9</td>
+      <td>9</td>
+      <td>255</td>
+      <td>Fibre crops</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>1931</td>
+      <td>255</td>
+      <td>190</td>
+      <td>255</td>
+      <td>255</td>
+      <td>Medicinal, aromatic, pesticidal or similar crops</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1941</td>
+      <td>255</td>
+      <td>253</td>
+      <td>56</td>
+      <td>255</td>
+      <td>Flowers crops</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>1991</td>
+      <td>172</td>
+      <td>103</td>
+      <td>42</td>
+      <td>255</td>
+      <td>Tobacco</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>21</td>
+      <td>204</td>
+      <td>151</td>
+      <td>5</td>
+      <td>255</td>
+      <td>Fruits trees</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>22</td>
+      <td>212</td>
+      <td>202</td>
+      <td>254</td>
+      <td>255</td>
+      <td>Vineyards</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>23</td>
+      <td>10</td>
+      <td>111</td>
+      <td>77</td>
+      <td>255</td>
+      <td>Olive groves</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>24</td>
+      <td>19</td>
+      <td>166</td>
+      <td>22</td>
+      <td>255</td>
+      <td>Trees</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>291</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>255</td>
+      <td>Succulent plant</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>5</td>
+      <td>195</td>
+      <td>205</td>
+      <td>205</td>
+      <td>255</td>
+      <td>Shrub land</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>6</td>
+      <td>14</td>
+      <td>119</td>
+      <td>16</td>
+      <td>255</td>
+      <td>Forest</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>7</td>
+      <td>180</td>
+      <td>180</td>
+      <td>180</td>
+      <td>255</td>
+      <td>Bare soil</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>8</td>
+      <td>244</td>
+      <td>12</td>
+      <td>26</td>
+      <td>255</td>
+      <td>Build-up surface</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>9</td>
+      <td>9</td>
+      <td>57</td>
+      <td>197</td>
+      <td>255</td>
+      <td>Water bodies</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Write-color-map-in-QGIS-style">Write color map in QGIS style<a class="anchor-link" href="#Write-color-map-in-QGIS-style">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_clr</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>

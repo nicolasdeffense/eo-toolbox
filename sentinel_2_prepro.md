@@ -17,7 +17,9 @@ The different preprocessing step are as following :
 2. Clip images to the extent of Region of Interest (ROI)
 3. Apply Scene Classification map (SCL) on reflectance images to mask invalid pixels
 
-<img src="./notebooks/4_Sentinel_2_preprocessing/figures/prepro_S2.png" width="1000">
+<figure class="image">
+  <img src="./notebooks/4_Sentinel_2_preprocessing/figures/prepro_S2.png" alt="Image classification" width="1000">
+</figure>
 
 
 ## 1. Resample

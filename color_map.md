@@ -12,3 +12,7 @@ Now that you’ve got a map, you need to be able to print it or to export it to 
 
 If the classification has many classes, it may be useful to create a Color Map file to easily draw a legend to the classification with the right colours and labels.
 
+<figure class="image">
+  <img src="./notebooks/C_Color_Map/figures/color_map_exemple.png" alt="Color Map" width="400">
+  <figcaption>Color Map</figcaption>
+</figure>

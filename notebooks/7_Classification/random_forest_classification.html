@@ -14264,7 +14264,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
@@ -14275,7 +14275,6 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">features</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="c1">#from sklearn.datasets import make_classification</span>
@@ -14285,7 +14284,6 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All libraries successfully imported!&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scipy        : </span><span class="si">{</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scikit-learn : </span><span class="si">{</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -14307,7 +14305,6 @@ a.anchor-link {
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>All libraries successfully imported!
-Scipy        : 1.3.3
 Scikit-learn : 0.24.2
 </pre>
 </div>
@@ -14325,11 +14322,13 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/&#39;</span>
 <span class="n">grp_letter</span>    <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+
+<span class="n">lut_path</span>  <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">data/LUT/&#39;</span>
 
 <span class="c1"># Directory for all work files</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>
@@ -14344,7 +14343,7 @@ Scikit-learn : 0.24.2
 
 <span class="n">Path</span><span class="p">(</span><span class="n">classif_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classification path are set to : </span><span class="si">{</span><span class="n">classif_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classification path is set to : </span><span class="si">{</span><span class="n">classif_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14364,7 +14363,7 @@ Scikit-learn : 0.24.2
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Classification path are set to : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/CLASSIF/
+<pre>Classification path is set to : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/CLASSIF/
 </pre>
 </div>
 </div>
@@ -14381,7 +14380,7 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="s1">&#39;NAMUR&#39;</span>
@@ -14392,6 +14391,35 @@ Scikit-learn : 0.24.2
 
 <span class="n">field_classif_code</span> <span class="o">=</span> <span class="s1">&#39;sub_nb&#39;</span>
 <span class="n">field_classif_name</span> <span class="o">=</span> <span class="s1">&#39;sub&#39;</span>
+
+<span class="n">field_reclassif_code</span> <span class="o">=</span> <span class="s1">&#39;grp_A_nb&#39;</span>
+<span class="n">field_reclassif_name</span> <span class="o">=</span> <span class="s1">&#39;grp_A&#39;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-filenames">Set filenames<a class="anchor-link" href="#Set-filenames">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.shp&#39;</span>
+<span class="n">in_situ_cal_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.tif&#39;</span>
+
+<span class="n">classif_tif</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CLASSIF_RF_with_NDVI.tif&#39;</span>
+<span class="n">reclassif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CLASSIF_RF_with_NDVI_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+
+
+<span class="n">s4s_lut_xlsx</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">crop_dictionary_new.xlsx&#39;</span>
 </pre></div>
 
      </div>
@@ -14407,45 +14435,45 @@ Scikit-learn : 0.24.2
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="1.1-Rasterize-in-situ-data-shapefile">1.1 Rasterize <em>in situ</em> data shapefile<a class="anchor-link" href="#1.1-Rasterize-in-situ-data-shapefile">&#182;</a></h3>
+<h3 id="1.1-Rasterize-in-situ-data-calibration-shapefile">1.1 Rasterize <em>in situ</em> data calibration shapefile<a class="anchor-link" href="#1.1-Rasterize-in-situ-data-calibration-shapefile">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.shp&#39;</span>
-<span class="n">in_situ_val_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_VAL.shp&#39;</span>
-
-<span class="n">in_situ_cal_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.tif&#39;</span>
-<span class="n">in_situ_val_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_VAL.tif&#39;</span>
-
-<span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster template file : </span><span class="si">{</span><span class="n">img_temp_tif</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
+<span class="c1"># Open the shapefile with GeoPandas</span>
 
-<span class="k">for</span> <span class="n">shp</span><span class="p">,</span> <span class="n">raster</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">in_situ_cal_shp</span><span class="p">,</span> <span class="n">in_situ_val_shp</span><span class="p">],[</span><span class="n">in_situ_cal_tif</span><span class="p">,</span> <span class="n">in_situ_val_tif</span><span class="p">]):</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterize starts : </span><span class="si">{</span><span class="n">shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">in_situ_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_situ_cal_shp</span><span class="p">)</span>
 
-    <span class="c1"># Open the shapefile with GeoPandas</span>
+<span class="c1"># Open the raster file you want to use as a template for rasterize</span>
 
-    <span class="n">in_situ_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shp</span><span class="p">)</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Open the raster file you want to use as a template for rasterize</span>
+<span class="c1"># Update metadata</span>
 
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">out_meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
+<span class="n">out_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">nodata</span><span class="o">=</span><span class="n">no_data</span><span class="p">)</span>
 
-    <span class="c1"># Update metadata</span>
+<span class="n">crs_shp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">in_situ_gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">crs_tif</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="n">out_meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>
-    <span class="n">out_meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">nodata</span><span class="o">=</span><span class="n">no_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The CRS of in situ data is    : </span><span class="si">{</span><span class="n">crs_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The CRS of raster template is : </span><span class="si">{</span><span class="n">crs_tif</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">crs_shp</span> <span class="o">==</span> <span class="n">crs_tif</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CRS are the same&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterize starts : </span><span class="si">{</span><span class="n">in_situ_cal_shp</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="c1"># Burn the features into the raster and write it out</span>
 
-    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">out_meta</span><span class="p">)</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">in_situ_cal_tif</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">out_meta</span><span class="p">)</span>
     <span class="n">dst_arr</span> <span class="o">=</span> <span class="n">dst</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># This is where we create a generator of geom, value pairs to use in rasterizing</span>
@@ -14456,17 +14484,20 @@ Scikit-learn : 0.24.2
     <span class="n">shapes</span> <span class="o">=</span> <span class="p">((</span><span class="n">geom</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">geom_col</span><span class="p">,</span> <span class="n">code_col</span><span class="p">))</span>
 
     <span class="n">in_situ_arr</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span>
-                                        <span class="n">fill</span><span class="o">=</span><span class="n">no_data</span><span class="p">,</span>
-                                        <span class="n">out</span><span class="o">=</span><span class="n">dst_arr</span><span class="p">,</span>
-                                        <span class="n">transform</span><span class="o">=</span><span class="n">dst</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+                                     <span class="n">fill</span><span class="o">=</span><span class="n">no_data</span><span class="p">,</span>
+                                     <span class="n">out</span><span class="o">=</span><span class="n">dst_arr</span><span class="p">,</span>
+                                     <span class="n">transform</span><span class="o">=</span><span class="n">dst</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
 
     <span class="n">dst</span><span class="o">.</span><span class="n">write_band</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">in_situ_arr</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterize is done : </span><span class="si">{</span><span class="n">in_situ_cal_tif</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="c1"># Close rasterio objects</span>
     <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rasterize is done : </span><span class="si">{</span><span class="n">raster</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CRS are different --&gt; repoject in-situ data shapefile with &quot;to_crs&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14487,10 +14518,11 @@ Scikit-learn : 0.24.2
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Raster template file : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B11_10m_ROI_SCL.tif
+The CRS of in situ data is    : 32631
+The CRS of raster template is : 32631
+CRS are the same
 Rasterize starts : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_2020_IN_SITU_ROI_CAL.shp
 Rasterize is done : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_2020_IN_SITU_ROI_CAL.tif
-Rasterize starts : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_2020_IN_SITU_ROI_VAL.shp
-Rasterize is done : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_2020_IN_SITU_ROI_VAL.tif
 </pre>
 </div>
 </div>
@@ -14508,7 +14540,7 @@ Rasterize is done : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get list of all files containing the features</span>
@@ -14573,7 +14605,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Open in-situ used for calibration</span>
@@ -14623,7 +14655,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cal_arr</span><span class="p">[</span><span class="n">cal_arr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
@@ -14672,7 +14704,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">feat_arr</span><span class="p">[</span><span class="n">cal_arr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
@@ -14727,7 +14759,7 @@ Our y array is sized: (32585,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_training</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -14763,7 +14795,7 @@ Our y array is sized: (32585,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Random Forest training : 00:01:35.13
+<pre>Random Forest training : 00:01:35.48
 </pre>
 </div>
 </div>
@@ -14781,7 +14813,7 @@ Our y array is sized: (32585,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Our OOB prediction of accuracy is: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">oob_score_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
@@ -14804,7 +14836,7 @@ Our y array is sized: (32585,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Our OOB prediction of accuracy is: 99.27%
+<pre>Our OOB prediction of accuracy is: 99.28%
 </pre>
 </div>
 </div>
@@ -14822,7 +14854,7 @@ Our y array is sized: (32585,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">band_nb</span><span class="p">,</span> <span class="n">imp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -14846,18 +14878,18 @@ Our y array is sized: (32585,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Band 1 importance: 0.0731
-Band 2 importance: 0.017
-Band 3 importance: 0.1093
-Band 4 importance: 0.0922
-Band 5 importance: 0.1293
-Band 6 importance: 0.064
-Band 7 importance: 0.1223
-Band 8 importance: 0.1123
-Band 9 importance: 0.1095
-Band 10 importance: 0.0642
-Band 11 importance: 0.0549
-Band 12 importance: 0.052
+<pre>Band 1 importance: 0.0741
+Band 2 importance: 0.0181
+Band 3 importance: 0.1064
+Band 4 importance: 0.0936
+Band 5 importance: 0.1284
+Band 6 importance: 0.0632
+Band 7 importance: 0.1153
+Band 8 importance: 0.1143
+Band 9 importance: 0.1094
+Band 10 importance: 0.0693
+Band 11 importance: 0.0551
+Band 12 importance: 0.0529
 </pre>
 </div>
 </div>
@@ -14875,7 +14907,7 @@ Band 12 importance: 0.052
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Setup a dataframe</span>
@@ -15320,13 +15352,13 @@ Band 12 importance: 0.052
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Predicting-the-rest-of-the-image">Predicting the rest of the image<a class="anchor-link" href="#Predicting-the-rest-of-the-image">&#182;</a></h2><p>With our Random Forest classifier fit, we can now proceed by trying to classify the entire image.</p>
+<h2 id="3.-Predicting-the-rest-of-the-image">3. Predicting the rest of the image<a class="anchor-link" href="#3.-Predicting-the-rest-of-the-image">&#182;</a></h2><p>With our Random Forest classifier fit, we can now proceed by trying to classify the entire image.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Take our full image and reshape into long 2d array (nrow * ncol, nband) for classification</span>
@@ -15341,7 +15373,6 @@ Band 12 importance: 0.052
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Reshaped from </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">img_as_array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-
 <span class="n">start_classification</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
 <span class="c1"># Now predict for each pixel</span>
@@ -15355,6 +15386,8 @@ Band 12 importance: 0.052
 <span class="n">hours</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">end_classification</span><span class="o">-</span><span class="n">start_classification</span><span class="p">,</span> <span class="mi">3600</span><span class="p">)</span>
 <span class="n">minutes</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Random Forest training : </span><span class="si">{:0&gt;2}</span><span class="s2">:</span><span class="si">{:0&gt;2}</span><span class="s2">:</span><span class="si">{:05.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">),</span><span class="n">seconds</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15375,7 +15408,14 @@ Band 12 importance: 0.052
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Reshaped from (570, 986, 12) to (562020, 12)
-Random Forest training : 00:01:58.14
+Random Forest training : 00:01:48.56
+[[3199 3199 8111 ... 3199 3199 3199]
+ [3199 3199 3199 ... 3199 3199 3199]
+ [3199 3199 6999 ... 3199 3199 1121]
+ ...
+ [6999 6999 6999 ... 1111 1111 1111]
+ [6999 6999 6999 ... 1111 1111 1111]
+ [8111 8111 8111 ... 8111 8111 8111]]
 </pre>
 </div>
 </div>
@@ -15387,17 +15427,16 @@ Random Forest training : 00:01:58.14
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Write-Classification-product-into-a-GeoTIFF-file">Write Classification product into a GeoTIFF file<a class="anchor-link" href="#Write-Classification-product-into-a-GeoTIFF-file">&#182;</a></h2>
+<p>Write Classification product into a GeoTIFF file</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">classif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CLASSIF_RF_with_NDVI.tif&#39;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of image : </span><span class="si">{</span><span class="n">class_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of classification image : </span><span class="si">{</span><span class="n">class_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># Open template image to get metadata</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span>
@@ -15430,7 +15469,245 @@ Random Forest training : 00:01:58.14
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Size of image : (570, 986)
+<pre>Size of classification image : (570, 986)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="4.-Reclassification">4. Reclassification<a class="anchor-link" href="#4.-Reclassification">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.1-Open-LUT-and-sort-values">4.1 Open LUT and sort values<a class="anchor-link" href="#4.1-Open-LUT-and-sort-values">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">s4s_lut_xlsx</span><span class="p">)</span>
+
+<span class="n">lut_df</span> <span class="o">=</span> <span class="n">lut_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">field_classif_code</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">lut_df</span><span class="p">[[</span><span class="n">field_classif_code</span><span class="p">,</span> <span class="n">field_classif_name</span><span class="p">,</span> <span class="n">field_reclassif_code</span><span class="p">,</span> <span class="n">field_reclassif_name</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sub_nb</th>
+      <th>sub</th>
+      <th>grp_A_nb</th>
+      <th>grp_A</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>0</td>
+      <td>Remove</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1111</td>
+      <td>Winter wheat</td>
+      <td>111</td>
+      <td>Wheat</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1112</td>
+      <td>Spring wheat</td>
+      <td>111</td>
+      <td>Wheat</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1113</td>
+      <td>Hard wheat</td>
+      <td>111</td>
+      <td>Wheat</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1114</td>
+      <td>Soft wheat</td>
+      <td>111</td>
+      <td>Wheat</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.2-Reclassify-prediction">4.2 Reclassify prediction<a class="anchor-link" href="#4.2-Reclassify-prediction">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">)</span>
+
+<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+<span class="n">reclass_prediction</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">lut_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    
+    <span class="n">old_class</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">field_classif_code</span><span class="p">]</span>
+    <span class="n">new_class</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">field_reclassif_code</span><span class="p">]</span>
+
+    <span class="c1">#print(f&#39;{old_class} --&gt; {new_class}&#39;)</span>
+
+    <span class="c1">#array[np.where(array == old_class)] = new_class</span>
+
+    <span class="n">reclass_prediction</span><span class="p">[</span><span class="n">reclass_prediction</span> <span class="o">==</span> <span class="n">old_class</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_class</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[[3199 3199 8111 ... 3199 3199 3199]
+ [3199 3199 3199 ... 3199 3199 3199]
+ [3199 3199 6999 ... 3199 3199 1121]
+ ...
+ [6999 6999 6999 ... 1111 1111 1111]
+ [6999 6999 6999 ... 1111 1111 1111]
+ [8111 8111 8111 ... 8111 8111 8111]]
+[[  3   3   8 ...   3   3   3]
+ [  3   3   3 ...   3   3   3]
+ [  3   3   6 ...   3   3 112]
+ ...
+ [  6   6   6 ... 111 111 111]
+ [  6   6   6 ... 111 111 111]
+ [  8   8   8 ...   8   8   8]]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="4.3-Write-re-classification-product-into-a-GeoTIFF-file">4.3 Write re-classification product into a GeoTIFF file<a class="anchor-link" href="#4.3-Write-re-classification-product-into-a-GeoTIFF-file">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of re-classification image : </span><span class="si">{</span><span class="n">reclass_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Open template image to get metadata</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+
+<span class="c1"># Write re-classification image</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">reclassif_tif</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Close rasterio objects</span>
+<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Size of re-classification image : (570, 986)
 </pre>
 </div>
 </div>
