@@ -11,6 +11,8 @@ When a classification is performed, whether it is generated with machine learnin
 
 The validation data are used to assess the map accuracy defined by the agreement between the map output and the validation data assumed to be the truth. The most common way to derive the map accuracy is to analyse the confusion matrix, which is a square co-occurrence matrix compiling the number of samples matching a given land cover class with validation information. Diagonal values represent the agreement frequency between the validation data and the map output, while non-diagonal values represent the errors.
 
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM.html" height="1000" width="100%"></iframe>
+
 Among fourteen class-level and twenty map-level accuracy metrics, Liu et al. (2007) recommended user accuracy (UA), producer accuracy (PA) and overall accuracy (OA) as primary accuracy measures. For binary maps such as the cropland mask, the OA depends to a large extent on the respective proportion of both classes in the validation data set. In this case, the F-Score, the use of which has been recently adopted, is a more informative accuracy metric.
 
 
@@ -40,27 +42,14 @@ The **F-score** is calculated as a combination of PA and UA for a given land cov
 </figure>
 
 
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="700" width="100%"></iframe>
 
 
-TEST 1
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="1000" width="1000"></iframe>
-
-TEST 2
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="1000" width="100%"></iframe>
-
-TEST 3
-
-<iframe id="igraph" scrolling="yes" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM_full_html_false.html" height="100%" width="100%"></iframe>
+---
 
 
-TEST 2
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="1000" width="1000"></iframe>
-
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_AM.html" height="1000" width="100%"></iframe>
-
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/figures/NAMUR_2020_CM.html" height="1000" width="1000"></iframe>
 
 
 ---
