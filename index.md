@@ -42,10 +42,3 @@ Depending on your project, some parts of the course will be more useful than oth
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/color_map.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
-
-
-
-{% include_relative NAMUR_2020_CM_full_html_false.html} 
-
-
-<iframe width=100%, height=650, src='NAMUR_2020_CM_full_html_false.html'></iframe>
