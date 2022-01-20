@@ -14315,7 +14315,7 @@ GeoPandas : 0.9.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/&#39;</span>
@@ -14331,6 +14331,52 @@ GeoPandas : 0.9.0
 <span class="n">in_situ_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">IN_SITU/&#39;</span>
 
 <span class="n">Path</span><span class="p">(</span><span class="n">in_situ_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-parameters">Set parameters<a class="anchor-link" href="#Set-parameters">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="s1">&#39;NAMUR&#39;</span>
+<span class="n">year</span> <span class="o">=</span> <span class="s1">&#39;2020&#39;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-filenames">Set filenames<a class="anchor-link" href="#Set-filenames">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">crop_file</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CROPLAND.shp&#39;</span>
+<span class="n">non_crop_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_NON_CROPLAND.shp&#39;</span>
+
+<span class="n">in_situ_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI.shp&#39;</span>
+
+
+<span class="n">sigec_lut_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">SIGEC_Sen4Stat_LUT.xlsx&#39;</span>
+<span class="n">s4s_lut_xlsx</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">crop_dictionary_new.xlsx&#39;</span>
 </pre></div>
 
      </div>
@@ -14362,17 +14408,10 @@ GeoPandas : 0.9.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">crop_name</span>     <span class="o">=</span> <span class="s1">&#39;NAMUR_2020_CROPLAND.shp&#39;</span>
-<span class="n">non_crop_name</span> <span class="o">=</span> <span class="s1">&#39;NAMUR_2020_NON_CROPLAND.shp&#39;</span>
-
-
-<span class="n">crop_file</span>     <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_path</span><span class="si">}{</span><span class="n">crop_name</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="n">non_crop_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">data_path</span><span class="si">}{</span><span class="n">non_crop_name</span><span class="si">}</span><span class="s1">&#39;</span>
-
-<span class="c1"># Read a vector using GeoPandas (gpd) into the GeoDataFrame &quot;gdf&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read a vector using GeoPandas (gpd) into the GeoDataFrame &quot;gdf&quot;</span>
 <span class="n">crop_gdf</span>     <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">crop_file</span><span class="p">)</span>
 <span class="n">non_crop_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">non_crop_file</span><span class="p">)</span>
 
@@ -14618,7 +14657,7 @@ GeoPandas : 0.9.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">clean_crop_gdf</span> <span class="o">=</span> <span class="n">crop_gdf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CAMPAGNE&#39;</span><span class="p">,</span><span class="s1">&#39;CULT_NOM&#39;</span><span class="p">,</span><span class="s1">&#39;GROUPE_CUL&#39;</span><span class="p">,</span><span class="s1">&#39;SURF_HA&#39;</span><span class="p">])</span>
@@ -14843,12 +14882,10 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sigec_lut_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">SIGEC_Sen4Stat_LUT.xlsx&#39;</span>
-
-<span class="n">sigec_lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">sigec_lut_xlsx</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sigec_lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">sigec_lut_xlsx</span><span class="p">)</span>
 
 <span class="n">display</span><span class="p">(</span><span class="n">sigec_lut_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -14945,7 +14982,7 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_clean_crop_gdf</span> <span class="o">=</span> <span class="n">clean_crop_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sigec_lut_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
@@ -15046,7 +15083,7 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset_to_merge</span> <span class="o">=</span> <span class="p">[</span><span class="n">lut_clean_crop_gdf</span><span class="p">,</span> <span class="n">clean_non_crop_gdf</span><span class="p">]</span>
@@ -15169,12 +15206,10 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s4s_lut_xlsx</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">crop_dictionary_new.xlsx&#39;</span>
-
-<span class="n">s4s_lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">s4s_lut_xlsx</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s4s_lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">s4s_lut_xlsx</span><span class="p">)</span>
 
 <span class="n">display</span><span class="p">(</span><span class="n">s4s_lut_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -15374,12 +15409,12 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_in_situ_gdf</span> <span class="o">=</span> <span class="n">in_situ_gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">s4s_lut_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">)</span>
 
-<span class="n">lut_in_situ_gdf</span> <span class="o">=</span> <span class="n">lut_in_situ_gdf</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;sub&#39;</span><span class="p">,</span><span class="s1">&#39;grp_nb&#39;</span><span class="p">,</span><span class="s1">&#39;grp&#39;</span><span class="p">,</span><span class="s1">&#39;class_nb&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;lc_nb&#39;</span><span class="p">,</span><span class="s1">&#39;lc&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
+<span class="n">lut_in_situ_gdf</span> <span class="o">=</span> <span class="n">lut_in_situ_gdf</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;lc_nb&#39;</span><span class="p">,</span><span class="s1">&#39;lc&#39;</span><span class="p">,</span><span class="s1">&#39;grp_nb&#39;</span><span class="p">,</span><span class="s1">&#39;grp&#39;</span><span class="p">,</span><span class="s1">&#39;class_nb&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;sub_nb&#39;</span><span class="p">,</span><span class="s1">&#39;sub&#39;</span><span class="p">,</span><span class="s1">&#39;grp_1_nb&#39;</span><span class="p">,</span><span class="s1">&#39;grp_1&#39;</span><span class="p">,</span><span class="s1">&#39;grp_A_nb&#39;</span><span class="p">,</span><span class="s1">&#39;grp_A&#39;</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">]]</span>
 
 <span class="n">display</span><span class="p">(</span><span class="n">lut_in_situ_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -15421,14 +15456,18 @@ dtype: object
     <tr style="text-align: right;">
       <th></th>
       <th>id</th>
-      <th>sub_nb</th>
-      <th>sub</th>
+      <th>lc_nb</th>
+      <th>lc</th>
       <th>grp_nb</th>
       <th>grp</th>
       <th>class_nb</th>
       <th>class</th>
-      <th>lc_nb</th>
-      <th>lc</th>
+      <th>sub_nb</th>
+      <th>sub</th>
+      <th>grp_1_nb</th>
+      <th>grp_1</th>
+      <th>grp_A_nb</th>
+      <th>grp_A</th>
       <th>geometry</th>
     </tr>
   </thead>
@@ -15436,11 +15475,15 @@ dtype: object
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>3199</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>31</td>
       <td>Grassland and meadows</td>
       <td>319</td>
+      <td>Grassland and meadows</td>
+      <td>3199</td>
+      <td>Grassland and meadows</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>3</td>
       <td>Grassland and meadows</td>
@@ -15449,11 +15492,15 @@ dtype: object
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>3199</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>31</td>
       <td>Grassland and meadows</td>
       <td>319</td>
+      <td>Grassland and meadows</td>
+      <td>3199</td>
+      <td>Grassland and meadows</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>3</td>
       <td>Grassland and meadows</td>
@@ -15462,11 +15509,15 @@ dtype: object
     <tr>
       <th>2</th>
       <td>2</td>
-      <td>3199</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>31</td>
       <td>Grassland and meadows</td>
       <td>319</td>
+      <td>Grassland and meadows</td>
+      <td>3199</td>
+      <td>Grassland and meadows</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>3</td>
       <td>Grassland and meadows</td>
@@ -15475,11 +15526,15 @@ dtype: object
     <tr>
       <th>3</th>
       <td>3</td>
-      <td>3199</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>31</td>
       <td>Grassland and meadows</td>
       <td>319</td>
+      <td>Grassland and meadows</td>
+      <td>3199</td>
+      <td>Grassland and meadows</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>3</td>
       <td>Grassland and meadows</td>
@@ -15488,11 +15543,15 @@ dtype: object
     <tr>
       <th>4</th>
       <td>4</td>
-      <td>3199</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>31</td>
       <td>Grassland and meadows</td>
       <td>319</td>
+      <td>Grassland and meadows</td>
+      <td>3199</td>
+      <td>Grassland and meadows</td>
+      <td>3</td>
       <td>Grassland and meadows</td>
       <td>3</td>
       <td>Grassland and meadows</td>
@@ -15801,12 +15860,10 @@ dtype: object
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[68]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}</span><span class="s1">NAMUR_2020_IN_SITU_ROI.shp&#39;</span>
-
-<span class="n">lut_in_situ_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_file</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_in_situ_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">in_situ_file</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;New shapefile has been created : </span><span class="si">{</span><span class="n">in_situ_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
