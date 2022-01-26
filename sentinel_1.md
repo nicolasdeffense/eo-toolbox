@@ -175,15 +175,8 @@ print(yrMo.getVideoThumbURL(videoArgs));
 ```
 
 
-
 <figure class="video_container">
-  <video width="400" controls="true" allowfullscreen="true" controls autoplay>
-    <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
-  </video>
-</figure>
-
-<figure class="video_container">
-  <video width="600" controls="true" allowfullscreen="true">
+  <video width="800" controls="true" allowfullscreen="true">
     <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
