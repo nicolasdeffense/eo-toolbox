@@ -3,7 +3,7 @@ layout: sub_page
 title: Sentinel-1 
 ---
 
-# Load data
+# Get data
 
 ## Sentinel-1 GRD data
 
@@ -23,13 +23,13 @@ Each scene was pre-processed with Sentinel-1 Toolbox using the following steps:
 
 For more information about these pre-processing steps, please refer to the [Sentinel-1 Pre-processing article](https://developers.google.com/earth-engine/guides/sentinel1). For further advice on working with Sentinel-1 imagery, see [Guido Lemoine's tutorial](https://developers.google.com/earth-engine/tutorials/community/sar-basics) on SAR basics and [Mort Canty's tutorial](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1) on SAR change detection.
 
-## ROI data
+## Region of Interest
 
 ```js
 var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
 ```
 
-# Filter Sentinel-1 data
+## Filter Sentinel-1 data
 
 ```js
 // Define time period, polarisation and orbit direction
@@ -126,7 +126,7 @@ Export.image.toDrive({
 > Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
 
 
-## Mean by month
+# Mean by month
 
 
 ```js
@@ -177,13 +177,13 @@ print(yrMo.getVideoThumbURL(videoArgs));
 
 
 <figure class="video_container">
-  <video width="200" controls="true" allowfullscreen="true" controls autoplay>
+  <video width="400" controls="true" allowfullscreen="true" controls autoplay>
     <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
 
 <figure class="video_container">
-  <video width="100" controls="true" allowfullscreen="true">
+  <video width="600" controls="true" allowfullscreen="true">
     <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
