@@ -1,8 +1,10 @@
 ---
 layout: sub_page
-title: Installation
-description: How to launch Jupyter-Lab ?
+title: JupyterLab
+description: How to access JupyterLab ?
 ---
+
+**JupyterLab** is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
 
 # From computer room
 
