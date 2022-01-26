@@ -26,7 +26,7 @@ For more information about these pre-processing steps, please refer to the [Sent
 ## ROI data
 
 ```js
-var roi_geometry = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
+var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
 ```
 
 # Filter Sentinel-1 data
@@ -49,7 +49,7 @@ var s1_filter = sentinel_1
                 .select(polarisation)
                 .filter(ee.Filter.eq('orbitProperties_pass', orbit_direction));
                 .filter(ee.Filter.date(startDate, endDate))
-                .filterBounds(roi_geometry)
+                .filterBounds(roi)
 ```
 
 # Reducer
@@ -88,3 +88,46 @@ var s1_std  = s1_filter.
                     filterDate(startPeriod, endPeriod)
                     .reduce(ee.Reducer.stdDev())
 ```
+
+
+
+## Mean by month
+
+
+[Source](https://gis.stackexchange.com/questions/387012/google-earth-engine-calculating-and-plotting-monthly-average-ndvi-for-a-region)
+
+
+
+## Vizualisation
+
+```js
+// Define arguments for animation function parameters.
+var videoArgs = {
+  dimensions: 800,
+  region: roi_1,
+  framesPerSecond: 5,
+  crs: 'EPSG:3857',
+  min: -25.0,
+  max: 5.0,
+};
+
+print(ui.Thumbnail(yrMo, videoArgs));
+print(yrMo.getVideoThumbURL(videoArgs));
+```
+
+
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" controls autoplay>
+    <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
+  </video>
+</figure>
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true">
+    <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
+  </video>
+</figure>
+
+
+[Source](https://developers.google.com/earth-engine/guides/ic_visualization)
