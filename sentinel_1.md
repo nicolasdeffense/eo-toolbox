@@ -34,11 +34,12 @@ var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
 ```js
 // Define time period, polarisation and orbit direction
 
-var startDate = '2019-01-01'
-var endDate = '2019-12-31'
-var polarisation = 'VV'
+var startDate = ee.Date('2019-01-01')
+var endDate   = ee.Date('2019-12-31')
+
+var polarisation    = 'VV'
 var orbit_direction = 'DESCENDING'
-var instrument = 'IW'
+var instrument      = 'IW'
 ```
 
 ```js
@@ -47,10 +48,12 @@ var s1_filter = sentinel_1
                 .filter(ee.Filter.eq('instrumentMode', instrument))
                 .filter(ee.Filter.listContains('transmitterReceiverPolarisation', polarisation))
                 .select(polarisation)
-                .filter(ee.Filter.eq('orbitProperties_pass', orbit_direction));
+                .filter(ee.Filter.eq('orbitProperties_pass', orbitDirection))
                 .filter(ee.Filter.date(startDate, endDate))
                 .filterBounds(roi)
 ```
+
+
 
 # Reducer
 
@@ -68,6 +71,10 @@ Consider the example of needing to take the median over a time series of images 
 
 > For basic statistics like min, max, mean, etc., `ImageCollection` has shortcut methods like `min()`, `max()`, `mean()`, etc. They function in exactly the same way as calling `reduce()`, except the resultant band names will not have the name of the reducer appended.
 
+**To composite images in an `ImageCollection`, use `imageCollection.reduce()`. This will composite all the images in the collection to a single image representing, for example, the min, max, mean or standard deviation of the images.**
+
+
+
 <figure class="image">
     <img src="./figures/Reduce_ImageCollection.png" alt="Image classification" width="200">
     <figcaption>Illustration of an ee.Reducer applied to an ImageCollection.</figcaption>
@@ -75,24 +82,76 @@ Consider the example of needing to take the median over a time series of images 
 
 
 ```js
-// Compute mean and standard deviation over a period
-
 var startPeriod = '2019-01-01'
-var endPeriod   = '2019-01-31'
+var endPeriod   = '2019-03-31'
+```
+
+```js
+// Compute mean over a period and clip to the ROI extent
 
 var s1_mean = s1_filter
                     .filterDate(startPeriod, endPeriod)
                     .reduce(ee.Reducer.mean())
+                    .clip(roi)
+```
+
+```js
+// Compute standard deviation over a period and clip to the ROI extent
 
 var s1_std  = s1_filter.
                     filterDate(startPeriod, endPeriod)
                     .reduce(ee.Reducer.stdDev())
+                    .clip(roi)
 ```
 
 
 
+## Export image
+
+```js
+// Get projection of the original image
+var projection = s1_filter.first().projection().getInfo()
+
+// Export the image, specifying the CRS, transform, and region.
+Export.image.toDrive({
+  image: s1_mean,
+  description: 'mean_Q1_Namur',
+  folder: 'LBRAT2104',
+  crs: projection.crs,                // The base coordinate reference system of this projection (e.g. 'EPSG:4326')
+  crsTransform: projection.transform, // The transform between projected coordinates and the base coordinate system
+  region: roi
+});
+```
+
+> Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
+
+
 ## Mean by month
 
+
+```js
+// List of months
+var months = ee.List.sequence(1, 12)
+print("Months : ",months)
+
+// List of years
+var years = ee.List.sequence(2019, 2020)
+print("Years : ",years)
+
+// Use .map() to compute monthly mean
+var monthly_mean = ee.ImageCollection.fromImages(
+  years.map(function (y) {
+        return months.map(function (m) {
+                return s1_filter
+                        .filter(ee.Filter.calendarRange(y, y, 'year'))
+                        .filter(ee.Filter.calendarRange(m, m, 'month'))
+                        .reduce(ee.Reducer.mean())
+                        .set('year',y)
+                        .set('month',m);
+            });
+  })
+  .flatten())
+```
 
 [Source](https://gis.stackexchange.com/questions/387012/google-earth-engine-calculating-and-plotting-monthly-average-ndvi-for-a-region)
 
@@ -118,13 +177,13 @@ print(yrMo.getVideoThumbURL(videoArgs));
 
 
 <figure class="video_container">
-  <video controls="true" allowfullscreen="true" controls autoplay>
+  <video width="200" controls="true" allowfullscreen="true" controls autoplay>
     <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
 
 <figure class="video_container">
-  <video controls="true" allowfullscreen="true">
+  <video width="100" controls="true" allowfullscreen="true">
     <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
