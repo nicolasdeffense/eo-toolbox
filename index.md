@@ -22,11 +22,16 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [In situ data](https://nicolasdeffense.github.io/eo-toolbox/in_situ_data.html)
 
-## Preprocess Sentinel-2 images
+## Sentinel-2
 
 [Sentinel-2 preprocessing](https://nicolasdeffense.github.io/eo-toolbox/sentinel_2_prepro.html)
 
 [Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/spectral_indices.html)
+
+## Sentinel-1
+
+[Sentinel-1](https://nicolasdeffense.github.io/eo-toolbox/sentinel_1.html)
+
 
 ## Classify images
 
