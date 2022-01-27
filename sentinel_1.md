@@ -104,7 +104,7 @@ var s1_std  = s1_filter.
 
 
 
-## 2.1 Export composite
+## 2.1 Export one composite
 
 ```js
 // Get projection of the original image
@@ -133,12 +133,12 @@ var months = ee.List.sequence(1, 12)
 print("Months : ",months)
 
 // List of years
-var years = ee.List.sequence(2019, 2020)
+var years = ee.List.sequence(2019, 2019)
 print("Years : ",years)
 ```
 
 ```js
-// Use .map() to compute monthly mean
+// Use .map() to compute monthly composite and clip them to the ROI
 var monthly_mean = ee.ImageCollection.fromImages(
   years.map(function (y) {
         return months.map(function (m) {
@@ -151,15 +151,34 @@ var monthly_mean = ee.ImageCollection.fromImages(
             });
   })
   .flatten())
+  .map(function(image){return image.clip(roi)})
 ```
 
 [Source](https://gis.stackexchange.com/questions/387012/google-earth-engine-calculating-and-plotting-monthly-average-ndvi-for-a-region)
 
 
-## 3.1 Export composites
+## 3.1 Export multiple composites (`imageCollection`)
+
+
 
 ```js
+// Converts a collection to a single multi-band image containing all of the bands of every image in the collection.
+var monthly_mean_image = monthly_mean.toBands()
+```
 
+```js
+// Get projection of the original image
+var projection = s1_filter.first().projection().getInfo()
+
+// Export the image, specifying the CRS, transform, and region.
+Export.image.toDrive({
+  image: monthly_mean_image,
+  description: 'monthly_mean_Namur_2019',
+  folder: 'LBRAT2104',
+  crs: projection.crs,
+  crsTransform: projection.transform,
+  //region: roi
+});
 ```
 
 ## 3.2 Visualization
@@ -168,15 +187,15 @@ var monthly_mean = ee.ImageCollection.fromImages(
 // Define arguments for animation function parameters.
 var videoArgs = {
   dimensions: 800,
-  region: roi_1,
+  region: roi.geometry(),
   framesPerSecond: 5,
   crs: 'EPSG:3857',
   min: -25.0,
-  max: 5.0,
+  max: 5.0
 };
 
-print(ui.Thumbnail(yrMo, videoArgs));
-print(yrMo.getVideoThumbURL(videoArgs));
+print(ui.Thumbnail(monthly_mean, videoArgs));
+print(monthly_mean.getVideoThumbURL(videoArgs));
 ```
 
 

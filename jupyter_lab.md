@@ -11,7 +11,7 @@ description: How to access JupyterLab ?
 **JupyterLab** is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
 
 
-# From computer room
+## From computer room
 
 1. Open *Anaconda Prompt*
 
@@ -35,7 +35,7 @@ description: How to access JupyterLab ?
     `CTRL-C`
 
 
-# From your personal computer
+## From your personal computer
 
 > ! Requires stockage to install Miniconda (or Anaconda) and the necessary packages !
 
@@ -99,7 +99,7 @@ description: How to access JupyterLab ?
     ```
 
 
-# From Geo14's server - *restricted access*
+## From Geo14's server - *restricted access*
 
 1. Connect to Windows server Geo14 (*geo14.elie.ucl.ac.be*)
 
