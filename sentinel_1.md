@@ -177,7 +177,7 @@ Export.image.toDrive({
   folder: 'LBRAT2104',
   crs: projection.crs,
   crsTransform: projection.transform,
-  //region: roi
+  region: roi
 });
 ```
 
