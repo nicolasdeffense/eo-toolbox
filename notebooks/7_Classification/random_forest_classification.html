@@ -14264,7 +14264,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[77]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
@@ -14277,7 +14277,6 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="c1">#from sklearn.datasets import make_classification</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">plot_confusion_matrix</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -14322,7 +14321,7 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[78]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/&#39;</span>
@@ -14335,7 +14334,8 @@ Scikit-learn : 0.24.2
 
 <span class="n">in_situ_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">IN_SITU/&#39;</span>
 
-<span class="n">im_path</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span>
+<span class="n">s2_path</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">3_L2A_MASKED/&#39;</span>
+<span class="n">s1_path</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">S1_GRD/&#39;</span>
 <span class="n">ndvi_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI/&#39;</span>
 
 
@@ -14380,7 +14380,7 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[79]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="s1">&#39;NAMUR&#39;</span>
@@ -14394,6 +14394,13 @@ Scikit-learn : 0.24.2
 
 <span class="n">field_reclassif_code</span> <span class="o">=</span> <span class="s1">&#39;grp_A_nb&#39;</span>
 <span class="n">field_reclassif_name</span> <span class="o">=</span> <span class="s1">&#39;grp_A&#39;</span>
+
+<span class="n">feat_nb</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="n">feat_nb</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">feat_name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NDVI&#39;</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">feat_nb</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">feat_name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NDVI&#39;</span><span class="p">,</span><span class="s1">&#39;S1_monthly_mean&#39;</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14409,14 +14416,16 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[80]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.shp&#39;</span>
 <span class="n">in_situ_cal_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.tif&#39;</span>
 
-<span class="n">classif_tif</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CLASSIF_RF_with_NDVI.tif&#39;</span>
-<span class="n">reclassif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_CLASSIF_RF_with_NDVI_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+<span class="n">s1_montlhy_mean_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s1_path</span><span class="si">}</span><span class="s1">monthly_mean_</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+
+<span class="n">classif_tif</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+<span class="n">reclassif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
 
 <span class="n">s4s_lut_xlsx</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">crop_dictionary_new.xlsx&#39;</span>
@@ -14440,10 +14449,10 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[81]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">im_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s2_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Raster template file : </span><span class="si">{</span><span class="n">img_temp_tif</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -14517,7 +14526,7 @@ Scikit-learn : 0.24.2
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Raster template file : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20200417T104021_B11_10m_ROI_SCL.tif
+<pre>Raster template file : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/3_L2A_MASKED/T31UFS_20201118T104329_B04_10m_ROI_SCL.tif
 The CRS of in situ data is    : 32631
 The CRS of raster template is : 32631
 CRS are the same
@@ -14534,31 +14543,153 @@ Rasterize is done : /export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/IN_SITU/NAMUR_
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="1.2-List-all-the-classification-features">1.2 List all the classification features<a class="anchor-link" href="#1.2-List-all-the-classification-features">&#182;</a></h3><p>In this case, one NDVI per month</p>
+<h3 id="1.2-List-all-the-classification-features">1.2 List all the classification features<a class="anchor-link" href="#1.2-List-all-the-classification-features">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Create an empty list to append all feature rasters one by one</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[100]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_src_arr</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>One NDVI per month</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[103]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get list of all files containing the features</span>
-<span class="n">list_im</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ndvi_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;NDVI&#39;</span> <span class="ow">in</span> <span class="n">feat_name</span><span class="p">:</span>
 
-<span class="c1"># Create an empty list to append all feature rasters one by one</span>
-<span class="n">list_src_arr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_im</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ndvi_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
 
-    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shape of features : </span><span class="si">{</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of features : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No NDVI in the set of features&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Shape of features : (570, 986)
+Number of features : 24
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>S1 monthly mean</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[104]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;S1_monthly_mean&#39;</span> <span class="ow">in</span> <span class="n">feat_name</span><span class="p">:</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">s1_montlhy_mean_tif</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<span class="c1"># Merge all the 2D matrices from the list into one 3D matrix</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="p">)):</span>
+        <span class="n">band</span> <span class="o">=</span> <span class="n">im</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
 
-<span class="n">feat_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shape of features : </span><span class="si">{</span><span class="n">band</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of features : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No S1 monthly mean in the set of features&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>No S1 monthly mean in the set of features
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Merge all the 2D matrices from the list into one 3D matrix</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[85]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">feat_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">feat_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1"> features&#39;</span><span class="p">)</span>
@@ -14605,7 +14736,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[86]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Open in-situ used for calibration</span>
@@ -14655,7 +14786,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[87]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cal_arr</span><span class="p">[</span><span class="n">cal_arr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
@@ -14704,7 +14835,7 @@ The features type is : float32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[88]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">feat_arr</span><span class="p">[</span><span class="n">cal_arr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
@@ -14759,7 +14890,7 @@ Our y array is sized: (34909,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[89]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_training</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -14795,7 +14926,7 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Random Forest training : 00:00:10.39
+<pre>Random Forest training : 00:00:10.47
 </pre>
 </div>
 </div>
@@ -14813,7 +14944,7 @@ Our y array is sized: (34909,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[90]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Our OOB prediction of accuracy is: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">oob_score_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
@@ -14836,7 +14967,7 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Our OOB prediction of accuracy is: 99.28%
+<pre>Our OOB prediction of accuracy is: 99.24%
 </pre>
 </div>
 </div>
@@ -14854,7 +14985,7 @@ Our y array is sized: (34909,)
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[91]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">band_nb</span><span class="p">,</span> <span class="n">imp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -14878,18 +15009,18 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Band 1 importance: 0.0782
-Band 2 importance: 0.0263
-Band 3 importance: 0.0887
-Band 4 importance: 0.0889
-Band 5 importance: 0.1215
-Band 6 importance: 0.0481
-Band 7 importance: 0.127
-Band 8 importance: 0.1216
-Band 9 importance: 0.1051
-Band 10 importance: 0.0734
-Band 11 importance: 0.0636
-Band 12 importance: 0.0576
+<pre>Band 1 importance: 0.0803
+Band 2 importance: 0.025
+Band 3 importance: 0.1008
+Band 4 importance: 0.0873
+Band 5 importance: 0.1235
+Band 6 importance: 0.0477
+Band 7 importance: 0.1305
+Band 8 importance: 0.1192
+Band 9 importance: 0.0925
+Band 10 importance: 0.0678
+Band 11 importance: 0.0672
+Band 12 importance: 0.0581
 </pre>
 </div>
 </div>
@@ -14907,7 +15038,7 @@ Band 12 importance: 0.0576
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[92]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Setup a dataframe</span>
@@ -15484,7 +15615,7 @@ Band 12 importance: 0.0576
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[93]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Take our full image and reshape into long 2d array (nrow * ncol, nband) for classification</span>
@@ -15534,14 +15665,14 @@ Band 12 importance: 0.0576
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Reshaped from (570, 986, 12) to (562020, 12)
-Random Forest training : 00:00:12.32
+Random Forest training : 00:00:12.29
 [[   3    3   81 ...    3    3    3]
- [   3   21    3 ...    3    3   22]
- [   3    3   21 ...    3   22 1121]
+ [   3    3    3 ...    3    3   22]
+ [   3    3    3 ...    3   22 1121]
  ...
  [  69   69   69 ... 1111 1111 1111]
  [  69   69   69 ... 1111 1111 1111]
- [  81   81   81 ...   81   81   81]]
+ [  69   69   69 ... 1111 1111 1111]]
 </pre>
 </div>
 </div>
@@ -15559,7 +15690,7 @@ Random Forest training : 00:00:12.32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[94]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of classification image : </span><span class="si">{</span><span class="n">class_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -15617,7 +15748,7 @@ Random Forest training : 00:00:12.32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[95]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lut_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">s4s_lut_xlsx</span><span class="p">)</span>
@@ -15724,7 +15855,7 @@ Random Forest training : 00:00:12.32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[96]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">)</span>
@@ -15768,19 +15899,19 @@ Random Forest training : 00:00:12.32
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>[[   3    3   81 ...    3    3    3]
- [   3   21    3 ...    3    3   22]
- [   3    3   21 ...    3   22 1121]
+ [   3    3    3 ...    3    3   22]
+ [   3    3    3 ...    3   22 1121]
  ...
  [  69   69   69 ... 1111 1111 1111]
  [  69   69   69 ... 1111 1111 1111]
- [  81   81   81 ...   81   81   81]]
+ [  69   69   69 ... 1111 1111 1111]]
 [[  3   3   8 ...   3   3   3]
- [  3  21   3 ...   3   3  22]
- [  3   3  21 ...   3  22 112]
+ [  3   3   3 ...   3   3  22]
+ [  3   3   3 ...   3  22 112]
  ...
  [  6   6   6 ... 111 111 111]
  [  6   6   6 ... 111 111 111]
- [  8   8   8 ...   8   8   8]]
+ [  6   6   6 ... 111 111 111]]
 </pre>
 </div>
 </div>
@@ -15797,7 +15928,7 @@ Random Forest training : 00:00:12.32
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[97]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of re-classification image : </span><span class="si">{</span><span class="n">reclass_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
