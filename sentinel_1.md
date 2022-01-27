@@ -3,9 +3,15 @@ layout: sub_page
 title: Sentinel-1 
 ---
 
-# Get data
+# 1. Get data
 
-## Sentinel-1 GRD data
+## 1.1 Region of Interest
+
+```js
+var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
+```
+
+## 1.2 Sentinel-1 GRD data
 
 The Sentinel-1 mission provides data from a dual-polarization C-band Synthetic Aperture Radar (SAR) instrument at 5.405GHz (C band). This collection includes the S1 Ground Range Detected (GRD) scenes, processed using the Sentinel-1 Toolbox to generate a calibrated, ortho-corrected product. The collection is updated daily. New assets are ingested within two days after they become available.
 
@@ -23,13 +29,7 @@ Each scene was pre-processed with Sentinel-1 Toolbox using the following steps:
 
 For more information about these pre-processing steps, please refer to the [Sentinel-1 Pre-processing article](https://developers.google.com/earth-engine/guides/sentinel1). For further advice on working with Sentinel-1 imagery, see [Guido Lemoine's tutorial](https://developers.google.com/earth-engine/tutorials/community/sar-basics) on SAR basics and [Mort Canty's tutorial](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1) on SAR change detection.
 
-## Region of Interest
-
-```js
-var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
-```
-
-## Filter Sentinel-1 data
+### 1.2.1 Filter Sentinel-1 data
 
 ```js
 // Define time period, polarisation and orbit direction
@@ -55,24 +55,22 @@ var s1_filter = sentinel_1
 
 
 
-# Reducer
+# 2. Composite over a single time period 
 
 Reducers are the way to aggregate data over time, space, bands, arrays and other data structures in Earth Engine. The `ee.Reducer` class specifies how data is aggregated. The reducers in this class can specify a simple statistic to use for the aggregation (e.g. minimum, maximum, mean, median, standard deviation, etc.), or a more complex summary of the input data (e.g. histogram, linear regression, list).
 
 Reductions may occur over :
-- **time** (`imageCollection.reduce()`),
-- **space** (`image.reduceRegion()`, `image.reduceNeighborhood()`),
-- **bands** (`image.reduce()`),
-- **attribute space of a `FeatureCollection`** (`featureCollection.reduceColumns()` or `FeatureCollection` methods that start with `aggregate_`).
+- **time (`imageCollection.reduce()`),**
+- space (`image.reduceRegion()`, `image.reduceNeighborhood()`),
+- bands (`image.reduce()`),
+- attribute space of a `FeatureCollection`** (`featureCollection.reduceColumns()` or `FeatureCollection` methods that start with `aggregate_`).
 
-## ImageCollection Reductions over time
 
 Consider the example of needing to take the median over a time series of images represented by an `ImageCollection`. To reduce an `ImageCollection`, use `imageCollection.reduce()`. This reduces the collection of images to an individual image. Specifically, the output is computed pixel-wise, such that each pixel in the output is composed of the median value of all the images in the collection at that location. To get other statistics, such as mean, sum, variance, an arbitrary percentile, etc., the appropriate reducer should be selected and applied.
 
 > For basic statistics like min, max, mean, etc., `ImageCollection` has shortcut methods like `min()`, `max()`, `mean()`, etc. They function in exactly the same way as calling `reduce()`, except the resultant band names will not have the name of the reducer appended.
 
 **To composite images in an `ImageCollection`, use `imageCollection.reduce()`. This will composite all the images in the collection to a single image representing, for example, the min, max, mean or standard deviation of the images.**
-
 
 
 <figure class="image">
@@ -106,7 +104,7 @@ var s1_std  = s1_filter.
 
 
 
-## Export image
+## 2.1 Export composite
 
 ```js
 // Get projection of the original image
@@ -126,7 +124,7 @@ Export.image.toDrive({
 > Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
 
 
-# Mean by month
+# 3. Composite over mulitple time periods
 
 
 ```js
@@ -137,7 +135,9 @@ print("Months : ",months)
 // List of years
 var years = ee.List.sequence(2019, 2020)
 print("Years : ",years)
+```
 
+```js
 // Use .map() to compute monthly mean
 var monthly_mean = ee.ImageCollection.fromImages(
   years.map(function (y) {
@@ -156,8 +156,13 @@ var monthly_mean = ee.ImageCollection.fromImages(
 [Source](https://gis.stackexchange.com/questions/387012/google-earth-engine-calculating-and-plotting-monthly-average-ndvi-for-a-region)
 
 
+## 3.1 Export composites
 
-## Vizualisation
+```js
+
+```
+
+## 3.2 Visualization
 
 ```js
 // Define arguments for animation function parameters.

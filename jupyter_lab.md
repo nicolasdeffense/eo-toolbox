@@ -4,7 +4,12 @@ title: JupyterLab
 description: How to access JupyterLab ?
 ---
 
+<figure class="image">
+    <img src="./figures/jupyter_logo.png" alt="JupyterLab" width="100">
+</figure>
+
 **JupyterLab** is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
+
 
 # From computer room
 
