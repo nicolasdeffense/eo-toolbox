@@ -31,7 +31,7 @@ In this chapter we will see how to use the Random Forest implementation provided
 
 
 <figure class="image">
-  <img src="./notebooks/7_Classification/figures/classif_namur_2020.png" alt="Image classification" width="600">
+  <img src="./notebooks/7_Classification/figures/classif_namur_2020.png" alt="Image classification" width="800">
   <figcaption>Namur, 2020 (NDVI & monthly composites S1 backscattering VV)</figcaption>
 </figure>
 
