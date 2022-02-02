@@ -30,8 +30,11 @@ Depending on your project, some parts of the course will be more useful than oth
 
 ## Sentinel-1
 
-[Sentinel-1](https://nicolasdeffense.github.io/eo-toolbox/sentinel_1.html)
+[Sentinel-1 with Google Eart Engine](https://nicolasdeffense.github.io/eo-toolbox/sentinel_1.html)
 
+## Landsat & Modis
+
+<i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
 ## Classify images
 
@@ -41,12 +44,8 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Validation](https://nicolasdeffense.github.io/eo-toolbox/validation.html)
 
-
 ## More tools
 
 [Zonal Statistics](https://nicolasdeffense.github.io/eo-toolbox/zonal_stats.html)
 
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/color_map.html)
-
-
-New sections to come ... <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*

@@ -74,9 +74,8 @@ Reliable identification of clouds and cloud shadows are necessary for any optica
 Scene Classification (SC) aims at providing a pixel classification map (cloud, cloud shadows, vegetation, soils/deserts, water, snow, etc.)
 
 The SC algorithm enables:
-
-generation of a classification map which includes four different classes for clouds (including cirrus) and six different classifications for shadows, cloud shadows, vegetation, soils/deserts, water and snow
-provision of associated quality indicators corresponding to a map of cloud probability and a map of snow probability.
+- generation of a classification map which includes four different classes for clouds (including cirrus) and six different classifications for shadows, cloud shadows, vegetation, soils/deserts, water and snow
+- provision of associated quality indicators corresponding to a map of cloud probability and a map of snow probability.
 
 SCL class| Description
 :---------:|:----------:
