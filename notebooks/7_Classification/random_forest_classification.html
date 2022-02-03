@@ -14275,7 +14275,6 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">rasterio.plot</span>
 <span class="kn">from</span> <span class="nn">rasterio</span> <span class="kn">import</span> <span class="n">features</span>
 
-
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">plot_confusion_matrix</span>
@@ -14381,7 +14380,7 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="s1">&#39;NAMUR&#39;</span>
@@ -14389,6 +14388,9 @@ Scikit-learn : 0.24.2
 
 <span class="n">no_data</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">trees_nb</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="c1"># Window size (filtering)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="mi">3</span>
 
 <span class="n">field_classif_code</span> <span class="o">=</span> <span class="s1">&#39;grp_1_nb&#39;</span>
 <span class="n">field_classif_name</span> <span class="o">=</span> <span class="s1">&#39;grp_1&#39;</span>
@@ -14417,7 +14419,7 @@ Scikit-learn : 0.24.2
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_situ_cal_shp</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">in_situ_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_IN_SITU_ROI_CAL.shp&#39;</span>
@@ -14425,9 +14427,9 @@ Scikit-learn : 0.24.2
 
 <span class="n">s1_montlhy_mean_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">s1_path</span><span class="si">}</span><span class="s1">monthly_mean_</span><span class="si">{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
-<span class="n">classif_tif</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">.tif&#39;</span>
-<span class="n">reclassif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
-
+<span class="n">classif_tif</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">field_classif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+<span class="n">reclassif_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">field_classif_name</span><span class="si">}</span><span class="s1">_reclassify_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">.tif&#39;</span>
+<span class="n">reclassif_filter_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">classif_path</span><span class="si">}{</span><span class="n">site</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">_classif_RF_feat_</span><span class="si">{</span><span class="n">feat_nb</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">field_classif_name</span><span class="si">}</span><span class="s1">_reclassify_</span><span class="si">{</span><span class="n">field_reclassif_name</span><span class="si">}</span><span class="s1">_filter_ws_</span><span class="si">{</span><span class="n">ws</span><span class="si">}</span><span class="s1">.tif&#39;</span>
 
 <span class="n">s4s_lut_xlsx</span>   <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lut_path</span><span class="si">}</span><span class="s1">crop_dictionary_new.xlsx&#39;</span>
 </pre></div>
@@ -14927,7 +14929,7 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Random Forest training : 00:00:10.84
+<pre>Random Forest training : 00:00:10.44
 </pre>
 </div>
 </div>
@@ -14968,7 +14970,7 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Our OOB prediction of accuracy is: 99.24%
+<pre>Our OOB prediction of accuracy is: 99.29%
 </pre>
 </div>
 </div>
@@ -15010,18 +15012,18 @@ Our y array is sized: (34909,)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Band 1 importance: 0.078
-Band 2 importance: 0.0301
-Band 3 importance: 0.0978
-Band 4 importance: 0.0856
-Band 5 importance: 0.1134
-Band 6 importance: 0.0498
-Band 7 importance: 0.1306
-Band 8 importance: 0.1239
-Band 9 importance: 0.098
-Band 10 importance: 0.0724
-Band 11 importance: 0.0635
-Band 12 importance: 0.057
+<pre>Band 1 importance: 0.0731
+Band 2 importance: 0.0289
+Band 3 importance: 0.0877
+Band 4 importance: 0.0849
+Band 5 importance: 0.1274
+Band 6 importance: 0.0511
+Band 7 importance: 0.1249
+Band 8 importance: 0.132
+Band 9 importance: 0.0923
+Band 10 importance: 0.0746
+Band 11 importance: 0.0612
+Band 12 importance: 0.0619
 </pre>
 </div>
 </div>
@@ -15610,7 +15612,7 @@ Band 12 importance: 0.057
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="3.-Predicting-the-rest-of-the-image">3. Predicting the rest of the image<a class="anchor-link" href="#3.-Predicting-the-rest-of-the-image">&#182;</a></h2><p>With our Random Forest classifier fit, we can now proceed by trying to classify the entire image.</p>
+<h2 id="3.-Predict-the-rest-of-the-image">3. Predict the rest of the image<a class="anchor-link" href="#3.-Predict-the-rest-of-the-image">&#182;</a></h2><p>With our Random Forest classifier fit, we can now proceed by trying to classify the entire image.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15666,10 +15668,10 @@ Band 12 importance: 0.057
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Reshaped from (570, 986, 12) to (562020, 12)
-Random Forest training : 00:00:13.74
+Random Forest training : 00:00:12.38
 [[   3    3   81 ...    3    3    3]
- [   3   21    3 ...    3    3   22]
- [   3    3   21 ...    3    3 1121]
+ [   3    3    3 ...    3    3   22]
+ [   3    3    3 ...    3   22 1121]
  ...
  [  69   69   69 ... 1111 1111 1111]
  [  69   69   69 ... 1111 1111 1111]
@@ -15685,61 +15687,7 @@ Random Forest training : 00:00:13.74
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Write Classification product into a GeoTIFF file</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of classification image : </span><span class="si">{</span><span class="n">class_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># Open template image to get metadata</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-
-<span class="c1"># Write classification image</span>
-<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Close rasterio objects</span>
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Size of classification image : (570, 986)
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="4.-Reclassification">4. Reclassification<a class="anchor-link" href="#4.-Reclassification">&#182;</a></h2>
+<h2 id="4.-Reclassify-classification">4. Reclassify classification<a class="anchor-link" href="#4.-Reclassify-classification">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -15856,17 +15804,10 @@ Random Forest training : 00:00:13.74
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">)</span>
-
-<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
-<span class="n">reclass_prediction</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reclass_prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">lut_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     
@@ -15879,7 +15820,8 @@ Random Forest training : 00:00:13.74
 
     <span class="n">reclass_prediction</span><span class="p">[</span><span class="n">reclass_prediction</span> <span class="o">==</span> <span class="n">old_class</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_class</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classification : </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">class_prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Re-classification : </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">reclass_prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15899,16 +15841,18 @@ Random Forest training : 00:00:13.74
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[[   3    3   81 ...    3    3    3]
- [   3   21    3 ...    3    3   22]
- [   3    3   21 ...    3    3 1121]
+<pre>Classification : 
+ [[   3    3   81 ...    3    3    3]
+ [   3    3    3 ...    3    3   22]
+ [   3    3    3 ...    3   22 1121]
  ...
  [  69   69   69 ... 1111 1111 1111]
  [  69   69   69 ... 1111 1111 1111]
  [  69   69   69 ... 1111 1111 1111]]
-[[  3   3   8 ...   3   3   3]
- [  3  21   3 ...   3   3  22]
- [  3   3  21 ...   3   3 112]
+Re-classification : 
+ [[  3   3   8 ...   3   3   3]
+ [  3   3   3 ...   3   3  22]
+ [  3   3   3 ...   3  22 112]
  ...
  [  6   6   6 ... 111 111 111]
  [  6   6   6 ... 111 111 111]
@@ -15924,28 +15868,33 @@ Random Forest training : 00:00:13.74
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="4.3-Write-re-classification-product-into-a-GeoTIFF-file">4.3 Write re-classification product into a GeoTIFF file<a class="anchor-link" href="#4.3-Write-re-classification-product-into-a-GeoTIFF-file">&#182;</a></h3>
+<h2 id="5.-Filter-classification-with-moving-window">5. Filter classification with moving window<a class="anchor-link" href="#5.-Filter-classification-with-moving-window">&#182;</a></h2>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Size of re-classification image : </span><span class="si">{</span><span class="n">reclass_prediction</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sizey</span> <span class="o">=</span> <span class="n">reclass_prediction</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sizex</span> <span class="o">=</span> <span class="n">reclass_prediction</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="c1"># Open template image to get metadata</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">,</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;edge&#39;</span><span class="p">)</span>
 
-<span class="c1"># Write re-classification image</span>
-<span class="n">dst</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">reclassif_tif</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">majority</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">sizey</span><span class="p">,</span><span class="n">sizex</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int16&#39;</span><span class="p">)</span>
 
-<span class="c1"># Close rasterio objects</span>
-<span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">dst</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizey</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizex</span><span class="p">):</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">ws</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">ws</span><span class="p">]</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+        <span class="n">maj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+        <span class="n">majority</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span> <span class="n">maj</span>
+
+<span class="n">majority</span> <span class="o">=</span> <span class="n">majority</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">sizey</span><span class="p">,</span><span class="n">sizex</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Re-classification : </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">reclass_prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Re-classification with filter : </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">majority</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15965,13 +15914,140 @@ Random Forest training : 00:00:13.74
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Size of re-classification image : (570, 986)
+<pre>Re-classification : 
+ [[  3   3   8 ...   3   3   3]
+ [  3   3   3 ...   3   3  22]
+ [  3   3   3 ...   3  22 112]
+ ...
+ [  6   6   6 ... 111 111 111]
+ [  6   6   6 ... 111 111 111]
+ [  6   6   6 ... 111 111 111]]
+Re-classification with filter : 
+ [[[  3   3   3 ...   3   3   3]
+  [  3   3   3 ...   3   3   3]
+  [  3   3   3 ...   3   3 112]
+  ...
+  [  6   6   6 ... 111 111 111]
+  [  6   6   6 ... 111 111 111]
+  [  6   6   6 ... 111 111 111]]]
 </pre>
 </div>
 </div>
 
 </div>
 
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="6.-Write-classification-products-into-GeoTIFF-files">6. Write classification products into GeoTIFF files<a class="anchor-link" href="#6.-Write-classification-products-into-GeoTIFF-files">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Open template image to get metadata</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
+
+<span class="n">profile</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[43]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>{&#39;driver&#39;: &#39;GTiff&#39;, &#39;dtype&#39;: &#39;int16&#39;, &#39;nodata&#39;: -10000.0, &#39;width&#39;: 986, &#39;height&#39;: 570, &#39;count&#39;: 1, &#39;crs&#39;: CRS({&#39;init&#39;: &#39;epsg:32631&#39;}), &#39;transform&#39;: Affine(10.0, 0.0, 627260.0,
+       0.0, -10.0, 5596180.0), &#39;tiled&#39;: False, &#39;compress&#39;: &#39;lzw&#39;, &#39;interleave&#39;: &#39;band&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="6.1-Write-classification">6.1 Write classification<a class="anchor-link" href="#6.1-Write-classification">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">classif_tif</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">class_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="6.2-Write-re-classification">6.2 Write re-classification<a class="anchor-link" href="#6.2-Write-re-classification">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">reclassif_tif</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">reclass_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="6.3-Write-re-classification-with-moving-window-filtering">6.3 Write re-classification with moving window filtering<a class="anchor-link" href="#6.3-Write-re-classification-with-moving-window-filtering">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">reclassif_filter_tif</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">profile</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">majority</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div>
