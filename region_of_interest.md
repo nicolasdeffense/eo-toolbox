@@ -12,36 +12,50 @@ We will define our area of interest using a bounding box. To find the coordinate
 
 
 <figure class="image">
-  <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="700">
+  <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="600">
 </figure>
 
 We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.
 
-### Choose the CRS of the new shapefile - crs_dst
+
+## Coordinates Reference System (CRS)
+
+Geographic CRS| Projected CRS
+:---------:|:----------:
+span the entire globe | localized to minimize visual distortion in a particular region
+based on a spheroid | based on a plane (the spheroid projected onto a 2D surface)
+angular units (degrees) | linear unites (meters)
+lat / lon | X / Y
+World Geodetic System 1984 (WGS 84) | Universal Transverse Mercator (UTM)
+EPSG:4326 | EPSG:32631
+
+
+In bboxfinder, you can easily switch from one CRS to another. As Sentinel images projected onto a WGS84/UTM grid, it is easier to find the coordinates of your ROI directly in WGS84/UTM.
 
 It is important to set the EPSG code matching with the EPSG code of your satellite images!
 
 For instance, if your ROI is located in Belgium,
-- the CRS is WGS 84 / UTM zone 31N
+- the CRS is WGS84 / UTM zone 31N
 - the EPSG code is 32631
 
-### Choose the CRS of the coordinates - crs_src
 
-- Degree - WGS84 - EPSG:4326
-- Meters - WGS 84 / UTM zone 31N - EPSG:32631 (RECOMMANDED)
+## Coordinates bounding box
 
-### Coordinates bounding box
+You can easily copy the coordinates of your bounding box via bboxfinder.
 
-Extent in QGIS --> ulx, uly : lrx, lry
+```python
+bbox    = [627263.7,5596175.1,637115,5590485.2]  # Paste the coordinates here
 
-- ulx = Upper Left x
-- uly = Upper Left y
-- lrx = Lower Right x
-- lry = Lower Right y
+ulx = bbox[0]  # Upper Left x
+uly = bbox[1]  # Upper Left y
+lrx = bbox[2]  # Lower Right x
+lry = bbox[3]  # Lower Right y
+```
 
 
 <figure class="image">
-  <img src="./notebooks/1_Region_of_interest/figures/ROI_box.png" width="500">
+  <img src="./notebooks/1_Region_of_interest/figures/ROI_box.png" width="600">
+  <figcaption>Extent order in QGIS - ulx, uly : lrx, lry</figcaption>
 </figure>
 
 
