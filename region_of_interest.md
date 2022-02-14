@@ -12,7 +12,7 @@ We will define our area of interest using a bounding box. To find the coordinate
 
 
 <figure class="image">
-  <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="600">
+  <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="700">
 </figure>
 
 We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.
@@ -22,15 +22,15 @@ We will build a new shapefile containing the Region of Interest (ROI) from a set
 
 Geographic CRS| Projected CRS
 :---------:|:----------:
-span the entire globe | localized to minimize visual distortion in a particular region
-based on a spheroid | based on a plane (the spheroid projected onto a 2D surface)
+span the entire globe | localized to minimize visual distortion <br/> in a particular region
+based on a spheroid | based on a plane <br/> *(the spheroid projected onto a 2D surface)*
 angular units (degrees) | linear unites (meters)
 lat / lon | X / Y
-World Geodetic System 1984 (WGS 84) | Universal Transverse Mercator (UTM)
-EPSG:4326 | EPSG:32631
+World Geodetic System 1984 <br/> (WGS 84) | Universal Transverse Mercator  <br/> (UTM)
+EPSG:4326 | EPSG:32631 (in Belgium)
 
 
-In bboxfinder, you can easily switch from one CRS to another. As Sentinel images projected onto a WGS84/UTM grid, it is easier to find the coordinates of your ROI directly in WGS84/UTM.
+In bboxfinder, you can easily switch from one CRS to another. As Sentinel images projected onto a WGS84/UTM grid, it is easier to get the coordinates of your ROI directly in WGS84/UTM.
 
 It is important to set the EPSG code matching with the EPSG code of your satellite images!
 
