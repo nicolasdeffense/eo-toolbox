@@ -27,7 +27,7 @@ This processing is split into two parts:
 > From the mid-March 2018, the Level-2A became an operational product, beginning with coverage of the Euro-Mediterranean region. Global coverage started in December 2018.
 
 <figure class="image">
-  <img src="./figures/s2_levels.jpg" alt="S2 bands" width="400">
+  <img src="../figures/s2_levels.jpg" alt="S2 bands" width="400">
   <figcaption>Sentinel-2 processing levels. Only Level-1C and Level-2A products (in green) are made available to users</figcaption>
 </figure>
 
@@ -35,7 +35,7 @@ This processing is split into two parts:
 Level-1C and Level-2A are projected onto a UTM/WGS84 grid and made available publicly on 100x100 km2 tiles. Each tile has a unique ID. Take a look on the Sentinel-2 UTM tiling grid by clicking [here](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) !
 
 <figure class="image">
-  <img src="./figures/s2_tiles.png" alt="S2 bands" width="600">
+  <img src="../figures/s2_tiles.png" alt="S2 bands" width="600">
   <figcaption>Sentinel-2 tiles in Belgium. 3 tiles cover the majority of the Belgian territory: 31UES, 31UFS and 31UFR</figcaption>
 </figure>
 
@@ -54,7 +54,7 @@ The spatial resolution of Sentinel-2 is dependent on the particular spectral ban
 
 
 <figure class="image">
-  <img src="./notebooks/4_Sentinel_2_preprocessing/figures/S2_bands.png" alt="S2 bands" width="600">
+  <img src="../figures/S2_bands.png" alt="S2 bands" width="600">
   <figcaption>Sentinel-2 spectral bands</figcaption>
 </figure>
 
@@ -87,7 +87,7 @@ The Level-2 product is also in SAFE format, which groups together several types 
 - ancillary data (Ground Image Processing Parameters (GIPPs))
 
 <figure class="image">
-  <img src="./figures/safe_folder.png" alt="S2 bands" width="800">
+  <img src="../figures/safe_folder.png" alt="S2 bands" width="800">
   <figcaption>SAFE folder</figcaption>
 </figure>
 
@@ -103,7 +103,7 @@ The different preprocessing step are as following :
 3. Apply Scene Classification map (SCL) on reflectance images to mask invalid pixels
 
 <figure class="image">
-  <img src="./notebooks/4_Sentinel_2_preprocessing/figures/prepro_S2.png" alt="Image classification" width="1000">
+  <img src="../figures/prepro_S2.png" alt="Image classification" width="1000">
 </figure>
 
 

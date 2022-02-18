@@ -5,7 +5,7 @@ description: How to access JupyterLab ?
 ---
 
 <figure class="image">
-    <img src="./figures/jupyter_logo.png" alt="JupyterLab" width="100">
+    <img src="../figures/jupyter_logo.png" alt="JupyterLab" width="100">
 </figure>
 
 **JupyterLab** is the latest web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design invites extensions to expand and enrich functionality.
@@ -37,14 +37,14 @@ description: How to access JupyterLab ?
 
 ## From your personal computer
 
-[Jupyter Lab on your own PC/mac](https://nicolasdeffense.github.io/eo-toolbox/jupyter_own_pc.html)
+[Jupyter Lab on your own PC/mac](https://nicolasdeffense.github.io/eo-toolbox/markdown/jupyter_own_pc.html)
 
 
 ## From the lab's servers
 
 > Only for students with access to the lab's IT infrastructure
 
-[Visual Studio Code (Linux)](https://nicolasdeffense.github.io/eo-toolbox/vs_code.html) - RECOMMANDED
+[Visual Studio Code (Linux)](https://nicolasdeffense.github.io/eo-toolbox/markdown/vs_code.html) - RECOMMANDED
 
 
-[Jupyter Lab (windows)](https://nicolasdeffense.github.io/eo-toolbox/jupyter_windows_server.html)
+[Jupyter Lab (windows)](https://nicolasdeffense.github.io/eo-toolbox/markdown/jupyter_windows_server.html)

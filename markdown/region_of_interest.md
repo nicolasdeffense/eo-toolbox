@@ -12,7 +12,7 @@ We will define our area of interest using a bounding box. To find the coordinate
 
 
 <figure class="image">
-  <img src="./notebooks/1_Region_of_interest/figures/bboxfinder.png" width="700">
+  <img src="../figures/bboxfinder.png" width="700">
 </figure>
 
 We will build a new shapefile containing the Region of Interest (ROI) from a set of coordinates.
@@ -54,7 +54,7 @@ lry = bbox[3]  # Lower Right y
 
 
 <figure class="image">
-  <img src="./notebooks/1_Region_of_interest/figures/ROI_box.png" width="600">
+  <img src="../figures/ROI_box.png" width="600">
   <figcaption>Extent order in QGIS - ulx, uly : lrx, lry</figcaption>
 </figure>
 

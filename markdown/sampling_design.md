@@ -36,7 +36,7 @@ Several metrics of classification accuracy can be derived from the confusion mat
 
 
 <figure class="image">
-  <img src="./notebooks/7_Classification/figures/in_situ_sampling_design.png" alt="In Situ sampling design" width="1000">
+  <img src="../figures/in_situ_sampling_design.png" alt="In Situ sampling design" width="1000">
   <figcaption>In situ sampling design</figcaption>
 </figure>
 
