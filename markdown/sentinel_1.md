@@ -74,7 +74,7 @@ Consider the example of needing to take the median over a time series of images 
 
 
 <figure class="image">
-    <img src="./figures/Reduce_ImageCollection.png" alt="Image classification" width="200">
+    <img src="../figures/Reduce_ImageCollection.png" alt="Image classification" width="200">
     <figcaption>Illustration of an ee.Reducer applied to an ImageCollection.</figcaption>
 </figure>
 
@@ -201,7 +201,7 @@ print(monthly_mean.getVideoThumbURL(videoArgs));
 
 <figure class="video_container">
   <video width="800" controls="true" allowfullscreen="true">
-    <source src="./figures/s1_mean_mensuel_2019.mov" type="video/mp4">
+    <source src="../figures/s1_mean_mensuel_2019.mov" type="video/mp4">
   </video>
 </figure>
 
