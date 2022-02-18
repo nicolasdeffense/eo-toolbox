@@ -30,11 +30,13 @@ Depending on your project, some parts of the course will be more useful than oth
 
 ## Sentinel-1
 
-[Sentinel-1 with Google Earth Engine](https://nicolasdeffense.github.io/eo-toolbox/markdown/sentinel_1.html)
+[Sentinel-1 (Google Earth Engine)](https://nicolasdeffense.github.io/eo-toolbox/markdown/sentinel_1.html)
 
-## Landsat & Modis
+## Landsat
 
-[Landsat with Google Earth Engine](https://nicolasdeffense.github.io/eo-toolbox/markdown/landsat.html)
+[Landsat (Google Earth Engine)](https://nicolasdeffense.github.io/eo-toolbox/markdown/landsat.html)
+
+## Modis
 
 <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
