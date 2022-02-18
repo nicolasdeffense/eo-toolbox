@@ -13,7 +13,7 @@ Once the ROI (*Region of Interest*) has been defined, the Earth Observation (*EO
 > <i class="fas fa-exclamation-triangle"></i> It is NOT recommended to download EO data from this site.
 
 <figure class="image">
-  <img src="./figures/eo_browser.png" alt="LSA Geo-Catalog" width="800">
+  <img src="../figures/eo_browser.png" alt="LSA Geo-Catalog" width="800">
   <figcaption>Sentinel Hub EO Browser</figcaption>
 </figure>
 
@@ -28,7 +28,7 @@ The LSA Data Center allows the users to search, discover and download the data. 
 > <i class="fas fa-exclamation-triangle"></i> Only Sentinel-2 Level 2A and Sentinel-1 Level 1 (GRD) are available via the LSA Data Center. 
 
 <figure class="image">
-  <img src="./notebooks/2_EO_data_download/figures/lsa_geoportail.png" alt="LSA Geo-Catalog" width="800">
+  <img src="../figures/lsa_geoportail.png" alt="LSA Geo-Catalog" width="800">
   <figcaption>LSA Geo-Catalogue</figcaption>
 </figure>
 
@@ -43,7 +43,7 @@ The [Copernicus Open Access Hub](https://scihub.copernicus.eu) provides complete
 
 
 <figure class="image">
-  <img src="./notebooks/2_EO_data_download/figures/scihub_ui.png" alt="SciHub Graphical User Interface" width="800">
+  <img src="../figures/scihub_ui.png" alt="SciHub Graphical User Interface" width="800">
   <figcaption>SciHub Graphical User Interface</figcaption>
 </figure>
 
