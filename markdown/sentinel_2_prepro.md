@@ -10,6 +10,15 @@ title: Sentinel-2 preprocessing
 
 The *Copernicus Sentinel-2* mission comprises a constellation of two polar-orbiting satellites placed in the same sun-synchronous orbit, phased at 180° to each other. It aims at monitoring variability in land surface conditions, and its wide swath width (290 km) and high revisit time (10 days at the equator with one satellite, and 5 days with 2 satellites under cloud-free conditions which results in 2-3 days at mid-latitudes) will support monitoring of Earth's surface changes.
 
+<figure class="video_container">
+  <video width="800" controls="true" allowfullscreen="true">
+    <source src="../figures/sentinel_2_orbite.mp4" type="video/mp4">
+  </video>
+</figure>
+
+
+<iframe src="https://www.esa.int/content/view/embedjw/473937" width="640" height="360" frameborder="0"></iframe>
+
 ## Processing Levels
 
 ### Level-1C

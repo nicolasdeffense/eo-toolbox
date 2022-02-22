@@ -42,9 +42,6 @@ The **F-score** is calculated as a combination of PA and UA for a given land cov
 </figure>
 
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/figures/NAMUR_2020_AM.html" height="700" width="100%"></iframe>
-
-
 <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="../figures/NAMUR_2020_AM.html" height="700" width="100%"></iframe>
 
 ---

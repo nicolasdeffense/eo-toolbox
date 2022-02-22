@@ -6,11 +6,11 @@ title: In situ sampling design
 
 ## 1. In situ data preparation
 
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.html"> <i class="fas fa-eye fa-lg"></i></a>
-<a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_preparation.ipynb"> <i class="fas fa-download fa-lg"></i></a>
+<a href="../notebooks/7_Classification/in_situ_preparation.html"> <i class="fas fa-eye fa-lg"></i></a>
+<a href="../notebooks/7_Classification/in_situ_preparation.ipynb"> <i class="fas fa-download fa-lg"></i></a>
 
 <figure class="image">
-  <img src="./notebooks/7_Classification/figures/prepare_in_situ.png" width="10000">
+  <img src="../figures/prepare_in_situ.png" width="10000">
   <figcaption>In situ preparation</figcaption>
 </figure>
 
