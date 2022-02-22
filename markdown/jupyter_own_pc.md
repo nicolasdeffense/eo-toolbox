@@ -14,9 +14,9 @@ description: How to access JupyterLab on your own PC/Mac?
 
     [Getting started with conda](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 
-    You can also check the [conda cheat sheet](cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
+    You can also check the [conda cheat sheet](../cheat_sheets/conda_cheat_sheet.pdf) to get an overview of all commands.
 
-2. Download the YAML file [env_lbrat2104.yml](installation/env_lbrat2104.yml)
+2. Download the YAML file [env_lbrat2104.yml](../installation/env_lbrat2104.yml)
 
 3. Open *Anaconda Prompt* (Windows) or *Terminal* (MacOS)
 
@@ -54,7 +54,7 @@ description: How to access JupyterLab on your own PC/Mac?
 
 7. Test the environment (optional)
 
-    To make sure everything was installed correctly you can run the small python script [check_environment.py](installation/check_environment.py)
+    To make sure everything was installed correctly you can run the small python script [check_environment.py](../installation/check_environment.py)
 
     ```sh
     python3 check_environment.py
