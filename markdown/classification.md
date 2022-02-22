@@ -37,21 +37,10 @@ In this chapter we will see how to use the Random Forest implementation provided
 
 
 
-
-### Pixel-based classification
-
-<img src="../figures/pixel_based.png" width="600">
-
-
-### Object-based classification
-
-
-<img src="../figures/object_based.png" width="600">
-
-
-
 ---
 
 [Handbook on remote sensing for agricultural statistics](https://www.researchgate.net/publication/319876837_Handbook_on_remote_sensing_for_agricultural_statistics)
 
 [Chris Holden's tutorial](https://ceholden.github.io/open-geo-tutorial/python/chapter_5_classification.html)
+
+[An Implementation and Explanation of the Random Forest in Python](https://towardsdatascience.com/an-implementation-and-explanation-of-the-random-forest-in-python-77bf308a9b76)
