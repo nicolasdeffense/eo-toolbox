@@ -16,9 +16,6 @@ The *Copernicus Sentinel-2* mission comprises a constellation of two polar-orbit
   </video>
 </figure>
 
-
-<iframe src="https://www.esa.int/content/view/embedjw/473937" width="640" height="360" frameborder="0"></iframe>
-
 ## Processing Levels
 
 ### Level-1C
@@ -36,19 +33,19 @@ This processing is split into two parts:
 > From the mid-March 2018, the Level-2A became an operational product, beginning with coverage of the Euro-Mediterranean region. Global coverage started in December 2018.
 
 <figure class="image">
-  <img src="../figures/s2_levels.jpg" alt="S2 bands" width="400">
-  <figcaption>Sentinel-2 processing levels. Only Level-1C and Level-2A products (in green) are made available to users</figcaption>
+  <img src="../figures/s2_levels.jpg" alt="S2 bands" width="500">
+  <figcaption> <font size="2">Sentinel-2 processing levels. Only Level-1C and Level-2A products (in green) are made available to users</font></figcaption>
 </figure>
 
 
-Level-1C and Level-2A are projected onto a UTM/WGS84 grid and made available publicly on 100x100 km2 tiles. Each tile has a unique ID. Take a look on the Sentinel-2 UTM tiling grid by clicking [here](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) !
+Level-1C and Level-2A are projected onto a UTM/WGS84 grid and made available publicly on 100x100 km tiles. Each tile has a unique ID. Take a look on the Sentinel-2 UTM tiling grid by clicking [here](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) !
 
 <figure class="image">
   <img src="../figures/s2_tiles.png" alt="S2 bands" width="600">
-  <figcaption>Sentinel-2 tiles in Belgium. 3 tiles cover the majority of the Belgian territory: 31UES, 31UFS and 31UFR</figcaption>
+  <figcaption> <font size="2">Sentinel-2 tiles in Belgium. Three tiles cover the majority of the Belgian territory: 31UES, 31UFS and 31UFR </font> </figcaption>
 </figure>
 
-## Spectral bands & Spatial resolution
+## Spectral bands & spatial resolution
 
 The spatial resolution of Sentinel-2 is dependent on the particular spectral band.
 
@@ -101,7 +98,7 @@ The Level-2 product is also in SAFE format, which groups together several types 
 </figure>
 
 
-> Before strating this notebook, you should download Sentinel-2 Level-2A products. The L2A products are downloadable by tiles which are 100x100 km2 ortho-images in UTM/WGS84 projection.
+> Before strating this notebook, you should download Sentinel-2 Level-2A products. The L2A products are downloadable by tiles which are 100x100 km ortho-images in UTM/WGS84 projection.
 
 # Sentinel-2 L2A preprocessing
 
@@ -112,7 +109,7 @@ The different preprocessing step are as following :
 3. Apply Scene Classification map (SCL) on reflectance images to mask invalid pixels
 
 <figure class="image">
-  <img src="../figures/prepro_S2.png" alt="Image classification" width="1000">
+  <img src="../figures/prepro_S2.png" alt="Image classification" width="1100">
 </figure>
 
 
@@ -120,9 +117,9 @@ The different preprocessing step are as following :
 
 | Methods | Type of data | How it works |
 |:---------:|:----------:| ---- |
-| Nearest Neighbor | categorical| The value of of the output cell is determined by the nearest cell center on the input grid |
-| Bilinear Interpolation | continuous |  Weighted average of the four nearest cell centers. <br/> The closer an input cell center is to the output cell center, the higher the influence of its value is on the output cell value. The output value could be different than the nearest input but is always within the same range of values as the input.|
-| Cubic Convolution | continuous | Looks at the 16 nearest cell centers to the output and fits a smooth curve through the points to find the value. <br/>Not only does this change the values of the input but it could also cause the output value to be outside of the range of input values (imagine a sink or a peak occurring on a surface). |
+| Nearest Neighbor | categorical| <font size="2">The value of of the output cell is determined by the nearest cell center on the input grid </font>|
+| Bilinear Interpolation | continuous | <font size="2"> Weighted average of the four nearest cell centers. <br/> The closer an input cell center is to the output cell center, the higher the influence of its value is on the output cell value. The output value could be different than the nearest input but is always within the same range of values as the input. </font>|
+| Cubic Convolution | continuous | <font size="2">Looks at the 16 nearest cell centers to the output and fits a smooth curve through the points to find the value. <br/>Not only does this change the values of the input but it could also cause the output value to be outside of the range of input values (imagine a sink or a peak occurring on a surface). </font> |
 
 
 ## 2. Cropping images to the ROI extent
@@ -133,7 +130,7 @@ We can use our ROI (vector) to crop satellite images (raster) into a smaller are
 
 ### 3.1 Atmospheric correction
 
-Atmospheric correction allows calculation of Bottom Of Atmosphere (BOA) reflectance from Top Of Atmosphere (TOA) reflectance images available in L1C products. For Sentinel-2 images, we will directly use the L2A data as available from the ground segment
+Atmospheric correction allows calculation of Bottom Of Atmosphere (BOA) reflectance from Top Of Atmosphere (TOA) reflectance images available in L1C products. For Sentinel-2 images, we will directly use the L2A data as available from the ground segment.
 
 ### 3.2 Cloud screening
 
