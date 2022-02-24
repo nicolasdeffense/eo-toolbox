@@ -3,7 +3,30 @@ layout: sub_page
 title: Landsat 
 ---
 
-# Landsat Collection
+# 1. Get data
+
+## 1.1 Region of Interest
+
+You can import your own shapefiles.
+
+```js
+var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
+```
+
+Or you can use the datasets present in Google Earth engine. For instance, the [FAO *Global Administrative Unit Layers*](https://developers.google.com/earth-engine/datasets/tags/fao) (GAUL) compiles and disseminates the best available information on administrative units for all the countries in the world, providing a contribution to the standardization of the spatial dataset representing administrative units. Check this [website](https://data.apps.fao.org/catalog/dataset/gaul-codes) to easily find the code of the country/region you want to work on.
+
+
+```js
+// Import Belgium boundary
+var fao_level0 = ee.FeatureCollection("FAO/GAUL/2015/level0")
+var belgium = fao_level0.filter("ADM0_NAME == 'Belgium'")
+
+// Import Walloon Region boundary
+var fao_level1 = ee.FeatureCollection("FAO/GAUL/2015/level1")
+var wallonia = fao_level1.filter("ADM1_CODE == 602")
+```
+
+## 1.2 Landsat Collection
 
 Landsat, a joint program of the USGS and NASA, has been observing the Earth continuously from 1972 through the present day. Today the Landsat satellites image the entire Earth's surface at a 30-meter resolution about once every two weeks, including multispectral and thermal data.
 
@@ -16,17 +39,21 @@ Landsat data is available in Earth Engine in its raw form, as Surface Reflectanc
 |Instrument | <font size="2"> Multispectral Scanner (MSS), <br/>Thematic Mapper (TM) </font>|  <font size="2"> Enhanced Thematic Mapper <br/> (ETM+) </font>| <font size="2"> Operational Land Imager (OLI),<br/> Thermal Infrared <br/>Sensor (TIRS)</font>|  <font size="2"> OLI-2, TIRS-2 </font>|
 |Number of bands| 10 | 10 | 10 | 10 |
 |Spatial resolution| 30m x 30m | 30m x 30m| 30m x 30m | 30m x 30m
-|Temporal resolution| Every 16 days  ||| 
+|Temporal resolution| 16 days |  16 days |  16 days |  16 days 
 |Temporal range| 1984 - 2012 |1999 - Present| 2013 - Present | 2021 - Present
 |Google Earth Engine collection | [Dataset](https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LT05_C02_T1_L2) | [Dataset](https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LE07_C02_T1_L2) | [Dataset](https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2)| *Not available* |
 
 
-The first step is to define which dataset we will work with.
-
+Let's define which datasets we will work with.
 
 ```js
-// Load USGS Landsat 8 Level-2 Surface Reflectance, Collection 2, Tier 1
+// Load USGS Landsat 5 Level 2, Collection 2, Tier 1
+var landsat_5 = ee.ImageCollection("LANDSAT/LT05/C02/T1_L2")
 
+// Load USGS Landsat 7 Level 2, Collection 2, Tier 1
+var landsat_7 = ee.ImageCollection("LANDSAT/LE07/C02/T1_L2")
+
+// Load USGS Landsat 8 Level 2, Collection 2, Tier 1
 var landsat_8 = ee.ImageCollection('LANDSAT/LC08/C02/T1_L2')
 ```
 

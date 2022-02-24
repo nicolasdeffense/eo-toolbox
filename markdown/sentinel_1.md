@@ -11,7 +11,7 @@ title: Sentinel-1
 var roi = ee.FeatureCollection("users/nicolasdeffense/extent_roi_32631")
 ```
 
-## 1.2 Sentinel-1 GRD data
+## 1.2 Sentinel-1 GRD
 
 The Sentinel-1 mission provides data from a dual-polarization C-band Synthetic Aperture Radar (SAR) instrument at 5.405GHz (C band). This collection includes the S1 Ground Range Detected (GRD) scenes, processed using the Sentinel-1 Toolbox to generate a calibrated, ortho-corrected product. The collection is updated daily. New assets are ingested within two days after they become available.
 
