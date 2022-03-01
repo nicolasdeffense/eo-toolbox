@@ -53,11 +53,11 @@ var l8_filter = landsat_8
 
 ## 1.2 Apply scaling factors
 
-A scale factor must be applied to both Collection 1 and Collection 2 Landsat Level-2 surface reflectance and surface temperature products before using the data.
+A scale factor must be applied to both Collection 1 and Collection 2 Landsat Level-2 surface reflectance and surface temperature products before using the data.  
+**Landsat Collection 2** have the following scale factors, fill values, data type, and valid range.
 
 
 <figure class="responsive-figure-table"><table>
-<caption>Scale factors, fill values, data type, and valid range for Lansat Collection 1 and Collection 2 science products</caption>
 <thead>
 <tr>
 <th>Science Product</th>
@@ -68,26 +68,6 @@ A scale factor must be applied to both Collection 1 and Collection 2 Landsat Lev
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>Collection 1</strong></td>
-</tr>
-<tr>
-<td><a href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-1-surface-reflectance">Surface Reflectance</a></td>
-<td>0.0001</td>
-<td>-9999</td>
-<td>Signed 16-bit integer</td>
-<td>0-10000</td>
-</tr>
-<tr>
-<td><a href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-provisional-surface-temperature?qt-science_support_page_related_con=0#qt-science_support_page_related_con">Provisional Surface Temperature</a></td>
-<td>0.1</td>
-<td>-9999</td>
-<td>Signed 16-bit integer</td>
-<td>0-10000</td>
-</tr>
-<tr>
-<td><strong>Collection 2</strong></td>
-</tr>
 <tr>
 <td><a href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-2-surface-reflectance">Surface Reflectance</a></td>
 <td>0.0000275 + -0.2</td>
@@ -105,9 +85,9 @@ A scale factor must be applied to both Collection 1 and Collection 2 Landsat Lev
 </tbody>
 </table></figure>
 
+
 >**Examples for scaling Landsat Collection 2 Level-2 science products**  
-> Landsat Collection 2 surface reflectance has a scale factor of 0.0000275 and an additional offset of -0.2 per pixel.
-For example, a pixel value of 18,639 is multiplied by 0.0000275 for the scale factor and then -0.2 is added for the additional offset to get a reflectance value of 0.313 after the scale factor is applied.
+> <font size="2">Landsat Collection 2 surface reflectance has a scale factor of 0.0000275 and an additional offset of -0.2 per pixel. <br/> For example, a pixel value of 18,639 is multiplied by 0.0000275 for the scale factor and then -0.2 is added for the additional offset to get a reflectance value of 0.313 after the scale factor is applied. </font>
 
 
 ```js
@@ -191,7 +171,33 @@ var l8_composite = l8_filter
 
 ## 3.2 Multiple period composites
 
+```js
+// List of months
+var months = ee.List.sequence(1, 12)
+print("Months : ",months)
 
+// List of years
+var years = ee.List.sequence(2019, 2019)
+print("Years : ",years)
+
+var monthly_mean = ee.ImageCollection.fromImages(
+  years.map(function (y) {
+        return months.map(function (m) {
+                return l8_filter
+                        .filter(ee.Filter.calendarRange(y, y, 'year'))
+                        .filter(ee.Filter.calendarRange(m, m, 'month'))
+                        .map(maskClouds)
+                        .median()
+                        .set('year',y)
+                        .set('month',m);
+            });
+  })
+  .flatten())
+  .map(function(image){return image.clip(roi)})
+
+
+print("Monthly mean : ",monthly_mean)
+```
 
 # 4. Visualization
 
@@ -201,10 +207,40 @@ var visParams = {
   min: 0.0,
   max: 0.3,
 }
-
-Map.centerObject(roi, 8)
-Map.addLayer(l8_composite, visParams, 'True Color (432) - Mask - Median');
 ```
+
+## 4.1 Visualize single image
+
+```js
+Map.centerObject(roi, 8)
+Map.addLayer(l8_composite, visParams, 'True Color (432) - Mask - Median')
+```
+
+## 4.2 Visualize imageCollection
+
+
+```js
+// Create RGB visualization images for use as animation frames.
+var rgbVis = monthly_mean.map(function(img) {
+  return img.visualize(visParams);
+})
+
+// Define GIF visualization arguments.
+var gifParams = {
+  region: roi.geometry(),
+  dimensions: 1000,
+  crs: 'EPSG:3857',
+  framesPerSecond: 1,
+  format: 'gif'
+}
+
+// Print the GIF URL to the console.
+print(rgbVis.getVideoThumbURL(gifParams))
+
+// Render the GIF animation in the console.
+print(ui.Thumbnail(rgbVis, gifParams))
+```
+
 
 ---
 

@@ -109,9 +109,7 @@ print("Months : ",months)
 // List of years
 var years = ee.List.sequence(2019, 2019)
 print("Years : ",years)
-```
 
-```js
 // Use .map() to compute monthly composite and clip them to the ROI
 var monthly_mean = ee.ImageCollection.fromImages(
   years.map(function (y) {
@@ -199,8 +197,8 @@ var videoArgs = {
   max: 5.0
 };
 
-print(ui.Thumbnail(monthly_mean, videoArgs));
-print(monthly_mean.getVideoThumbURL(videoArgs));
+print(ui.Thumbnail(monthly_mean, videoArgs))
+print(monthly_mean.getVideoThumbURL(videoArgs))
 ```
 
 
