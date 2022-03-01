@@ -22,6 +22,9 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [In situ data](https://nicolasdeffense.github.io/eo-toolbox/markdown/in_situ_data.html)
 
+[Import vector data in GEE](https://nicolasdeffense.github.io/eo-toolbox/markdown/gee_vector.html)
+
+
 ## Sentinel-2
 
 [Sentinel-2 preprocessing](https://nicolasdeffense.github.io/eo-toolbox/markdown/sentinel_2_prepro.html)

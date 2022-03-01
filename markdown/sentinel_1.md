@@ -21,13 +21,12 @@ Each scene was pre-processed with Sentinel-1 Toolbox using the following steps:
 
 For more information about these pre-processing steps, please refer to the [Sentinel-1 Pre-processing article](https://developers.google.com/earth-engine/guides/sentinel1). For further advice on working with Sentinel-1 imagery, see [Guido Lemoine's tutorial](https://developers.google.com/earth-engine/tutorials/community/sar-basics) on SAR basics and [Mort Canty's tutorial](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1) on SAR change detection.
 
-### 1.2.1 Filter Sentinel-1 data
+## 1.2 Filter Sentinel-1 data
 
 ```js
 // Define time period, polarisation and orbit direction
-
-var startDate = ee.Date('2019-01-01')
-var endDate   = ee.Date('2019-12-31')
+var startDate = '2019-01-01'
+var endDate   = '2019-12-31'
 
 var polarisation    = 'VV'
 var orbit_direction = 'DESCENDING'
@@ -41,7 +40,7 @@ var s1_filter = sentinel_1
                 .filter(ee.Filter.listContains('transmitterReceiverPolarisation', polarisation))
                 .select(polarisation)
                 .filter(ee.Filter.eq('orbitProperties_pass', orbitDirection))
-                .filter(ee.Filter.date(startDate, endDate))
+                .filterDate(startDate, endDate)
                 .filterBounds(roi)
 ```
 
