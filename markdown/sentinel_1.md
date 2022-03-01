@@ -1,6 +1,7 @@
 ---
 layout: sub_page
-title: Sentinel-1 
+title: Sentinel-1
+description: with Google Earth Engine
 ---
 
 # 1. Load Sentinel-1 GRD
@@ -21,7 +22,7 @@ Each scene was pre-processed with Sentinel-1 Toolbox using the following steps:
 
 For more information about these pre-processing steps, please refer to the [Sentinel-1 Pre-processing article](https://developers.google.com/earth-engine/guides/sentinel1). For further advice on working with Sentinel-1 imagery, see [Guido Lemoine's tutorial](https://developers.google.com/earth-engine/tutorials/community/sar-basics) on SAR basics and [Mort Canty's tutorial](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1) on SAR change detection.
 
-## 1.2 Filter Sentinel-1 data
+## 1.1 Filter Sentinel-1 data
 
 ```js
 // Define time period, polarisation and orbit direction
@@ -46,8 +47,7 @@ var s1_filter = sentinel_1
 
 
 
-# 2. Composite over a single time period 
-
+# 2. Composite
 Reducers are the way to aggregate data over time, space, bands, arrays and other data structures in Earth Engine. The `ee.Reducer` class specifies how data is aggregated. The reducers in this class can specify a simple statistic to use for the aggregation (e.g. minimum, maximum, mean, median, standard deviation, etc.), or a more complex summary of the input data (e.g. histogram, linear regression, list).
 
 Reductions may occur over :
@@ -68,6 +68,9 @@ Consider the example of needing to take the median over a time series of images 
     <img src="../figures/Reduce_ImageCollection.png" alt="Image classification" width="200">
     <figcaption>Illustration of an ee.Reducer applied to an ImageCollection.</figcaption>
 </figure>
+
+
+# 2.1 Composite over a single time period 
 
 
 ```js
@@ -95,27 +98,7 @@ var s1_std  = s1_filter.
 
 
 
-## 2.1 Export one composite
-
-```js
-// Get projection of the original image
-var projection = s1_filter.first().projection().getInfo()
-
-// Export the image, specifying the CRS, transform, and region.
-Export.image.toDrive({
-  image: s1_mean,
-  description: 'mean_Q1_Namur',
-  folder: 'LBRAT2104',
-  crs: projection.crs,                // The base coordinate reference system of this projection (e.g. 'EPSG:4326')
-  crsTransform: projection.transform, // The transform between projected coordinates and the base coordinate system
-  region: roi
-});
-```
-
-> Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
-
-
-# 3. Composite over mulitple time periods
+## 2.2 Composite over mulitple time periods
 
 
 ```js
@@ -148,8 +131,29 @@ var monthly_mean = ee.ImageCollection.fromImages(
 [Source](https://gis.stackexchange.com/questions/387012/google-earth-engine-calculating-and-plotting-monthly-average-ndvi-for-a-region)
 
 
-## 3.1 Export multiple composites (`imageCollection`)
+# 3. Export data
 
+## 3.1 Export a single `Image`
+
+```js
+// Get projection of the original image
+var projection = s1_filter.first().projection().getInfo()
+
+// Export the image, specifying the CRS, transform, and region.
+Export.image.toDrive({
+  image: s1_mean,
+  description: 'mean_Q1_Namur',
+  folder: 'LBRAT2104',
+  crs: projection.crs,                // The base coordinate reference system of this projection (e.g. 'EPSG:4326')
+  crsTransform: projection.transform, // The transform between projected coordinates and the base coordinate system
+  region: roi
+});
+```
+
+> Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
+
+
+## 3.2 Explort an `ImageCollection`
 
 
 ```js
@@ -172,7 +176,17 @@ Export.image.toDrive({
 });
 ```
 
-## 3.2 Visualization
+# 4. Visualization
+
+## 4.1 Visualize single image
+
+```js
+Map.centerObject(roi, 13)
+Map.addLayer(s1_mean, {min: -25, max: 5}, 'yearly mean', true)
+Map.addLayer(s1_std, {min: 0, max: 4}, 'yearly std', true)
+```
+
+## 4.2 Visualize imageCollection
 
 ```js
 // Define arguments for animation function parameters.
