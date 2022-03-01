@@ -29,9 +29,9 @@ For more information about these pre-processing steps, please refer to the [Sent
 var startDate = '2019-01-01'
 var endDate   = '2019-12-31'
 
-var polarisation    = 'VV'
-var orbit_direction = 'DESCENDING'
-var instrument      = 'IW'
+var polarisation   = 'VV'
+var orbitDirection = 'DESCENDING'
+var instrument     = 'IW'
 ```
 
 ```js
@@ -48,6 +48,7 @@ var s1_filter = sentinel_1
 
 
 # 2. Composite
+
 Reducers are the way to aggregate data over time, space, bands, arrays and other data structures in Earth Engine. The `ee.Reducer` class specifies how data is aggregated. The reducers in this class can specify a simple statistic to use for the aggregation (e.g. minimum, maximum, mean, median, standard deviation, etc.), or a more complex summary of the input data (e.g. histogram, linear regression, list).
 
 Reductions may occur over :
@@ -90,8 +91,8 @@ var s1_mean = s1_filter
 ```js
 // Compute standard deviation over a period and clip to the ROI extent
 
-var s1_std  = s1_filter.
-                    filterDate(startPeriod, endPeriod)
+var s1_std  = s1_filter
+                    .filterDate(startPeriod, endPeriod)
                     .reduce(ee.Reducer.stdDev())
                     .clip(roi)
 ```
@@ -131,7 +132,7 @@ var monthly_mean = ee.ImageCollection.fromImages(
 
 # 3. Export data
 
-## 3.1 Export a single `Image`
+## 3.1 Export a single image
 
 ```js
 // Get projection of the original image
@@ -151,7 +152,7 @@ Export.image.toDrive({
 > Composite images created by reducing an image collection are able to produce pixels in any requested projection and therefore have no fixed output projection. Instead, composites have the default projection of WGS-84 with 1-degree resolution pixels. Composites with the default projection will be computed in whatever output projection is requested. A request occurs by displaying the composite in the Code Editor or by explicitly specifying a projection/scale as in an aggregation such as `ReduceRegion` or `Export`.
 
 
-## 3.2 Explort an `ImageCollection`
+## 3.2 Explort an Image Collection
 
 
 ```js
@@ -179,7 +180,7 @@ Export.image.toDrive({
 ## 4.1 Visualize single image
 
 ```js
-Map.centerObject(roi, 13)
+Map.centerObject(roi, 12)
 Map.addLayer(s1_mean, {min: -25, max: 5}, 'yearly mean', true)
 Map.addLayer(s1_std, {min: 0, max: 4}, 'yearly std', true)
 ```
@@ -191,7 +192,7 @@ Map.addLayer(s1_std, {min: 0, max: 4}, 'yearly std', true)
 var videoArgs = {
   dimensions: 800,
   region: roi.geometry(),
-  framesPerSecond: 5,
+  framesPerSecond: 1,
   crs: 'EPSG:3857',
   min: -25.0,
   max: 5.0

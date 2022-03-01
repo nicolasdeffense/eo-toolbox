@@ -180,7 +180,7 @@ print("Months : ",months)
 var years = ee.List.sequence(2019, 2019)
 print("Years : ",years)
 
-var monthly_mean = ee.ImageCollection.fromImages(
+var l8_monthly_mean = ee.ImageCollection.fromImages(
   years.map(function (y) {
         return months.map(function (m) {
                 return l8_filter
@@ -196,7 +196,7 @@ var monthly_mean = ee.ImageCollection.fromImages(
   .map(function(image){return image.clip(roi)})
 
 
-print("Monthly mean : ",monthly_mean)
+print("Monthly mean : ",l8_monthly_mean)
 ```
 
 # 4. Visualization
@@ -216,12 +216,12 @@ Map.centerObject(roi, 8)
 Map.addLayer(l8_composite, visParams, 'True Color (432) - Mask - Median')
 ```
 
-## 4.2 Visualize imageCollection
+## 4.2 Visualize Image Collection
 
 
 ```js
 // Create RGB visualization images for use as animation frames.
-var rgbVis = monthly_mean.map(function(img) {
+var rgbVis = l8_monthly_mean.map(function(img) {
   return img.visualize(visParams);
 })
 
