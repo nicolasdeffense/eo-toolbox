@@ -1,6 +1,7 @@
 ---
 layout: sub_page
-title: Import data in Google Earth Engine
+title: Import data
+description: in Google Earth Engine
 ---
 
 You can use the [Asset Manager](href="https://developers.google.com/earth-engine/guides/asset_manager") to upload datasets in the Shapefile or CSV format or to upload image or other georeferenced raster datasets in GeoTIFF or TFRecord format.
