@@ -31,9 +31,7 @@ Export.image.toDrive({
 ```js
 // Converts a collection to a single multi-band image containing all of the bands of every image in the collection.
 var monthly_mean_image = monthly_mean.toBands()
-```
 
-```js
 // Get projection of the original image
 var projection = s1_filter.first().projection().getInfo()
 
