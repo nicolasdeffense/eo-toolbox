@@ -20,7 +20,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [EO data download](https://nicolasdeffense.github.io/eo-toolbox/markdown/eo_data_download.html)
 
-[In situ data](https://nicolasdeffense.github.io/eo-toolbox/markdown/in_situ_data.html)
+[Vector data](https://nicolasdeffense.github.io/eo-toolbox/markdown/vector_data.html)
 
 [Import data in GEE](https://nicolasdeffense.github.io/eo-toolbox/markdown/gee_import.html)
 
