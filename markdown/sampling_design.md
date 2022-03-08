@@ -15,8 +15,6 @@ title: In situ sampling design
 </figure>
 
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://nicolasdeffense.github.io/eo-toolbox/figures/NAMUR_2020_histo_in_situ.html" height="1000" width="1000"></iframe>
-
 ## 2. In situ data sampling design
 
 <a href="https://nicolasdeffense.github.io/eo-toolbox/notebooks/7_Classification/in_situ_sampling_design.html"> <i class="fas fa-eye fa-lg"></i></a>
