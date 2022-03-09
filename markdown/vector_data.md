@@ -20,4 +20,6 @@ Training data sets and validation data sets may also be collected by on-screen d
 
 ---
 
-[Handbook on remote sensing for agricultural statistics](https://www.researchgate.net/publication/319876837_Handbook_on_remote_sensing_for_agricultural_statistics)
+[Handbook on remote sensing for agricultural statistics](https://nicolasdeffense.github.io/eo-toolbox/docs/Remote_Sensing_for_Agricultural_Statistics.pdf)
+
+[JECAM Guidelines for Field Data Collection](https://nicolasdeffense.github.io/eo-toolbox/docs/JECAM_Guidelines_for_Field_Data_Collection_v1_0.pdf)
