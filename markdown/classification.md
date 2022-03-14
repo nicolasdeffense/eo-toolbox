@@ -39,7 +39,7 @@ In this chapter we will see how to use the Random Forest implementation provided
 
 ---
 
-[Handbook on remote sensing for agricultural statistics](https://www.researchgate.net/publication/319876837_Handbook_on_remote_sensing_for_agricultural_statistics)
+[Handbook on remote sensing for agricultural statistics](https://nicolasdeffense.github.io/eo-toolbox/docs/Remote_Sensing_for_Agricultural_Statistics.pdf)
 
 [Chris Holden's tutorial](https://ceholden.github.io/open-geo-tutorial/python/chapter_5_classification.html)
 
