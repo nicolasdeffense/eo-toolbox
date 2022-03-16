@@ -33,6 +33,8 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Spectral indices](https://nicolasdeffense.github.io/eo-toolbox/markdown/spectral_indices.html)
 
+[Composites](https://nicolasdeffense.github.io/eo-toolbox/markdown/composites.html)
+
 ## Sentinel-1
 
 [Sentinel-1 (Google Earth Engine)](https://nicolasdeffense.github.io/eo-toolbox/markdown/sentinel_1.html)
