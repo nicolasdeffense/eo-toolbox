@@ -14,11 +14,24 @@ The Sentinel-1 mission provides data from a dual-polarization C-band Synthetic A
 var sentinel_1 = ee.ImageCollection("COPERNICUS/S1_GRD")
 ```
 
-Each scene was pre-processed with Sentinel-1 Toolbox using the following steps:
-1. Thermal noise removal
-2. Radiometric calibration
-3. Terrain correction using SRTM 30 or ASTER DEM for areas greater than 60 degrees latitude, where SRTM is not available
-4. The final terrain-corrected values are converted to decibels via log scaling (10*log10(x)).
+Earth Engine uses the following preprocessing steps (as implemented by the Sentinel-1 Toolbox) to derive the backscatter coefficient in each pixel ([source](https://developers.google.com/earth-engine/guides/sentinel1)) :
+
+1. Apply orbit file
+    - Updates orbit metadata with a restituted orbit file (or a precise orbit file if the restituted one is not available).
+2. GRD border noise removal
+    - Removes low intensity noise and invalid data on scene edges.
+3. Thermal noise removal
+    - Removes additive noise in sub-swaths to help reduce discontinuities between sub-swaths for scenes in multi-swath acquisition modes.
+4. Radiometric calibration
+    - Computes backscatter intensity using sensor calibration parameters in the GRD metadata.
+5. Terrain correction (orthorectification) 
+    - Converts data from ground range geometry, which does not take terrain into account, to σ° using the SRTM 30 meter DEM or the ASTER DEM for high latitudes (greater than 60° or less than -60°).
+6. Converstion to dB
+    - The final terrain-corrected values are converted to decibels via log scaling (10*log10(x)) because it can vary by several orders of magnitude?
+
+> **Note**  
+> - Radiometric Terrain Flattening is not being applied due to artifacts on mountain slopes.  
+> - Sentinel-1 SLC data cannot currently be ingested, as Earth Engine does not support images with complex values due to inability to average them during pyramiding without losing phase information.
 
 For more information about these pre-processing steps, please refer to the [Sentinel-1 Pre-processing article](https://developers.google.com/earth-engine/guides/sentinel1). For further advice on working with Sentinel-1 imagery, see [Guido Lemoine's tutorial](https://developers.google.com/earth-engine/tutorials/community/sar-basics) on SAR basics and [Mort Canty's tutorial](https://developers.google.com/earth-engine/tutorials/community/detecting-changes-in-sentinel-1-imagery-pt-1) on SAR change detection.
 
