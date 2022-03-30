@@ -14261,10 +14261,10 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Composites">Composites<a class="anchor-link" href="#Composites">&#182;</a></h1>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
@@ -14273,14 +14273,37 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">rasterio</span>
 <span class="kn">import</span> <span class="nn">rasterio.plot</span>
-
+<span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All libraries successfully imported!&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>All libraries successfully imported!
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14291,7 +14314,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[67]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">computer_path</span> <span class="o">=</span> <span class="s1">&#39;/export/miro/ndeffense/LBRAT2104/&#39;</span>
@@ -14300,8 +14323,9 @@ a.anchor-link {
 <span class="n">data_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">data/&#39;</span>                     <span class="c1"># Directory with data shared by the assistant</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">computer_path</span><span class="si">}</span><span class="s1">GROUP_</span><span class="si">{</span><span class="n">grp_letter</span><span class="si">}</span><span class="s1">/WORK/&#39;</span>  <span class="c1"># Directory for all work files</span>
 
-<span class="c1"># Input directories</span>
-<span class="n">ndvi_path</span>    <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI/&#39;</span>
+<span class="c1"># Image timeserie directory</span>
+<span class="n">ts_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">NDVI/&#39;</span>
+<span class="n">raster_file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ts_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))</span>
 
 <span class="c1"># Output directory</span>
 <span class="n">composite_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_path</span><span class="si">}</span><span class="s1">COMPOSITE/&#39;</span>
@@ -14317,7 +14341,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Set-parameters">Set parameters<a class="anchor-link" href="#Set-parameters">&#182;</a></h2><p>Method :</p>
+<h2 id="Set-parameters">Set parameters<a class="anchor-link" href="#Set-parameters">&#182;</a></h2><p>Compositing method :</p>
 <ul>
 <li>mean</li>
 <li>median</li>
@@ -14329,10 +14353,32 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[68]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;minimum&#39;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Date">Date<a class="anchor-link" href="#Date">&#182;</a></h3><p>The date must be in each image filename. <code>begin_date</code> is the first position of the date</p>
+<p>E.g. : "SITE<em>3</em><strong>2</strong>0181108_NDVI.tif" --&gt; <strong>begin_date = 8</strong></p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">format</span>     <span class="o">=</span> <span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="c1"># format : YYYYMMDD</span>
+<span class="n">begin_date</span> <span class="o">=</span> <span class="mi">8</span>
 </pre></div>
 
      </div>
@@ -14348,7 +14394,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[69]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">composite_tif</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">composite_path</span><span class="si">}</span><span class="s1">composite_</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1">.tif&#39;</span>
@@ -14359,24 +14405,263 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Get-dataframe-with-all-images">Get dataframe with all images<a class="anchor-link" href="#Get-dataframe-with-all-images">&#182;</a></h2><ul>
+<li>date of acquisition</li>
+<li>file path</li>
+</ul>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[70]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dict_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">im</span> <span class="ow">in</span> <span class="n">raster_file_list</span><span class="p">:</span>
+            
+        <span class="n">date_str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">im</span><span class="p">)[</span><span class="n">begin_date</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">begin_date</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+
+        <span class="n">date_im</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+
+        <span class="n">dict_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">date_im</span><span class="p">,</span>
+                          <span class="s1">&#39;im_path&#39;</span><span class="p">:</span> <span class="n">im</span><span class="p">})</span>
+
+<span class="n">im_date_path_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">dict_list</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">im_date_path_df</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>im_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-01-16</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-02-12</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-03-16</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-04-17</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-05-20</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2020-06-21</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2020-07-19</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2020-08-13</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2020-09-14</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2020-10-19</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2020-11-18</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2020-12-18</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Select-images-inside-a-period">Select images inside a period<a class="anchor-link" href="#Select-images-inside-a-period">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s1">&#39;20200101&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+<span class="n">end_date</span>   <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s1">&#39;20200601&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">im_date_path_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">start_date</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">im_date_path_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">end_date</span><span class="p">)</span>
+
+<span class="n">im_date_path_df</span> <span class="o">=</span> <span class="n">im_date_path_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">im_date_path_df</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>im_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-01-16</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-02-12</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-03-16</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-04-17</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-05-20</td>
+      <td>/export/miro/ndeffense/LBRAT2104/GROUP_X/WORK/...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_src_arr</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">list_im</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ndvi_path</span><span class="si">}</span><span class="s1">*.tif&#39;</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">im_file</span> <span class="ow">in</span> <span class="n">list_im</span><span class="p">:</span>
-
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">im_date_path_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">im_file</span>    <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;im_path&#39;</span><span class="p">]</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">im_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-    <span class="n">im</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">im_arr</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">list_src_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_arr</span><span class="p">)</span>
     <span class="n">src</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shape of features : </span><span class="si">{</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Shape of features : </span><span class="si">{</span><span class="n">im_arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of features : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -14398,7 +14683,7 @@ a.anchor-link {
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Shape of features : (570, 986)
-Number of features : 12
+Number of features : 5
 </pre>
 </div>
 </div>
@@ -14410,14 +14695,14 @@ Number of features : 12
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[71]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">im_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">im_arr_stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">list_src_arr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">im_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">im_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1"> features&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The features type is : </span><span class="si">{</span><span class="n">im_arr</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">im_arr_stack</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1"> features&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The features type is : </span><span class="si">{</span><span class="n">im_arr_stack</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14437,8 +14722,8 @@ Number of features : 12
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>(570, 986, 12)
-There are 12 features
+<pre>(570, 986, 5)
+There are 5 features
 The features type is : float64
 </pre>
 </div>
@@ -14451,23 +14736,23 @@ The features type is : float64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[72]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span>
-    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">im_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
-    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">im_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span>
-    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">im_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;minimum&#39;</span><span class="p">:</span>
-    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">im_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;maximum&#39;</span><span class="p">:</span>
-    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">im_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compo_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">im_arr_stack</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Method not available !&#39;</span><span class="p">)</span>
@@ -14496,9 +14781,9 @@ The features type is : float64
  [0.43097239 0.43376623 0.42655262 ... 0.49025202 0.32620818 0.20146688]
  [0.43283582 0.44285215 0.44069015 ... 0.33983287 0.18755803 0.14951095]
  ...
- [0.58860104 0.55236576 0.51199638 ... 0.11897106 0.13888889 0.13902205]
- [0.60609911 0.56308411 0.54875177 ... 0.12505643 0.14905399 0.14137116]
- [0.60179833 0.596366   0.58564103 ... 0.11681173 0.13850416 0.14312354]]
+ [0.59484778 0.55236576 0.55077539 ... 0.32256267 0.24806746 0.31261561]
+ [0.60609911 0.56308411 0.55648536 ... 0.32063146 0.24914676 0.25447244]
+ [0.66213314 0.596366   0.59649123 ... 0.3208756  0.23613963 0.26780627]]
 </pre>
 </div>
 </div>
@@ -14523,10 +14808,10 @@ The features type is : float64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[73]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">list_im</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">img_temp_tif</span> <span class="o">=</span> <span class="n">raster_file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_temp_tif</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
     <span class="n">profile</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">profile</span>
@@ -14554,7 +14839,7 @@ The features type is : float64
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>{&#39;driver&#39;: &#39;GTiff&#39;, &#39;dtype&#39;: &#39;float64&#39;, &#39;nodata&#39;: -10000.0, &#39;width&#39;: 986, &#39;height&#39;: 570, &#39;count&#39;: 1, &#39;crs&#39;: CRS({&#39;init&#39;: &#39;epsg:32631&#39;}), &#39;transform&#39;: Affine(10.0, 0.0, 627260.0,
+<pre>{&#39;driver&#39;: &#39;GTiff&#39;, &#39;dtype&#39;: &#39;float64&#39;, &#39;nodata&#39;: -10000.0, &#39;width&#39;: 986, &#39;height&#39;: 570, &#39;count&#39;: 1, &#39;crs&#39;: CRS.from_epsg(32631), &#39;transform&#39;: Affine(10.0, 0.0, 627260.0,
        0.0, -10.0, 5596180.0), &#39;tiled&#39;: False, &#39;compress&#39;: &#39;lzw&#39;, &#39;interleave&#39;: &#39;band&#39;}
 </pre>
 </div>
