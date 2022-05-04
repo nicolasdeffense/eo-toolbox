@@ -62,4 +62,4 @@ Depending on your project, some parts of the course will be more useful than oth
 
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/markdown/color_map.html)
 
-[Heterogeneity Check](https://nicolasdeffense.github.io/eo-toolbox/markdown/heterogeneity.html) <i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
+[Reclassification](https://nicolasdeffense.github.io/eo-toolbox/markdown/reclassification.html)

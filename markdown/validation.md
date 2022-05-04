@@ -38,7 +38,7 @@ The **Producer Accuracy** (PA) for a given class i is the ratio between the numb
 The **F-score** is calculated as a combination of PA and UA for a given land cover class i:
 
 <figure class="image">
-<img src="https://latex.codecogs.com/svg.latex? \mathrm{F-score}_{\mathrm{i}}(\%)=\frac{2 \times \mathrm{PA}_{\mathrm{i}} \times \mathrm{UA}_{\mathrm{i}}}{\mathrm{PA}_{\mathrm{i}} + \mathrm{UA}_{\mathrm{i}}} "/>
+<img src="https://latex.codecogs.com/svg.latex? \mathrm{F-score}_{\mathrm{i}} =\frac{2 \times \mathrm{PA}_{\mathrm{i}} \times \mathrm{UA}_{\mathrm{i}}}{\mathrm{PA}_{\mathrm{i}} + \mathrm{UA}_{\mathrm{i}}} "/>
 </figure>
 
 
