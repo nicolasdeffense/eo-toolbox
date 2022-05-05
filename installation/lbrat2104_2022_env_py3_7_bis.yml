@@ -1,0 +1,35 @@
+name: lbrat2104_py3_7_bis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7.13
+  - pip=21.2.2
+  - contextily
+  - fiona
+  - folium
+  - geopandas
+  - matplotlib
+  - numpy
+  - pandas
+  - plotly
+  - postgresql
+  - rasterio
+  - scikit-learn
+  - scipy
+  - shapely
+  - rasterstats
+  - ipykernel
+  - descartes
+  - nbconvert
+  - notebook
+  - jupyterlab
+  - earthengine-api
+  - bokeh
+  - xlrd
+  - osmnx
+  - pip:
+    - earthpy
+    - imageio
+    - pillow
+    - scikit-image

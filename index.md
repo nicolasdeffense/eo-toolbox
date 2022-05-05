@@ -63,3 +63,5 @@ Depending on your project, some parts of the course will be more useful than oth
 [Color Map](https://nicolasdeffense.github.io/eo-toolbox/markdown/color_map.html)
 
 [Reclassification](https://nicolasdeffense.github.io/eo-toolbox/markdown/reclassification.html)
+
+[Training NASA](https://nicolasdeffense.github.io/eo-toolbox/markdown/training_nasa.html)
