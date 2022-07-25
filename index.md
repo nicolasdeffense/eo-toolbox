@@ -45,7 +45,7 @@ Depending on your project, some parts of the course will be more useful than oth
 
 ## Modis
 
-<i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
+[Modis (Google Earth Engine)](https://nicolasdeffense.github.io/eo-toolbox/markdown/modis.html)<i class="fas fa-cog fa-spin" style="color: firebrick"></i> *Under construction*
 
 
 ## Classification

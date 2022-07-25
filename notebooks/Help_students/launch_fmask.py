@@ -1,12 +1,18 @@
 import subprocess, glob
+from pathlib import Path
 
-input_dir  = '/scratch/ndeffense/dwl_student/GROUP_N/'
-output_dir = '/scratch/ndeffense/dwl_student/GROUP_N/'
-zip_done_dir  = '/scratch/ndeffense/dwl_student/GROUP_N/zip_done/'
-safe_done_dir = '/scratch/ndeffense/dwl_student/GROUP_N/safe_done/'
+grp = 'U'
+prod_type = 'S2_MSIL1C'
+
+input_dir  = f'/scratch/ndeffense/dwl_student/GROUP_{grp}/{prod_type}/'
+output_dir = f'/scratch/ndeffense/dwl_student/GROUP_{grp}/{prod_type}/'
+zip_done_dir  = f'{input_dir}zip_done/'
+safe_done_dir = f'{input_dir}safe_done/'
+
+Path(safe_done_dir).mkdir(parents=True, exist_ok=True)
 
 
-cloud_proba = 20
+cloud_proba = -10
 
 for safe_file in glob.glob(f'{input_dir}*.SAFE'):
 
